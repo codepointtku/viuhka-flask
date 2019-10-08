@@ -1,0 +1,51 @@
+{% extends 'admin/index.html' %}
+{{ super() }}
+
+{% block body_content %}
+    {% if amount() <= 5 %}
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+    {% else %}
+        {% for i in range(0, amount()) %}
+        <br />
+        {% endfor %}
+    {% endif %}
+
+    <div class="container">
+    {% if amount() == 0 %}
+    <h1>No accounts have been added yet.</h1>
+    {% elif amount() == 1 %}
+    <h1>Found {{ amount() }} account.</h1>
+    {% else %}
+    <h1>Found {{ amount() }} accounts.</h1>
+    {% endif %}
+    <div class="table-responsive text-nowrap">
+        <td><a class="btn-info btn" href="{{ url_for('account.account', type='new') }}" role="button">Add</a></td>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Staff</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for account in accounts() %}
+                <tr>
+                <th scope="row">{{ account.id }}</th>
+                <th>{{ account.username }}</th>
+                <th>{{ account.email }}</th>
+                <th>{{ account.rank().name() }}</th>
+                <th>{{ account.is_staff() }}</th>
+                <th><td><a class="btn-info btn" href="{{ url_for('account.account', type='edit', id=account.id) }}" role="button">Edit</a></td></th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

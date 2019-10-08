@@ -1,0 +1,27 @@
+{% extends 'splash/forms/base.html' %}
+{{ super() }}
+
+{% block body_content %}
+
+<style>
+  label {font-weight:bold; margin-top: 0.5em}
+</style>
+
+<center>
+{% if amount >= 1 %}
+  {% for service in services() %}
+      <a href="/details/{{ service.id }}">{{ service.name }}</a> &nbsp;
+      {% if current_user.is_staff() %}
+        <a href="/edit/{{ service.id }}" style="color:lightgray">muokkaa</a>
+      {% endif %}
+      <br>
+  {% endfor %}
+{% else %}
+  <h1>Palveluja ei ole vielä lisätty.</h1>
+  <p> Palveluja ei ole vielä lisätty Työllisyysviuhkaan, odotathan.</p>
+  <form method="get" action="{{ FORCE_SCRIPT_NAME }}/">
+    <button type="submit" class="btn button-info">Takaisin</button>
+  </form>
+{% endif %}
+</center>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'admin/index.html' %}
+{{ super() }}
+
+
+{% block body_content %}
+<div class="center">
+            <h1>{{ reason }}<h1>
+            <p>{{ content }}</p>
+</div>
+{% endblock %}

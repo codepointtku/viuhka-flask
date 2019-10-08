@@ -1,0 +1,14 @@
+{% extends 'splash/forms/base.html' %}
+{{ super() }}
+
+{% block body_content %}
+<center>
+    <h1>Henkilöstövuokrausyritykset.</h1>
+</center>
+    <p>&nbsp;</p>
+<div id="search" type="hire"></div>
+<script src="{{ url_for('static', filename='viuhka/search.js') }}"></script>
+<br/>
+<br/>
+<br/>
+{% endblock %}

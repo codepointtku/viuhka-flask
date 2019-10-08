@@ -1,0 +1,54 @@
+{% extends "splash/forms/base.html" %}
+{{ super() }}
+
+{% block meta_extra %}
+<!-- Index CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- ./index cdn -->
+{% endblock %}
+
+{% block body_content %}
+<style>
+    label {
+        font-weight: bold;
+        margin-top: 0.5em
+    }
+</style>
+
+<div class="welcome">
+    <center>
+        <h1><img src="{{ url_for('static', filename='viuhka/media/logo.png') }}" border="0"></h1>
+        <p>Työllistymistä edistäviä palveluja Turun alueella</p>
+    </center>
+</div>
+
+<center>
+<h2> Verkkosivustoamme kehitetään. </h2>
+<h2>    Sivuston toiminassa ja sisällössä esintyy tämän vuoksi puutteita. </h2>
+<h2>    Puutteet korjataan vaiheittan vuoden 2019 aikana. </h2>
+</center>
+
+{% if current_user.is_authenticated %}
+<center>
+<a class="btn btn-primary btn-lg" href="{{ url_for('search.search') }}" role="button" style="background: #00A97A;border-color: #00A97A;">
+    <i class="fa fa-caret-left"></i> 
+    &nbsp; Hakuun
+</a>
+</center>
+{% endif %}
+<br />
+<br />
+    <!-- List of objects -->
+    <!-- ./list -->
+<br />
+<br />
+<center>
+    &nbsp; &nbsp;<a href='{{ FORCE_SCRIPT_NAME }}/feedback_form?ref=0'>Ilmoita virheestä</a>
+    <br>&nbsp;<br>
+    {% if current_user.is_staff() %}
+        <a href="/admin/services/service/0/change/">Muokkaa palvelun tietoja</a>
+        <br />
+        <br />
+    {% endif %}
+</center>
+{% endblock %}

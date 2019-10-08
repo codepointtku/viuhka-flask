@@ -1,0 +1,53 @@
+
+    <div class="sidebar">
+      <!-- Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red" -->
+      <div class="sidebar-wrapper">
+        <div class="logo">
+          <a href="{{ url_for('admin.index') }}" class="simple-text logo-mini"> </a>
+          <a href="{{ url_for('admin.index') }}" class="simple-text logo-normal">
+            <img width="50%" src="{{ url_for('static', filename='viuhka/media/tkulogo.png') }}"/>
+          </a>
+        </div>
+        <ul class="nav">
+          <li class="active ">
+            <a href="{{ url_for('admin.index') }}">
+              <i class="tim-icons icon-chart-pie-36"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('service.services') }}">
+              <i class="tim-icons icon-bell-55"></i>
+              <p>Services</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('account.accounts') }}">
+              <i class="tim-icons icon-single-02"></i>
+              <p>Accounts</p>
+            </a>
+          </li>
+          {% if current_user.is_authenticated %}
+
+          <li>
+            <a href={{ url_for('login_manager.logout') }}>
+              <i class="tim-icons icon-align-center"></i>
+              <p>Logout</p>
+            </a>
+          </li>
+
+          {% else %}
+
+          <li>
+            <a href={{ url_for('login_manager.login') }}>
+              <i class="tim-icons icon-align-center"></i>
+              <p>Login</p>
+            </a>
+          </li>
+
+          {% endif %}
+
+        </ul>
+      </div>
+    </div>
+

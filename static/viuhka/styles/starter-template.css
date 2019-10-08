@@ -1,0 +1,94 @@
+body {
+  padding-top: 5rem;
+  background: #FAFCFD;
+}
+
+.sk-toggle-option.is-active {
+  background: #00A97A;
+  border-color: #00A97A;
+}
+.sk-reset-filters {
+    color: black;
+}
+label {
+    font-size: 150%;
+    color: #00A97A;
+}
+a.nav-link {
+    color: #00A97A;
+}
+.sk-item-list-option__text {
+    color: black
+}
+.breadcrumb {background: #ffffff}
+
+.sk-panel {
+    min-width: 300px
+}
+.sk-panel__header {
+    font-size: 120%;
+    background: #00A97A;
+    color: white;
+    width: 400px;
+}
+.Collapsible__trigger {
+    font-size: 120%;
+    font-weight: bold;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    background: white;
+    color: #00A97A;
+    cursor: pointer;
+}
+div.sk-layout {
+    background: white;
+}
+	
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+div.sk-panel__header.is-collapsable {
+    margin-top: 0.7em;
+}
+
+div.lastPanel div.sk-panel__header.is-collapsable {
+    background: #F26522;
+    margin-top: 2em;
+}
+
+.sk-panel__header.is-collapsable.is-collapsed:after {
+border-left: 5px solid white;
+}
+.sk-panel__header.is-collapsable:after {
+border-top: 5px solid white;
+}
+.sk-panel__header.is-collapsable.is-collapsed:after {
+    left: 5px;
+}
+.sk-panel__header.is-collapsable:after {
+    left: 3px;
+    margin-top: -2px;
+}
+.sk-pagination-navigation.is-numbered {
+    width: 30em;
+    align-content: left;
+}
+
+@media (min-width: 50em) {
+    .flexbox {
+	    display: -ms-flex;
+	    display: -webkit-flex;
+	    display: flex;
+    }
+    .flexbox > div.left {
+        background: white
+    }
+    .flexbox > div.middle {
+        min-width: 1em
+    }
+    .flexbox > div.right {
+        background: white;
+        margin-left: 20pt;
+    }
+}

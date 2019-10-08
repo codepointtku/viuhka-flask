@@ -1,0 +1,220 @@
+{% extends 'admin/index.html' %}
+{{ super() }}
+
+{% block body_content %}
+{% if render_type == 'edit' %}
+
+
+{% if current_user.rank().level < account.rank().level %}
+  {% if current_user.is_staff() %}
+  {{ redirect(url_for('admin.index')) }}
+  {% else %}
+  {% endif %}
+{% endif %}
+
+
+
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <form id="editAccount" role="form" method="post" action="">
+            <div class="row">
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-8 px-md-2">
+                <p>Account Information</p>
+                <br>
+                <div class="form-group row">
+                  <label for="id" class="col-sm-2 col-form-label">ID</label>
+                  <div class="col-sm-10">
+                    {% if current_user.rank().level < 2 %}
+                    {{ form.username(id="id", placeholder=account.id, class="form-control", disabled=True) }}
+                    {% else %}
+                    {{ form.username(id="id", value=account.id, class="form-control") }}
+                    {% endif %}
+                  </div>
+                  <label for="username" class="col-sm-2 col-form-label">Username</label>
+                  <div class="col-sm-10">
+                    {% if current_user.rank().level < 2 %}
+                    {{ form.username(id="username", placeholder=account.username, class="form-control", disabled=True) }}
+                    {% else %}
+                    {{ form.username(id="username", value=account.username, class="form-control") }}
+                    {% endif %}
+                    <span>
+                      <p id="username_notification" style="color:red;display:none;"></p>
+                    </span>
+                  </div>
+                  <label for="email" class="col-sm-2 col-form-label">Email</label>
+                  <div class="col-sm-10">
+                    {% if current_user.rank().level < 2 %}
+                    {{ form.email(id="email", placeholder=account.email, class="form-control", disabled=True) }}
+                    {% else %}
+                    {{ form.email(id="email", value=account.email, class="form-control") }}
+                    {% endif %}
+                    <span>
+                      <p id="email_notification" style="color:red;display:none;"></p>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% if current_user.rank().level >= 2 %}
+            <div class="row">
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-8 px-md-2">
+                <div class="form-group row">
+                  <label for="password" class="col-sm-2 col-form-label">Password</label>
+                  <div class="col-sm-10">
+                    {{ form.password(id="password", placeholder=account.password, class="form-control", type="password") }}
+                    <span>
+                      <p id="password_notification" style="color:red;display:none;"></p>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-8 px-md-2">
+                <div class="form-group row">
+                  <label for="rankDropDown" class="col-sm-2 col-form-label">Rank</label>
+                  <div class="col-sm-10">
+                    <select class="form-control" id="rankDropDown" style="color:white;background:#344675;">
+                      {% for k,v in ranks.items() %}
+                      {% if k < current_user.rank().level %}
+                      <option value="{{ k }}">{{ v }}</option>
+                      {% endif %}
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        <div class="row">
+          <div class="col-md-1 px-md-1"></div>
+          <div class="col-md-3 px-md-1"></div>
+          <div class="col-md-1 px-md-1"></div>
+          <div class="col-md-2 px-md-6">
+            <button type="submit" class="btn btn-fill btn-info">Save</button>
+          </div>
+        </div>
+        <div>
+          </form>
+          <script src="{{ url_for('static', filename='admin/js/form-validation.js') }}"></script>
+          <script src="{{ url_for('static', filename='admin/js/core/jquery.min.js') }}"></script>
+          <script>
+            $('#editAccount').submit(function (event) {
+              event.preventDefault();
+              var form_data = validate($(this).serialize());
+              if (form_data) {
+                $.ajax({
+                  type: 'POST',
+                  url: "{{ url_for('service.service', type='add') }}",
+                  data: form_data
+                });
+              }
+            });
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% elif render_type == 'new' %}
+<div class="content">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="card-body">
+          <form id="addAccount" role="form" method="post" action="">
+            <div class="row">
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-6 px-md-2">
+                <div class="form-group">
+                  <p>Account Information</p>
+                  <br>
+                  {{ form.username(id="username", placeholder="Username", class="form-control") }}
+                  <span>
+                    <p id="username_notification" style="color:red;display:none;"></p>
+                  </span>
+                  {{ form.email(id="email", placeholder="Email", class="form-control") }}
+                  <span>
+                    <p id="email_notification" style="color:red;display:none;"></p>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-6 px-md-2">
+                <div class="form-group">
+                  {{ form.password(id="password", placeholder="Password", class="form-control", type="password") }}
+                  <span>
+                    <p id="password_notification" style="color:red;display:none;"></p>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-6 px-md-2">
+                <div class="form-group">
+                  <label for="rankDropDown">Rank</label>
+                  {% if current_user.rank().level >= 2 %}
+                  <select class="form-control" id="rankDropDown" style="color:white;background:#344675;">
+                    {% else %}
+                    <select class="form-control" id="rankDropDown" style="color:white;background:#344675;" disabled>
+                      {% endif %}
+                      {% for k,v in ranks.items() %}
+                      <option value="{{ k }}">{{ v }}</option>
+                      {% endfor %}
+                    </select>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-1 px-md-1"></div>
+          <div class="col-md-3 px-md-1"></div>
+          <div class="col-md-1 px-md-1"></div>
+          <div class="col-md-2 px-md-6">
+            <button type="submit" class="btn btn-fill btn-info">Save</button>
+          </div>
+        </div>
+        <div>
+          </form>
+          <script src="{{ url_for('static', filename='admin/js/form-validation.js') }}"></script>
+          <script src="{{ url_for('static', filename='admin/js/core/jquery.min.js') }}"></script>
+          <script>
+            $('#addAccount').submit(function (event) {
+              event.preventDefault();
+              var form_data = validate($(this).serialize());
+              if (form_data) {
+                $.ajax({
+                  type: 'POST',
+                  url: "{{ url_for('service.service', type='add') }}",
+                  data: form_data
+                });
+              }
+            });
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

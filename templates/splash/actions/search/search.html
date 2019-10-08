@@ -1,0 +1,40 @@
+{% extends "splash/forms/base.html" %}
+{{ super() }}
+
+{% block body_content %}
+    
+    {% if amount() == 0 %}
+    <center><h1>No services have been added yet.</h1></center>
+    {% else %}
+        <div class="container">
+        {% if amount() == 1 %}
+        <h1>Found {{ amount() }} service.</h1>
+        {% else %}
+        <h1>Found {{ amount() }} services.</h1>
+        {% endif %}
+        <div class="table-responsive text-nowrap">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Created by</th>
+                        <th scope="col">Start</th>
+                        <th scope="col">End</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for service in services() %}
+                    <tr>
+                    <th scope="row">{{ service.id }}</th>
+                    <th>{{ service.name }}</th>
+                    <th>{{ service.start }}</th>
+                    <th>{{ service.end }}</th>
+                    <th><td><button type="button" class="btn-primary btn-xs" data-toggle="modal" data-target="#accountModal-{{ service.id }}">View</button></td></th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}

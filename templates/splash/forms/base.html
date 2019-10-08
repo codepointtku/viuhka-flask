@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+{% block head %}
+<head>
+    {% block meta_head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% endblock %}
+    <title>Työllistymistä edistävät palvelut {% block title %}{% endblock %}</title>
+
+    <!-- Load css -->
+    <link href="{{ url_for('static', filename='viuhka/styles/shepherd-theme-arrows.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='viuhka/styles/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='viuhka/styles/theme.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='viuhka/styles/starter-template.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='viuhka/styles/employment.css') }}" rel="stylesheet" />
+    <!-- Load scripts -->
+    <script src="{{ url_for('static', filename='viuhka/scripts/tether.js') }}"></script>
+    <script src="{{ url_for('static', filename='viuhka/scripts/shepherd.js') }}"></script>
+    <script src="{{ url_for('static', filename='viuhka/scripts/jquery-slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='viuhka/scripts/tether.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='viuhka/scripts/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='viuhka/scripts/ie10-viewport-bug-workaround.js') }}"></script>
+    
+    <!-- CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous">
+    </script>
+
+    <!-- Extra css/scripts from blocks -->
+    {% block meta_extra %}
+    {% endblock %}
+    <!-- ./meta_extra -->
+
+    {% if DEBUG %}
+    <style>
+    .bg-inverse {
+        background-color:aquamarine!important;
+    }
+    </style>
+    {% endif %}
+</head>
+{% endblock %}
+{% block body %}
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ FORCE_SCRIPT_NAME }}/">Työllisyysviuhka</a>
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ FORCE_SCRIPT_NAME }}/list/">Lista palveluista</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ FORCE_SCRIPT_NAME }}/provider_info/">Lisää palvelu</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ FORCE_SCRIPT_NAME }}/info/">Tietoa käyttäjälle</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ FORCE_SCRIPT_NAME }}/info/">Tietoa palvelutuottajalle</a>
+                    </li>
+                </ul>
+                <div class="navbar-nav">
+                    {% if current_user.is_authenticated %}
+                    <a class="nav-link" href="{{ url_for('login_manager.logout') }}?next={{ request.path }}">{{ current_user.username }} (Kirjaudu ulos)</a>
+                    {% else %}
+                    <a class="nav-link" href="{{ url_for('login_manager.register') }}?next={{ request.path }}">Rekisteröinti</a>
+                    <a class="nav-link" href="{{ url_for('login_manager.login') }}?next={{ request.path }}">Kirjaudu sisään</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
+                aria-label="Toggle naviation">
+                <span class="navbar-toggler-icon"></span>    
+        </button>
+    </nav>
+    <!-- ./navbar -->
+    <div class="container sixhundredpx">
+    {% block body_content %}
+    {% endblock %}
+    </div>
+    {% block footer %}
+    <!-- Footer -->
+    {% block footer_context %}
+    {% endblock %}
+    <footer class="footer bg-inverse">
+        <div class="container" style="color:white;">
+            <br />
+            <span style="float:right">
+                <a class="navi-link" href="{{ FORCE_SCRIPT_NAME }}/info/">Tietoa sivustosta</a>
+                <a class="navi-link" href="https://www.turku.fi/tietosuoja">Rekisteriseloste</a>
+                <a class="navi-link" href="https://www.turku.fi/tietosuoja">Tietosuoja</a>
+                <a class="navi-link" href="{{ FORCE_SCRIPT_NAME }}/saavutettavuus/">Saavutettavuus</a>
+                <a class="navi-link" href="mailto:viuhka@turku.fi">Palaute</a>
+                <a class="navi-link" href="http://data.turku.fi/">Avoin data</a>
+            </span>
+            <b>Työllisyysviuhka</b>
+            <br>
+            <img src="{{ url_for('static', filename='viuhka/media/turkulogo.svg') }}" height="72">
+            <br>
+            &nbsp;
+        </div>
+    </footer>
+    <footer>
+        <div class="container">
+            <br>
+            <img width="100%" src="{{ url_for('static', filename='viuhka/media/alalogot.png') }}">
+        </div>
+    </footer>
+    <!-- ./footer -->
+    {% endblock %}
+
+    <script type="text/javascript">
+    var _paq = _paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+        var u = "//wwwstats2.turku.fi/piwik/";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSideId', 19]);
+        var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+        g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'piwik.js'; s.parentNode.insertBefore(g,s);
+    })();
+    </script>
+    <noscript><p><img src="//wwwstats2.turku.fi/piwik/piwik.php?idside=19" style="border:0;" alt="" /></p></noscript>
+</body>
+{% endblock %}
+</html>

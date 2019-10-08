@@ -1,0 +1,123 @@
+#id_classification {
+    min-height: 20em;
+    min-width: 400px;
+}
+
+#id_study, #id_service_path, #id_target, #id_immigration, #id_age_group,
+#id_unemployment_duration {
+    min-height: 8em;
+    min-width: 400px;
+}
+
+#id_integration, #id_health {
+    min-height: 5em;
+    min-width: 400px;
+}
+
+#id_constraint, #id_address_extend, #id_organization, #id_content_contact {
+    min-width: 600px;
+}
+
+.infodialog {
+    position: absolute;
+    top: 80px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    background-color: white;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.errorlist {
+    color: red;
+    font-weight: bold;
+}
+
+.button-info {
+    border-radius: 0;
+    background: none;
+    border: 2pt solid #00A97A;
+    color: #00A97A;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button-info:hover {
+    background: #eeeeee;
+}
+
+.shepherd-content {
+    max-width: 40em;
+    border: 2pt solid dodgerblue;
+}
+
+.shepherd-element.shepherd-theme-arrows.shepherd-element-attached-top.shepherd-element-attached-center .shepherd-content:before {
+    border-bottom-color: dodgerblue
+}
+
+.shepherd-element.shepherd-theme-arrows.shepherd-element-attached-bottom.shepherd-element-attached-center .shepherd-content:before {
+    border-top-color: dodgerblue
+}
+
+a.hit-item-title {
+    font-size: 180%;
+    color: #00A97A;
+}
+
+.hit-item {
+    padding-bottom: 10pt;
+    min-height: 8em;
+    border-bottom: 1pt dotted darkgray
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+.left {
+    box-shadow: 0 5px 3px 0 rgba(0, 0, 0, .1);
+    padding: 5px 5px 10px 5px;
+}
+
+.right {
+    box-shadow: 0 5px 3px 0 rgba(0, 0, 0, .1);
+    padding: 5px 5px 5px 10px;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 300%;
+    color: #00A97A;
+}
+
+h2 {
+    font-size: 250%;
+    color: #00A97A;
+}
+
+.column-title {
+    font-size: 150%;
+    color: #00A97A;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+.navi-link {
+    color:rgba(255,255,255,.5);
+}
+.sixhundredpx {
+    min-height: 600px;
+}
+.footer {
+    max-height: 250px;
+}
+.sk-search-box {
+    border-bottom: 2pt solid #00A97A;
+}
+a.navi-link:hover {
+    color: white;
+}

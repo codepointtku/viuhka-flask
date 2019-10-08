@@ -1,0 +1,49 @@
+{% extends 'admin/index.html' %}
+{{ super() }}
+
+{% block body_content %}    
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+    <div class="container">
+    {% if amount() == 0 %}
+    <h1>No services have been added yet.</h1>
+    {% elif amount() == 1 %}
+    <h1>Found {{ amount() }} service.</h1>
+    {% else %}
+    <h1>Found {{ amount() }} services.</h1>
+    {% endif %}
+    <div class="table-responsive text-nowrap">
+        <td><a class="btn-info btn" href="{{ url_for('service.service', type='new') }}" role="button">Add</a></td>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Created by</th>
+                    <th scope="col">Time of creation</th>
+                    <th scope="col">Published</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for service in services() %}
+                <tr>
+                <th scope="row">{{ service.id }}</th>
+                <th>{{ service.name }}</th>
+                <th>{{ service.organization }}</th>
+                <th>{{ service.created.replace(microsecond=0) }}</th>
+                {% if service.published %}
+                <th>Yes</th>
+                {% else %}
+                <th>No</th>
+                {% endif %}
+                <td><td><a class="btn-info btn" href="{{ url_for('service.service', type='edit', id=service.id) }}" role="button">Edit</a></td></th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
