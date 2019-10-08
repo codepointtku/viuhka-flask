@@ -22,6 +22,7 @@ SQL_DEFAULTS = {
     'SQL_HOST':'localhost',
     'SQL_PORT':'3306',
     'SQL_DATABASE':'default',
+    'SQL_DRIVER':'postgresql+psycopg2',
     'USE_BINDS':False
 }
 
@@ -46,29 +47,34 @@ def config(app):
     password =  read_env('SQL_PASSWORD').get('SQL_PASSWORD')    if read_env('SQL_PASSWORD').get('SQL_PASSWORD') else SQL_DEFAULTS['SQL_PASSWORD']
     host =      read_env('SQL_HOST').get('SQL_HOST')            if read_env('SQL_HOST').get('SQL_HOST')         else SQL_DEFAULTS['SQL_HOST']
     port =      read_env('SQL_PORT').get('SQL_PORT')            if read_env('SQL_PORT').get('SQL_PORT')         else SQL_DEFAULTS['SQL_PORT']
+    driver =    read_env('SQL_DRIVER').get('SQL_DRIVER')        if read_env('SQL_DRIVER').get('SQL_DRIVER')     else SQL_DEFAULTS['SQL_DRIVER']
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{username}:{password}@{host}:{port}/{database}'.format(
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = '{driver}://{username}:{password}@{host}:{port}/{database}'.format(
                                                 username=username,
                                                 password=password,
                                                 host=host,
                                                 port=port,
-                                                database=database
+                                                database=database,
+                                                driver=driver
                                             )
 
 
     if (read_env('USE_BINDS').get('USE_BINDS') if read_env('USE_BINDS').get('USE_BINDS') else SQL_DEFAULTS['USE_BINDS']):
         app.config['SQLALCHEMY_BINDS'] = {
-                                        "{}": "mysql+pymysql://{username}:{password}@{host}:{port}/{}".format(
+                                        "{}": "{driver}://{username}:{password}@{host}:{port}/{}".format(
                                             username=username,
                                             password=password,
                                             host=host,
-                                            port=port
+                                            port=port,
+                                            driver=driver
                                         ), 
-                                        "{}":"mysql+pymysql://{username}:{password}@{host}:{port}/{}".format(
+                                        "{}":"{driver}://{username}:{password}@{host}:{port}/{}".format(
                                             username=username,
                                             password=password,
                                             host=host,
-                                            port=port
+                                            port=port,
+                                            driver=driver
                                         )
                                     }
     for key in ENV_IGNORE:
