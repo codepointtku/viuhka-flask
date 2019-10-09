@@ -8,7 +8,7 @@
 </style>
 
 <center>
-{% if amount >= 1 %}
+{% if amount() >= 1 %}
   {% for service in services() %}
       <a href="/details/{{ service.id }}">{{ service.name }}</a> &nbsp;
       {% if current_user.is_staff() %}

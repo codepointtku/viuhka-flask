@@ -1,3 +1,5 @@
+from sqlalchemy import text
+
 from sys import argv, exit
 from os.path import dirname, join, abspath
 from os import sep, walk
@@ -5,6 +7,7 @@ from os import sep, walk
 from functools import reduce
 
 from flask import Flask
+from flask_assets import Bundle
 
 from app.managers.login import login_manager
 
@@ -133,6 +136,18 @@ def register_extensions(app):
         try:
             module = __import__(epath, fromlist=['module'])
             module.module.init_app(app)
+            if module._name_ == 'SQLAlchemy':
+                print('Testing database connection')
+                with app.app_context():
+                    try:
+                        text = 'SELECT 1;'
+                        module.module.engine.execute(text)
+                    except Exception as ex:
+                        print('Failed to connect to database: %s' % ex)
+                        exit(2)
+            elif module._name_ == 'SCSS Loader':
+                module.module.url = app.static_url_path
+                scss = Bundle('')
             print('Extension loaded: %s' % module._name_)
         except Exception as ex:
             print('Failed to load extension: %s' % ex)

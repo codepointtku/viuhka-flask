@@ -55,17 +55,17 @@
                 <ul class="navbar-nav mr-auto">
                     {% if current_user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ FORCE_SCRIPT_NAME }}/list/">Lista palveluista</a>
+                        <a class="nav-link" href="{{ url_for('service.list_service') }}">Lista palveluista</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ FORCE_SCRIPT_NAME }}/provider_info/">Lisää palvelu</a>
                     </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ FORCE_SCRIPT_NAME }}/info/">Tietoa käyttäjälle</a>
+                        <a class="nav-link" href="{{ url_for('index.info') }}">Tietoa käyttäjälle</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ FORCE_SCRIPT_NAME }}/info/">Tietoa palvelutuottajalle</a>
+                        <a class="nav-link" href="{{ url_for('index.info') }}">Tietoa palvelutuottajalle</a>
                     </li>
                 </ul>
                 <div class="navbar-nav">
@@ -97,7 +97,7 @@
         <div class="container" style="color:white;">
             <br />
             <span style="float:right">
-                <a class="navi-link" href="{{ FORCE_SCRIPT_NAME }}/info/">Tietoa sivustosta</a>
+                <a class="navi-link" href="{{ url_for('index.info') }}">Tietoa sivustosta</a>
                 <a class="navi-link" href="https://www.turku.fi/tietosuoja">Rekisteriseloste</a>
                 <a class="navi-link" href="https://www.turku.fi/tietosuoja">Tietosuoja</a>
                 <a class="navi-link" href="{{ FORCE_SCRIPT_NAME }}/saavutettavuus/">Saavutettavuus</a>
