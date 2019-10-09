@@ -17,3 +17,8 @@ def info():
 @module.route('/saavutettavuus')
 def saavutettavuus():  
     return render_template('splash/forms/saavutettavuus.html')
+
+@module.route('/provider_info')
+def provider_info():  
+    return render_template('splash/forms/provider_info.html')
+
