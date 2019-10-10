@@ -2,12 +2,12 @@ PalveluViuhka
 Installation
 Prepare and activate virtualenv
 
-    Windows
+* Windows
 
 python -m venv env
 call env/scripts/activate
 
-    Linux
+* Linux
 
 python3 -m venv env
 source venv/bin/activate
@@ -20,12 +20,12 @@ pip install -r requirements.txt
 
 Create the database
 
-    Linux
+* Linux
 
 sudo -u postgres psql -c "create role employment with encrypted password 'secure-password';"
 sudo -u postgres psql -c "create database employment_flask"
 
-    Windows
+* Windows
 
 psql -U postgres -c "create role employment with encrypted password 'secure-password';"
 psql -U postgres -c "create database employment_flask"
