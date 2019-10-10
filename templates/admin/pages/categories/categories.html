@@ -1,0 +1,47 @@
+{% extends 'admin/index.html' %}
+{{ super() }}
+
+{% block body_content %}
+    {% if amount() <= 5 %}
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+    {% else %}
+        {% for i in range(0, amount()) %}
+        <br />
+        {% endfor %}
+    {% endif %}
+
+    <div class="container">
+    {% if amount() == 0 %}
+    <h1>No categories have been added yet.</h1>
+    {% elif amount() == 1 %}
+    <h1>Found {{ amount() }} category.</h1>
+    {% else %}
+    <h1>Found {{ amount() }} categories.</h1>
+    {% endif %}
+    <div class="table-responsive text-nowrap">
+        <td><a class="btn-info btn" href="{{ url_for('category.category', type='new') }}" role="button">Add</a></td>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Items</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories() %}
+                <tr>
+                <th scope="row">{{ category.id }}</th>
+                <th>{{ category.name }}</th>
+                <th>{{ itemcount() }}</th>
+                <th><td><a class="btn-info btn" href="{{ url_for('category.category', type='new') }}" role="button">Edit</a></td></th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

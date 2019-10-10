@@ -20,7 +20,6 @@
         color: #00A97A;
         font-size: 80%
     }
-    
 </style>
 <!--Temporary h3 for WIP message-->
 <div class="welcome">
@@ -30,33 +29,80 @@
     </center>
 </div>
 
-<center>
-<h3> Verkkosivustoamme kehitetään. </h3>
-<h3>    Sivuston toiminassa ja sisällössä esintyy tämän vuoksi puutteita. </h3>
-<h3>    Puutteet korjataan vaiheittan vuoden 2019 aikana. </h3>
-</center>
+
+<div class="row" style="height:50vmin;">
+    <div class="col-4">
+        <div class="row">
+            <div class="col">
+                <div class="column-title">
+                    Valinnat
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input class="form-control" id="" placeholder="Haku" style="border:none;border-bottom:1px solid green;">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <div class="panel-group" id="valinnatPanelGroup">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-8">
+        <div class="row">
+            <div class="col">
+                <div class="column-title">
+                    Palvelut
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                <a class="btn btn-primary btn-lg" href="/search" role="button"
+                    style="background: #00A97A;border-color: #00A97A;">
+                    <i class="fa fa-caret-left"></i>
+                    &nbsp; Hakuun
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {% if current_user.is_authenticated %}
 <center>
-<a class="btn btn-primary btn-lg" href="{{ url_for('search.search') }}" role="button" style="background: #00A97A;border-color: #00A97A;">
-    <i class="fa fa-caret-left"></i> 
-    &nbsp; Hakuun
-</a>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('search.search') }}" role="button"
+        style="background: #00A97A;border-color: #00A97A;">
+        <i class="fa fa-caret-left"></i>
+        &nbsp; Hakuun
+    </a>
 </center>
 {% endif %}
 <br />
 <br />
-    <!-- List of objects -->
-    <!-- ./list -->
+<!-- List of objects -->
+<!-- ./list -->
 <br />
 <br />
 <center>
-  <!--  &nbsp; &nbsp;<a href='{{ FORCE_SCRIPT_NAME }}/feedback_form?ref=0'>Ilmoita virheestä</a> -->
+    <!--  &nbsp; &nbsp;<a href='{{ FORCE_SCRIPT_NAME }}/feedback_form?ref=0'>Ilmoita virheestä</a> -->
     <br>&nbsp;<br>
     {% if current_user.is_staff() %}
-        <a href="/admin/services/service/0/change/">Muokkaa palvelun tietoja</a>
-        <br />
-        <br />
+    <a href="/admin/services/service/0/change/">Muokkaa palvelun tietoja</a>
+    <br />
+    <br />
     {% endif %}
 </center>
 {% endblock %}
