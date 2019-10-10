@@ -34,8 +34,10 @@
     <div class="col-4">
         <div class="row">
             <div class="col">
-                <div class="column-title">
-                    Valinnat
+                <div class="d-flex justify-content-center">
+                    <div class="column-title">
+                        Valinnat
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,8 +63,10 @@
     <div class="col-8">
         <div class="row">
             <div class="col">
-                <div class="column-title">
-                    Palvelut
+                <div class="d-flex justify-content-center">
+                    <div class="column-title">
+                        Palvelut
+                    </div>
                 </div>
             </div>
         </div>
@@ -79,17 +83,6 @@
         </div>
     </div>
 </div>
-
-
-{% if current_user.is_authenticated %}
-<center>
-    <a class="btn btn-primary btn-lg" href="{{ url_for('search.search') }}" role="button"
-        style="background: #00A97A;border-color: #00A97A;">
-        <i class="fa fa-caret-left"></i>
-        &nbsp; Hakuun
-    </a>
-</center>
-{% endif %}
 <br />
 <br />
 <!-- List of objects -->
