@@ -26,6 +26,7 @@ Install all packages required for development with pip command:
 
 
 ### Create the database
+(also works with MYSQL)
 
 - Linux
 
