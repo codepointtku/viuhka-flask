@@ -33,7 +33,7 @@
     </div>
 </div>
 
-<div class="row" style="height:50vmin;">
+<div class="row">
     <div class="col" style="box-shadow: -2px 2px 28px -6px rgba(117,117,117,1);">
         <div class="row">
             <div class="col">
@@ -46,18 +46,37 @@
         </div>
         <div class="row">
             <div class="col">
-                <input class="form-control" id="" placeholder="Haku" style="background: transparent;border:none;border-bottom:1px solid green;">
+                <input class="form-control" id="" placeholder="Haku"
+                    style="background: transparent;border:none;border-bottom:1px solid green;">
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col">
-                <div class="panel-group" id="valinnatPanelGroup">
+                <div class="panel-group" id="accordion">
+                    {% for category in categories %}
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-
+                        <div class="panel-heading" style="background-color: #00A97A;">
+                            <h4 class="panel-title" style="background-color: #00A97A;">
+                                <div class="d-flex justify-content-center">
+                                    <a data-toggle="collapse" data-parent="#accordion"
+                                        href="#{{ category.category.name.replace(' ','').replace('-','').strip().lower() }}"
+                                        style="color: white;">
+                                        {{ category.category.name }}
+                                    </a>
+                                </div>
+                            </h4>
+                        </div>
+                        <div id="{{ category.category.name.replace(' ','').replace('-','').strip().lower() }}"
+                            class="panel-collapse collapse">
+                            {% for category_item in category.items %}
+                            <div class="panel-body">
+                                {{ category_item.text }}
+                            </div>
+                            {% endfor %}
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -66,62 +85,68 @@
     <div class="col" style="box-shadow: -2px 2px 28px -6px rgba(117,117,117,1);">
         <div class="row">
             <div class="col">
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center" style="margin-bottom: 36px;">
                     <div class="column-title">
                         Palvelut
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
-                        <div class="d-flex justify-content-center">
-                            <p>Aaaa</p>
+                    <div class="col"
+                        style="background: transparent;border:none;border-top:1px solid green;border-bottom:1px solid green;">
+                        <div class="row">
+                            <div class="col">
+                                <div class="d-flex justify-content-center">
+                                    <p>Aaaa</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="d-flex justify-content-center">
-                            <p>Aaaa</p>
+                        <div class="row">
+                            <div class="col">
+                                <div class="d-flex justify-content-center">
+                                    <p>Aaaa</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="d-flex justify-content-center">
-                            <p>Aaaa</p>
+                        <div class="row">
+                            <div class="col">
+                                <div class="d-flex justify-content-center">
+                                    <p>Aaaa</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="d-flex justify-content-center">
-                            <p>Aaaa</p>
+                        <div class="row">
+                            <div class="col">
+                                <div class="d-flex justify-content-center">
+                                    <p>Aaaa</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="d-flex justify-content-center">
-                            <p>Aaaa</p>
+                        <div class="row">
+                            <div class="col">
+                                <div class="d-flex justify-content-center">
+                                    <p>Aaaa</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="d-flex justify-content-center">
-                            <p>Aaaa</p>
+                        <div class="row">
+                            <div class="col">
+                                <div class="d-flex justify-content-center">
+                                    <p>Aaaa</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="d-flex justify-content-center">
-                            <p>Aaaa</p>
+                        <div class="row">
+                            <div class="col">
+                                <div class="d-flex justify-content-center">
+                                    <p>Aaaa</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <br>
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-center">

@@ -3,13 +3,13 @@ from app.utils.extensions.database import module as connector
 
 
 class ServicePath(connector.Model):
-    __table_args__      = {
-                            'extend_existing': True
-                        } 
+    __table_args__                  = {
+                                        'extend_existing': True
+                                    } 
 
 
-    id   = connector.Column(connector.Integer, primary_key=True)
-    text = connector.Column(connector.String(100))
+    id                              = connector.Column(connector.Integer, primary_key=True)
+    text                            = connector.Column(connector.String(100))
 
     def __str__(self):
         return self.text
@@ -20,12 +20,12 @@ class ServicePath(connector.Model):
 
 
 class AgeGroup(connector.Model):
-    __table_args__      = {
-                            'extend_existing': True
-                        } 
+    __table_args__                  = {
+                                        'extend_existing': True
+                                    } 
 
-    id   = connector.Column(connector.Integer, primary_key=True)
-    text = connector.Column(connector.String(100))
+    id                              = connector.Column(connector.Integer, primary_key=True)
+    text                            = connector.Column(connector.String(100))
     def __str__(self):
         return self.text
 
@@ -35,12 +35,12 @@ class AgeGroup(connector.Model):
 
 
 class UnemploymentDuration(connector.Model):
-    __table_args__      = {
-                            'extend_existing': True
-                        } 
+    __table_args__                  = {
+                                        'extend_existing': True
+                                    } 
                         
-    id   = connector.Column(connector.Integer, primary_key=True)
-    text = connector.Column(connector.String(100))
+    id                              = connector.Column(connector.Integer, primary_key=True)
+    text                            = connector.Column(connector.String(100))
     def __str__(self):
         return self.text
 
@@ -51,12 +51,12 @@ class UnemploymentDuration(connector.Model):
 
 
 class Health(connector.Model):
-    __table_args__      = {
-                            'extend_existing': True
-                        } 
+    __table_args__                  = {
+                                        'extend_existing': True
+                                    } 
                         
-    id   = connector.Column(connector.Integer, primary_key=True)
-    text = connector.Column(connector.String(100))
+    id                              = connector.Column(connector.Integer, primary_key=True)
+    text                            = connector.Column(connector.String(100))
     def __str__(self):
         return self.text
 
@@ -66,12 +66,12 @@ class Health(connector.Model):
 
 
 class Immigration(connector.Model):
-    __table_args__      = {
-                            'extend_existing': True
-                        } 
+    __table_args__                  = {
+                                        'extend_existing': True
+                                    } 
                         
-    id   = connector.Column(connector.Integer, primary_key=True)
-    text = connector.Column(connector.String(100))
+    id                              = connector.Column(connector.Integer, primary_key=True)
+    text                            = connector.Column(connector.String(100))
     def __str__(self):
         return self.text
 
@@ -81,12 +81,12 @@ class Immigration(connector.Model):
 
 
 class Target(connector.Model):
-    __table_args__      = {
-                            'extend_existing': True
-                        } 
+    __table_args__                  = {
+                                        'extend_existing': True
+                                    } 
                         
-    id   = connector.Column(connector.Integer, primary_key=True)
-    text = connector.Column(connector.String(100))
+    id                              = connector.Column(connector.Integer, primary_key=True)
+    text                            = connector.Column(connector.String(100))
     def __str__(self):
         return self.text
 
@@ -96,12 +96,12 @@ class Target(connector.Model):
 
 
 class Study(connector.Model):
-    __table_args__      = {
-                            'extend_existing': True
-                        } 
+    __table_args__                  = {
+                                        'extend_existing': True
+                                    } 
                         
-    id   = connector.Column(connector.Integer, primary_key=True)
-    text = connector.Column(connector.String(100))
+    id                              = connector.Column(connector.Integer, primary_key=True)
+    text                            = connector.Column(connector.String(100))
     def __str__(self):
         return self.text
 
@@ -111,12 +111,12 @@ class Study(connector.Model):
 
 
 class Classification(connector.Model):
-    __table_args__      = {
-                            'extend_existing': True
-                        } 
+    __table_args__                  = {
+                                        'extend_existing': True
+                                    } 
                         
-    id   = connector.Column(connector.Integer, primary_key=True)
-    text = connector.Column(connector.String(100))
+    id                              = connector.Column(connector.Integer, primary_key=True)
+    text                            = connector.Column(connector.String(100))
     def __str__(self):
         return self.text
 
@@ -125,12 +125,12 @@ class Classification(connector.Model):
         return UnemploymentDuration.query.all()
 
 class Integration(connector.Model):
-    __table_args__      = {
-                            'extend_existing': True
-                        } 
+    __table_args__                  = {
+                                        'extend_existing': True
+                                    } 
                         
-    id   = connector.Column(connector.Integer, primary_key=True)
-    text = connector.Column(connector.String(100))
+    id                              = connector.Column(connector.Integer, primary_key=True)
+    text                            = connector.Column(connector.String(100))
     def __str__(self):
         return self.text
 

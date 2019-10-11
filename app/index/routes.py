@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, send_from_directory
+from app.services.models.category import sequalized_categories
 
 
 module = Blueprint('index', __name__)
@@ -8,7 +9,7 @@ _name_ = 'Splash'
 
 @module.route('/')
 def index():
-    return render_template('splash/index.html')
+    return render_template('splash/index.html', categories=sequalized_categories(), len=len)
 
 @module.route('/info')
 def info():  
