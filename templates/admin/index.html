@@ -45,16 +45,22 @@
       {% if current_user.is_authenticated %}
       {% include 'admin/includes/navigation.html' %}
       {% endif %}
-
+      
+      <!-- Body content -->
+<br />
+<br />
+<br />
+<br />
+<br />
       {% block body_content %}
       {% endblock %}
+      <!-- ./body content -->
       {{ content | safe }}
     </div>
   </div>
   {% include 'admin/includes/footer.html' %}
 
   {% include 'admin/includes/fixed-plugin.html' %}
-
   <!--   Core JS Files   -->
   <script src="{{ url_for('static', filename='admin/js/core/jquery.min.js') }}"></script>
   <script src="{{ url_for('static', filename='admin/js/core/popper.min.js') }}"></script>
@@ -66,6 +72,8 @@
   <script src="{{ url_for('static', filename='admin/js/plugins/bootstrap-notify.js') }}"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{ url_for('static', filename='admin/js/black-dashboard.min.js') }}"></script>
+  {% block scripts %}
+  {% endblock %}
   <script>
     $(document).ready(function() {
       $().ready(function() {

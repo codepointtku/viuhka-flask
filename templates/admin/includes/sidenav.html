@@ -27,25 +27,20 @@
               <p>Accounts</p>
             </a>
           </li>
-          {% if current_user.is_authenticated %}
+          <li>
+            <a href="{{ url_for('category.categories') }}">
+              <i class="tim-icons icon-single-copy-04"></i>
+              <p>Categories</p>
+            </a>
+          </li>
 
           <li>
             <a href={{ url_for('login_manager.logout') }}>
-              <i class="tim-icons icon-align-center"></i>
+              <i class="tim-icons icon-lock-circle"></i>
               <p>Logout</p>
             </a>
           </li>
 
-          {% else %}
-
-          <li>
-            <a href={{ url_for('login_manager.login') }}>
-              <i class="tim-icons icon-align-center"></i>
-              <p>Login</p>
-            </a>
-          </li>
-
-          {% endif %}
 
         </ul>
       </div>

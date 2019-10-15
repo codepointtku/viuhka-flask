@@ -289,6 +289,10 @@ textarea {
   line-height: inherit;
 }
 
+select::-webkit-scrollbar {
+  background: transparent;
+}
+
 button,
 input {
   overflow: visible;

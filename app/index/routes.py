@@ -9,7 +9,7 @@ _name_ = 'Splash'
 
 @module.route('/')
 def index():
-    return render_template('splash/index.html', categories=sequalized_categories(), len=len)
+    return render_template('splash/index.html', categories=sequalized_categories())
 
 @module.route('/info')
 def info():  

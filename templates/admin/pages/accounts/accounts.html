@@ -1,20 +1,9 @@
 {% extends 'admin/index.html' %}
 {{ super() }}
 
-{% block body_content %}
-    {% if amount() <= 5 %}
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-    {% else %}
-        {% for i in range(0, amount()) %}
-        <br />
-        {% endfor %}
-    {% endif %}
 
-    <div class="container">
+{% block body_content %}
+<div class="container">
     {% if amount() == 0 %}
     <h1>No accounts have been added yet.</h1>
     {% elif amount() == 1 %}
@@ -37,15 +26,27 @@
             <tbody>
                 {% for account in accounts() %}
                 <tr>
-                <th scope="row">{{ account.id }}</th>
-                <th>{{ account.username }}</th>
-                <th>{{ account.email }}</th>
-                <th>{{ account.rank().name() }}</th>
-                <th>{{ account.is_staff() }}</th>
-                <th><td><a class="btn-info btn" href="{{ url_for('account.account', type='edit', id=account.id) }}" role="button">Edit</a></td></th>
+                    <th scope="row">{{ account.id }}</th>
+                    <th>{{ account.username }}</th>
+                    <th>{{ account.email }}</th>
+                    <th>{{ account.rank().name() }}</th>
+                    <th>{{ account.is_staff() }}</th>
+                    <th>
+                    <td>
+                        <a href="{{ url_for('account.account', type='edit', id=account.id) }}">
+                            <i class="tim-icons icon-pencil"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ url_for('account.account', type='delete', id=account.id) }}">
+                            <i class="tim-icons icon-trash-simple"></i>
+                        </a>
+                    </td>
+                    </th>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+</div>
 {% endblock %}

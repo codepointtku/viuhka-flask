@@ -2,19 +2,7 @@
 {{ super() }}
 
 {% block body_content %}
-    {% if amount() <= 5 %}
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-    {% else %}
-        {% for i in range(0, amount()) %}
-        <br />
-        {% endfor %}
-    {% endif %}
-
-    <div class="container">
+<div class="container">
     {% if amount() == 0 %}
     <h1>No categories have been added yet.</h1>
     {% elif amount() == 1 %}
@@ -29,19 +17,28 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Items</th>
                 </tr>
             </thead>
             <tbody>
                 {% for category in categories() %}
                 <tr>
-                <th scope="row">{{ category.id }}</th>
-                <th>{{ category.name }}</th>
-                <th>{{ itemcount() }}</th>
-                <th><td><a class="btn-info btn" href="{{ url_for('category.category', type='new') }}" role="button">Edit</a></td></th>
+                    <th scope="row">{{ category.id }}</th>
+                    <th>{{ category.category.name }}</th>
+                    <th>
+                    <td><a href="{{ url_for('category.category', type='edit', id=category.id) }}">
+                            <i class="tim-icons icon-pencil"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ url_for('category.category', type='delete', id=category.id) }}">
+                            <i class="tim-icons icon-trash-simple"></i>
+                        </a>
+                    </td>
+                    </th>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+</div>
 {% endblock %}

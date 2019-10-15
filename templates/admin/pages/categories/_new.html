@@ -1,0 +1,86 @@
+{% extends "admin/index.html" %}
+{{ super() }}
+
+{% block body_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-body">
+                    <form id="addCategory" role="form" method="post" action="">
+                        <div class="row">
+                            <div class="col-md-1 px-md-1"></div>
+                            <div class="col-md-1 px-md-1"></div>
+                            <div class="col-md-1 px-md-1"></div>
+                            <div class="col-md-6 px-md-2">
+                                <div class="form-group row">
+                                    <label for="name" class="col-sm-2 col-form-label">Name</label>
+                                    {{ form.name(id="name", placeholder="Name", class="form-control", required=True) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1 px-md-1"></div>
+                            <div class="col-md-1 px-md-1"></div>
+                            <div class="col-md-1 px-md-1"></div>
+                            <div class="col-md-6 px-md-2">
+                                <div class="form-group row">
+                                    <label for="categoryItems" class="col-sm-4 col-form-label">Category Items</label>
+                                    <div class="col-sm-9">
+                                        {{ form.category_items(id="categoryItems", placeholder="", class="form-control", required=True) }}
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <a href="#" data-toggle="modal" data-target="#addCategoryItem" role="button">
+                                            <i class="tim-icons icon-simple-add"></i>
+                                        </a>
+                                        <a href="#" id="deleteCategoryItem">
+                                            <i class="tim-icons icon-trash-simple"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1 px-md-1"></div>
+                            <div class="col-md-3 px-md-1"></div>
+                            <div class="col-md-1 px-md-1"></div>
+                            <div class="col-md-2 px-md-6">
+                                <button type="submit" class="btn btn-fill btn-info">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "admin/pages/categories/modal.html" %}
+
+{% endblock %}
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $('#addNewCategoryItem').on('submit', function (event) {
+            event.preventDefault();
+            $('#categoryItems').append(
+                '<option selected>' + $(this).serialize().split('=')[1] + '</option>'
+            );
+            setTimeout(function () {
+                $('#addCategoryItem').modal('hide');
+            }, 125);
+        });
+        $('#addCategory').submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: "{{ url_for('category.category', type='new') }}",
+                data: $(this).serialize(),
+                success: function() {
+                    $(location).attr('href', '{{ url_for("category.categories") }}')
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

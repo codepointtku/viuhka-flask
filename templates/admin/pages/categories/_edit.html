@@ -1,0 +1,145 @@
+{% extends 'admin/index.html' %}
+{{ super() }}
+
+{% if current_user.rank().level < 2 %}
+{% if current_user.is_staff() %}
+{{ redirect(url_for('admin.index')) }}
+{% else %}
+{% endif %}
+{% endif %}
+
+{% block body_content %}
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <form id="editCategory" role="form" method="post" action="">
+                        <div class="row">
+                            <div class="col-md-1 px-md-1"></div>
+                            <div class="col-md-1 px-md-1"></div>
+                            <div class="col-md-8 px-md-2">
+                                <p>Category Information</p>
+                                <br>
+                                <div class="form-group row">
+                                    <label for="id" class="col-sm-2 col-form-label">ID</label>
+                                    <div class="col-sm-10">
+                                        {% if current_user.rank().level < 2 %}
+                                        {{ form.name(id="id", placeholder=category.id, class="form-control", disabled=True) }}
+                                        {% else %}
+                                        {{ form.name(id="id", value=category.id, class="form-control") }}
+                                        {% endif %}
+                                    </div>
+                                    <label for="name" class="col-sm-2 col-form-label">Name</label>
+                                    <div class="col-sm-10">
+                                        {% if current_user.rank().level < 2 %}
+                                        {{ form.name(id="name", placeholder=category.name, class="form-control", disabled=True) }}
+                                        {% else %}
+                                        {{ form.name(id="name", value=category.name, class="form-control") }}
+                                        {% endif %}
+                                        <span>
+                                            <p id="name_notification" style="color:red;display:none;"></p>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="name" class="col-sm-2 col-form-label">Items</label>
+                                    <div class="col-sm-9">
+                                        <select id="categoryItems" name="items" multiple class="form-control">
+                                            {% for item in category.items %}
+                                            <option>{{ item.text }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <a href="#" data-toggle="modal" data-target="#addCategoryItem" role="button">
+                                            <i class="tim-icons icon-simple-add"></i>
+                                        </a>
+                                        <a href="#" id="deleteCategoryItem">
+                                            <i class="tim-icons icon-trash-simple"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1 px-md-1"></div>
+                            <div class="col-md-3 px-md-1"></div>
+                            <div class="col-md-1 px-md-1"></div>
+                            <div class="col-md-2 px-md-6">
+                                <button type="submit" class="btn btn-fill btn-info">Save</button>
+                            </div>
+                        </div>
+                        <div>
+                    </form>
+                    <script src="{{ url_for('static', filename='admin/js/form-validation.js') }}"></script>
+                    <script src="{{ url_for('static', filename='admin/js/core/jquery.min.js') }}"></script>
+                    <script>
+                        $('#editCategory').submit(function (event) {
+                            event.preventDefault();
+                            var form_data = validate($(this).serialize());
+                            if (form_data) {
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "{{ url_for('service.service', type='add') }}",
+                                    data: form_data
+                                });
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "admin/pages/categories/modal.html" %}
+
+{% endblock %}
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $('#deleteCategoryItem').click(function () {
+            var url = "{{ url_for('category.category_item', id=category.id, type='delete') }}".replace('&amp;', '&');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {
+                    categoryItems: $("#categoryItems").val()
+                },
+                success: function () {
+                    location.reload();
+                },
+                error: function () {
+                    console.log('erkeatkleglkdsg');
+                }
+            })
+        });
+        $('#addNewCategoryItem').on('submit', function () {
+            var url = "{{ url_for('category.category_item', type='add', id=category.id) }}".replace('&amp;', '&');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: $(this).serialize(),
+                success: function () {
+                    location.reload()
+                },
+                error: function () {
+                    console.log('ereoroere')
+                }
+            });
+        });
+        $('#editCategory').submit(function (event) {
+            event.preventDefault();
+            var form_data = validate($(this).serialize());
+            if (form_data) {
+                $.ajax({
+                type: 'POST',
+                url: "{{ url_for('service.service', type='add') }}",
+                data: form_data
+                });
+                }
+             });
+    });
+</script>
+{% endblock %}

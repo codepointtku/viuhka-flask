@@ -26,7 +26,7 @@
 <div class="row">
     <div class="col">
         <div class="d-flex justify-content-center">
-            <h1><img src="{{ url_for('static', filename='viuhka/media/logo.png') }}">Työllisyysviuhka</h1>
+            <h1  style="color:#00A97A;"><img src="{{ url_for('static', filename='viuhka/media/logo.png') }}">Työllisyysviuhka</h1>
         </div>
         <div class="d-flex justify-content-center">
             <p style="border:none;border-bottom:1px solid green;">Työllistymistä edistäviä palveluja Turun alueella</p>
@@ -59,6 +59,7 @@
             <div class="col">
                 <div class="panel-group" id="accordion">
                     {% for category in categories %}
+                    {% if category.amount() >= 1 %}
                     <div class="panel panel-default">
                         <div class="panel-heading" style="background-color: #00A97A;">
                             <h4 class="panel-title" style="background-color: #00A97A;">
@@ -80,6 +81,7 @@
                             {% endfor %}
                         </div>
                     </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>
@@ -171,7 +173,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class=" d-flex justify-content-center">
+                <div class="d-flex justify-content-center">
                     {% if current_user.is_staff() %}
                     <a href="{{ url_for('admin.index') }}">Muokkaa palvelun tietoja</a>
                     {% endif %}
