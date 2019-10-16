@@ -42,4 +42,7 @@
             </script>
     </form>
 </div>
+<li class="nav-item">
+        <a class="nav-link" href="{{ url_for('login_manager.register') }}?next={{ request.path }}">Rekisteröinti(Palvelun tuottaja)</a>
+    </li>
 {% endblock %}
