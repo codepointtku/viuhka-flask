@@ -42,6 +42,10 @@ def category():
                     'success':True
                 }
             ), 200, {'ContentType': 'application/json' }
+    elif _type == 'delete':
+        category = get_category(id)
+        if category:
+            category.delete()
     return redirect(url_for('category.categories'))
 
 @module.route('/admin/categories', methods=['GET'])
