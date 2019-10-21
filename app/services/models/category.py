@@ -14,12 +14,11 @@ class CategorySequalizer:
 class Category(connector.Model):
     __tablename__               = 'category'
 
-    id                          = connector.Column(connector.Integer, primary_key=True, nullable=False)
+    id                          = connector.Column(connector.Integer, primary_key=True)
     name                        = connector.Column(connector.String(100))
 
 
     def __init__(self, name):
-        self.id = amount() + 1
         self.name = name
     
     def save(self):
