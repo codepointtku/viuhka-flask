@@ -66,14 +66,14 @@
                             <h4 class="panel-title" style="background-color: #00A97A;">
                                 <div class="d-flex justify-content-center">
                                     <a data-toggle="collapse" data-parent="#accordion"
-                                        href="#{{ category.category.name.replace(' ','').replace('-','').strip().lower() }}"
+                                        href="#{{ category.category.sanitized() }}"
                                         style="color: white;">
                                         {{ category.category.name }}
                                     </a>
                                 </div>
                             </h4>
                         </div>
-                        <div id="{{ category.category.name.replace(' ','').replace('-','').strip().lower() }}"
+                        <div id="{{ category.category.sanitized() }}"
                             class="panel-collapse collapse">
                             {% for category_item in category.items %}
                             <div class="panel-body">

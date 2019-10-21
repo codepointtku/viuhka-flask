@@ -31,6 +31,9 @@ class Category(connector.Model):
         connector.session.delete(self)
         connector.session.commit()
 
+    def sanitized(self):
+        return self.name.replace(' ','').replace('-','').replace(',','').strip().lower()
+
 
 def get_categories():
     query = Category.query.all()
