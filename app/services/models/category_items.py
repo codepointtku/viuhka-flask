@@ -16,7 +16,6 @@ class CategoryItems(connector.Model):
         return self.text
 
     def __init__(self, category_id, text):
-        self.id = amount() + 1
         self.category_id = category_id
         self.text = text
     
