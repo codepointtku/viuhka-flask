@@ -18,10 +18,22 @@ def category():
     _type = request.args.get('type')
     id = request.args.get('id')
     if _type == 'edit':
-        category = sequalized_categories(id)
-        if category:
-            return render_template('admin/pages/categories/_edit.html', category=category, form=CategoryForm())
-        return render_template(url_for('category.categories'))
+        if request.method == 'GET':
+            category = sequalized_categories(id)
+            if category:
+                return render_template('admin/pages/categories/_edit.html', category=category, form=CategoryForm())
+            return render_template(url_for('category.categories'))
+        else:
+            form = CategoryForm(request.form)
+            cat = get_category(form.id.data)
+            if cat:
+                cat.name = form.name.data
+            cat.save()
+            return json.dumps(
+                {
+                    'success':True
+                }
+            ), 200, {'ContentType':'application/json'}
     elif _type == 'new':
         if request.method == 'GET':
             return render_template('admin/pages/categories/_new.html', form=CategoryForm(), render_type='new')

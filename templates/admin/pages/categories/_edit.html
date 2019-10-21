@@ -25,9 +25,9 @@
                                     <label for="id" class="col-sm-2 col-form-label">ID</label>
                                     <div class="col-sm-10">
                                         {% if current_user.rank().level < 2 %}
-                                        {{ form.name(id="id", placeholder=category.id, class="form-control", disabled=True) }}
+                                        {{ form.id(id="id", placeholder=category.id, class="form-control", disabled=True) }}
                                         {% else %}
-                                        {{ form.name(id="id", value=category.id, class="form-control") }}
+                                        {{ form.id(id="id", value=category.id, class="form-control") }}
                                         {% endif %}
                                     </div>
                                     <label for="name" class="col-sm-2 col-form-label">Name</label>
@@ -72,21 +72,6 @@
                         </div>
                         <div>
                     </form>
-                    <script src="{{ url_for('static', filename='admin/js/form-validation.js') }}"></script>
-                    <script src="{{ url_for('static', filename='admin/js/core/jquery.min.js') }}"></script>
-                    <script>
-                        $('#editCategory').submit(function (event) {
-                            event.preventDefault();
-                            var form_data = validate($(this).serialize());
-                            if (form_data) {
-                                $.ajax({
-                                    type: 'POST',
-                                    url: "{{ url_for('service.service', type='add') }}",
-                                    data: form_data
-                                });
-                            }
-                        });
-                    </script>
                 </div>
             </div>
         </div>
@@ -124,22 +109,25 @@
                 success: function () {
                     location.reload()
                 },
-                error: function () {
-                    console.log('ereoroere')
+                error: function (event) {
+                    console.log(event)
                 }
             });
         });
         $('#editCategory').submit(function (event) {
             event.preventDefault();
-            var form_data = validate($(this).serialize());
-            if (form_data) {
-                $.ajax({
+            $.ajax({
                 type: 'POST',
-                url: "{{ url_for('service.service', type='add') }}",
-                data: form_data
-                });
+                url: "{{ url_for('category.category', type='edit') }}",
+                data: $(this).serialize(),
+                success: function () {
+                    $(location).attr('href', '{{ url_for("category.categories") }}')
+                },
+                error: function (event) {
+                    console.log(event)
                 }
-             });
+            });
+        });
     });
 </script>
 {% endblock %}
