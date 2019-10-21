@@ -4,8 +4,8 @@ from flask_login import login_required
 from app.admin.models.service import ( Service, get_services, find_service, 
                                         amount, get_fields, normalize, create_new, 
                                         bool_types, int_types, pickle_types, date_types )
-
 from app.admin.forms.service import ServiceForm
+from app.services.models.category import get_category, sequalized_categories
 
 from app.utils import root, join, exit
 
@@ -31,7 +31,7 @@ def service():
             return redirect(url_for('service.services'))
         service = find_service(id)
         if service:
-            return render_template('admin/pages/services/service.html', service=service, form=ServiceForm(), render_type='edit')
+            return render_template('admin/pages/services/_edit.html', service=service, form=ServiceForm(),categories=sequalized_categories)
         return render_template('admin/pages/404.html', reason='Service', content='Not found')
     elif _type == 'add':
         form = ServiceForm(request.form)
@@ -51,7 +51,7 @@ def service():
         ), 200, {"ContentType":"Application/Json"}
     elif _type == 'new':
         if request.method == 'GET':
-            return render_template('admin/pages/services/service.html', form=ServiceForm(), render_type='new')
+            return render_template('admin/pages/services/_new.html', form=ServiceForm(), categories=sequalized_categories)
         return redirect(url_for('service.services'))
     return redirect(url_for('service.services'))
 
