@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, send_from_directory, request
+from flask import Blueprint, render_template, send_from_directory, request, redirect, url_for
 from app.services.models.category import sequalized_categories
 from app.services.models.service import services_from_category
 from app.services.models.category_items import get_category_item_by_name
@@ -28,3 +28,7 @@ def saavutettavuus():
 @module.route('/provider_info')
 def provider_info():  
     return render_template('splash/forms/provider_info.html')
+
+@module.route('/service')
+def service():
+    return redirect(url_for('index.index'))

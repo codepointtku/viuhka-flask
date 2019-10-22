@@ -98,15 +98,19 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col" id="serviceList"
+                    <div class="col"
                         style="background: transparent;border:none;border-top:1px solid green;border-bottom:1px solid green;">
                         {% for service in services %}
                         <div class="row">
                             <div class="col">
                                 <div class="d-flex justify-content-center">
-                                    <a href="#">
-                                        {{ service.name }}
+                                    <div class="col">
+                                    <a href="{{ url_for('index.service', id=service.id) }}">
+                                        <h2>{{ service.name }}</h2>
                                     </a>
+                                        <p>{{ service.organization }}</p>
+                                        <p>{{ service.description }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
