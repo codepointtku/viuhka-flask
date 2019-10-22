@@ -190,7 +190,7 @@
       }
       console.log(opt);
       $('#category_items').append(
-        '<option selected>' + opt + '</option>'
+        '<option selected>' + opt.replace('%20', ' ') + '</option>'
       );
     });
     setTimeout(function () {
