@@ -34,9 +34,9 @@
         </div>
     </div>
 </div>
-<h3> Verkkosivustoamme kehitetään.</h3> 
-<h3>  Sivuston toiminnassa ja sisällössä esiintyy tämän vuoksi puutteita.</h3>
-<h3>  Puutteet korjataan vaiheittain vuoden 2019 aikana.</h3>
+<h3> Verkkosivustoamme kehitetään.</h3>
+<h3> Sivuston toiminnassa ja sisällössä esiintyy tämän vuoksi puutteita.</h3>
+<h3> Puutteet korjataan vaiheittain vuoden 2019 aikana.</h3>
 
 <div class="row">
     <div class="col" style="box-shadow: -2px 2px 28px -6px rgba(117,117,117,1);">
@@ -66,18 +66,18 @@
                             <h4 class="panel-title" style="background-color: #00A97A;">
                                 <div class="d-flex justify-content-center">
                                     <a data-toggle="collapse" data-parent="#accordion"
-                                        href="#{{ category.category.sanitized() }}"
-                                        style="color: white;">
+                                        href="#{{ category.category.sanitized() }}" style="color: white;">
                                         {{ category.category.name }}
                                     </a>
                                 </div>
                             </h4>
                         </div>
-                        <div id="{{ category.category.sanitized() }}"
-                            class="panel-collapse collapse">
+                        <div id="{{ category.category.sanitized() }}" class="panel-collapse collapse">
                             {% for category_item in category.items %}
                             <div class="panel-body">
-                                {{ category_item.text }}
+                                <a id="{{ category_item.id }}" href="{{ url_for('index.index', id=category_item.id) }}">
+                                    {{ category_item.text }}
+                                </a>
                             </div>
                             {% endfor %}
                         </div>
@@ -98,57 +98,19 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col"
+                    <div class="col" id="serviceList"
                         style="background: transparent;border:none;border-top:1px solid green;border-bottom:1px solid green;">
+                        {% for service in services %}
                         <div class="row">
                             <div class="col">
                                 <div class="d-flex justify-content-center">
-                                    <p>Aaaa</p>
+                                    <a href="#">
+                                        {{ service.name }}
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="d-flex justify-content-center">
-                                    <p>Aaaa</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="d-flex justify-content-center">
-                                    <p>Aaaa</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="d-flex justify-content-center">
-                                    <p>Aaaa</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="d-flex justify-content-center">
-                                    <p>Aaaa</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="d-flex justify-content-center">
-                                    <p>Aaaa</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="d-flex justify-content-center">
-                                    <p>Aaaa</p>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -183,4 +145,12 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $('a').click(function () {
+        location.reload();
+    });
+</script>
 {% endblock %}

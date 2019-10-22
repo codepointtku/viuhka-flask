@@ -2,6 +2,7 @@ from random import randint, SystemRandom
 from datetime import datetime
 
 from app.utils.extensions.database import module as connector
+from app.services.models.category_items import get_category_item_by_name
 
 bool_types = [
     'published',
@@ -150,6 +151,13 @@ def get_services():
 def find_service(id):
     return Service.query.filter_by(id=id).first()
 
+def services_from_category(name=None):
+    if name:
+        query = Service.query.filter_by(category_id=name)
+        return query if query else []
+    else:
+        query = Service.query.all()
+        return query if query else []
 
 def amount():
     return len(get_services())
