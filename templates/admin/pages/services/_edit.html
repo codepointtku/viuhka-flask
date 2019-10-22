@@ -2,7 +2,211 @@
 {{ super() }}
 
 {% block body_content %}
-<div class="container">
-<p>Hello</p>
+<div class="content">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="card-body">
+          <form id="addService" role="form" method="post" action="">
+            <div class="row">
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-5 px-md-1">
+                <h1> Service Information </h1>
+                <div class="form-group">
+                  {{ form.ptv_service_id(id="ptv_service_id", placeholder="PTV Service ID", class="form-control", value=service.ptv_service_id, required=True) }}
+                  {{ form.ptv_service_channel_id(id="ptv_service_channel_id", placeholder="PTV Service Channel ID", class="form-control", value=service.ptv_service_id, required=True) }}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-5 px-md-1">
+                <div class="form-group">
+                  {{ form.search_result_priority(id="search_result_priority", placeholder="Search result priority", class="form-control", value=service.search_result_priority, required=True) }}
+                </div>
+              </div>
+            </div>
+            </br>
+            </br>
+            </br>
+            <div class="row">
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-5 px-md-1">
+                <p> Information </p>
+                <div class="form-group">
+                  {{ form.name(id="name", placeholder="Name", class="form-control", value=service.name, required=True) }}
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              {{ form.organization(id="organization", placeholder="Organization", class="form-control", required=True) }}
+              {{ form.ingress(id="ingress", placeholder="Ingress", class="form-control", required=True) }}
+            </div>
+
+
+            <p>Description</p>
+            <div class="form-group">
+              {{ form.description(id="description", placeholder="Description", class="form-control", required=True) }}
+              {{ form.description2(id="description2", placeholder="Description2", class="form-control") }}
+              {{ form.description3(id="description3", placeholder="Description3", class="form-control") }}
+              {{ form.description4(id="description4", placeholder="Description4", class="form-control")  }}
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <p>Provider information</p>
+            <div class="form-group">
+              {{ form.provider(id="provider", placeholder="Provider", class="form-control", required=True) }}
+              {{ form.benefit_effect(id="benefit_effect", placeholder="Benefit Effect", class="form-control", required=True) }}
+              {{ form.constraint(id="constraint", placeholder="Constraint", class="form-control", required=True) }}
+            </div>
+            <br />
+            <br />
+
+
+            <div class="row">
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-5 px-md-1">
+                <p> Start/End </p>
+                <div class="form-group">
+                  {{ form.start(id="start", class="form-control", value=service.fixed('start')) }}
+                  {{ form.end(id="end", class="form-control", value=service.fixed('end')) }}
+                </div>
+              </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <p> Address information </p>
+            <div class="form-group">
+              {{ form.address(id="address", placeholder="Address", class="form-control", value=service.address, required=True) }}
+              {{ form.address_extended(id="address_extended", placeholder="Address Extended", class="form-control", value=service.address_extended) }}
+              {{ form.post_address(id="post_address", placeholder="Post Address", class="form-control", value=service.post_address) }}
+            </div>
+            <br />
+            <br />
+            <p> Contact information </p>
+            <div class="form-group">
+              {{ form.contact_person(id="contact_person", placeholder="Contact Person", class="form-control", value=service.contact_person, required=True) }}
+              {{ form.contact_person_phone(id="contact_person_phone", placeholder="Contact Person Phone", class="form-control", value=service.contact_person_phone, required=True) }}
+              {{ form.contact_email(id="contact_email", placeholder="Contact Email", class="form-control", value=service.contact_email, required=True) }}
+            </div>
+            <br />
+            <br />
+            <p> Social Media </p>
+            <div class="form-group">
+              {{ form.www(id="www", placeholder="www", class="form-control", value=service.www) }}
+              {{ form.facebook(id="facebook", placeholder="Facebook", class="form-control", value=service.facebook) }}
+              {{ form.twitter(id="twitter", placeholder="Twitter", class="form-control", value=service.twitter) }}
+            </div>
+            <p> Categories </p>
+            <div class="form-group row">
+              <label for="category_items" class="col-sm-2 col-form-label">Items</label>
+              <div class="col-sm-9">
+                <select id="category_items" name="category_items" multiple class="form-control">
+                {% for option in form.category_items.data %}
+                    <option selected>{{ option }}</option>
+                {% endfor %}
+                </select>
+              </div>
+              <div class="col-sm-1">
+                <a href="#" data-toggle="modal" data-target="#selectCategories" role="button">
+                  <i class="tim-icons icon-simple-add"></i>
+                </a>
+                <a href="#" id="deleteCategoryItem">
+                  <i class="tim-icons icon-trash-simple"></i>
+                </a>
+              </div>
+            </div>
+            <style>
+              input[type=checkbox] {
+                -ms-transform: scale(.5);
+                /* IE */
+                -moz-transform: scale(.5);
+                /* FF */
+                -webkit-transform: scale(.5);
+                /* Safari and Chrome */
+                -o-transform: scale(.5);
+                /* Opera */
+                padding: 10px;
+              }
+            </style>
+            <label for="published" class="col-sm-10 col-form-label">Published</label>
+            <div class="col-sm-1">
+              {{ form.published(id="published",placeholder="Published",class="form-control", value=service.published) }}
+              <span>
+                <p id="published_notification" style="color:red;display:none;"></p>
+              </span>
+            </div>
+            <label for="open_ended" class="col-sm-10 col-form-label">Open ended</label>
+            <div class="col-sm-1">
+              {{ form.open_ended(id="open_ended",placeholder="Open ended",class="form-control", value=service.open_ended) }}
+              <span>
+                <p id="open_ended_notification" style="color:red;display:none;"></p>
+              </span>
+            </div>
+            <div class="row">
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-3 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-6">
+                <button type="submit" class="btn btn-fill btn-primary">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+{% include "admin/pages/services/modal.html" %}
+{% endblock %}
+
+{% block scripts %}
+<script>        
+  $('#selectCategoryForm').on('submit', function (event) {
+    event.preventDefault();
+    $(this).serialize().split('=').forEach(function(option) {
+      var opt = "";
+      try {
+        opt = option.split('&')[0];
+      } catch {
+        opt = option;
+      }
+      if (opt === 'items') {
+        return;
+      }
+      console.log(opt);
+      $('#category_items').append(
+        '<option selected>' + opt + '</option>'
+      );
+    });
+    setTimeout(function () {
+      $('#selectCategories').modal('hide');
+    }, 125);
+  });
+  $('#addService').submit(function (event) {
+    var url = "{{ url_for('service.service', type='edit', id=service.id) }}".replace('&amp;','&');
+    event.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: $(this).serialize(),
+      success: function() {
+          $(location).attr('href','{{ url_for("service.services") }}')
+      }
+    });
+  });
+</script>
 {% endblock %}

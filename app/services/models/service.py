@@ -17,67 +17,6 @@ date_types = [
     'end'
 ]
 
-pickle_types = [
-    'service_path',
-    'target',
-    'study',
-    'classification',
-    'immigration',
-    'age_group',
-    'unemployment_duration',
-    'health',
-    'integration'
-]
-
-refs = {
-    'service_path': connector.Table(
-        'service_path',
-        connector.Column('id', connector.Integer, connector.ForeignKey('service.id')),
-        connector.Column('text', connector.Integer, connector.ForeignKey('service.id'))
-    ),
-    'target': connector.Table(
-        'target',
-        connector.Column('id', connector.Integer, connector.ForeignKey('service.id')),
-        connector.Column('text', connector.Integer, connector.ForeignKey('service.id'))
-    ),
-    'study': connector.Table(
-        'study',
-        connector.Column('id', connector.Integer, connector.ForeignKey('service.id')),
-        connector.Column('text', connector.Integer, connector.ForeignKey('service.id'))
-    ),
-    'classification': connector.Table(
-        'classification',
-        connector.Column('id', connector.Integer, connector.ForeignKey('service.id')),
-        connector.Column('text', connector.Integer, connector.ForeignKey('service.id'))
-    ),
-    'immigration': connector.Table(
-        'immigration',
-        connector.Column('id', connector.Integer, connector.ForeignKey('service.id')),
-        connector.Column('text', connector.Integer, connector.ForeignKey('service.id'))
-    ),
-    'age_group': connector.Table(
-        'age_group',
-        connector.Column('id', connector.Integer, connector.ForeignKey('service.id')),
-        connector.Column('text', connector.Integer, connector.ForeignKey('service.id'))
-    ),
-    'unemployment_duration': connector.Table(
-        'unemployment_duration',
-        connector.Column('id', connector.Integer, connector.ForeignKey('service.id')),
-        connector.Column('text', connector.Integer, connector.ForeignKey('service.id'))
-    ),
-    'health': connector.Table(
-        'health',
-        connector.Column('id', connector.Integer, connector.ForeignKey('service.id')),
-        connector.Column('text', connector.Integer, connector.ForeignKey('service.id'))
-    ),
-    'integration': connector.Table(
-        'integration',
-        connector.Column('id', connector.Integer, connector.ForeignKey('service.id')),
-        connector.Column('text', connector.Integer, connector.ForeignKey('service.id'))
-    ),
-    
-}
-
 
 
 class Service(connector.Model):
@@ -104,8 +43,8 @@ class Service(connector.Model):
 
     open_ended                      = connector.Column(connector.Boolean)                           # Voimassa toistaiseksi
     
-    start                           = connector.Column(connector.DateTime)                          # Voimassaolon alku
-    end                             = connector.Column(connector.DateTime)                          # Voimassaolon loppu
+    start                           = connector.Column(connector.DateTime,      default     = datetime.utcnow)                          # Voimassaolon alku
+    end                             = connector.Column(connector.DateTime,      default     = datetime.utcnow)                          # Voimassaolon loppu
     
     address                         = connector.Column(connector.String(100))                       # Katuosoite
     address_extended                = connector.Column(connector.String(100))                       # Osoitteen tarkennus
@@ -119,15 +58,7 @@ class Service(connector.Model):
     facebook                        = connector.Column(connector.String(100))                       # Facebook
     twitter                         = connector.Column(connector.String(100))                       # Twitter
 
-    service_path                    = connector.Column(connector.PickleType)                        # Palvelupolku
-    target                          = connector.Column(connector.PickleType)                        # Tavoite
-    study                           = connector.Column(connector.PickleType)                        # Opiskelu
-    classification                  = connector.Column(connector.PickleType)                        # Palvelun luokka
-    immigration                     = connector.Column(connector.PickleType)                        # Maahanmuuttotausta
-    age_group                       = connector.Column(connector.PickleType)                        # IkÃ¤ryhmÃ¤
-    unemployment_duration           = connector.Column(connector.PickleType)                        # TyÃ¶ttÃ¶myyden kesto
-    health                          = connector.Column(connector.PickleType)                        # Terveydentila / TyÃ¶kyky
-    integration                     = connector.Column(connector.PickleType)                        # Kotouttaminen
+    category_items                  = connector.Column(connector.PickleType)
 
     notes                           = connector.Column(connector.Text)                              # Palveluntarjoajan viestilaatikko
     content_contact                 = connector.Column(connector.String(100))                       # SisÃ¤llÃ¶n yhteyshenkilÃ¶
@@ -140,7 +71,7 @@ class Service(connector.Model):
                         www="",             facebook="",        twitter="",                 service_path=None,              target=None, 
                         study=None,         integration=None,   notes="",                   content_contact="",             immigration=None,
                         contact_person="",  age_group=None,     unemployment_duration=None, health=None,                    contact_person_phone="",
-                        contact_email="",   classification=None,                            form={}):
+                        contact_email="",   classification=None,                            category_items=None,            form={}):
 
                         self.id                     = amount() + 1
                         self.published              = form.get('published')                 if form.get('published')                else published
@@ -180,6 +111,7 @@ class Service(connector.Model):
                         self.contact_person_phone   = form.get('contact_person_phone')      if form.get('contact_person_phone')     else contact_person_phone
                         self.contact_email          = form.get('contact_email')             if form.get('contact_email')            else contact_email
                         self.classification         = form.get('classification')            if form.get('classification')           else classification
+                        self.category_items         = form.get('category_items')            if form.get('category_items')           else category_items
 
 
 
@@ -196,7 +128,17 @@ class Service(connector.Model):
         connector.session.add(self)
         connector.session.commit()
         return self
+    
+    def delete(self):
+        connector.session.delete(self)
+        connector.session.commit()
 
+    def fixed(self, t):
+        if t == 'start':
+            return str(self.start).replace(' ','T')
+        elif t == 'end':
+            return str(self.end).replace(' ','T')
+        return ''
 
 def create_new(fields=[], form={}):
     return Service(form=form).save()
@@ -259,16 +201,6 @@ def get_fields():
     'www':                      (None, 'str'),              # Verkkosivu
     'facebook':                 (None, 'str'),              # Facebook
     'twitter':                  (None, 'str'),              # Twitter
-
-    'service_path':             (None, 'str'),              # Palvelupolku
-    'target':                   (None, 'str'),              # Tavoite
-    'study':                    (None, 'str'),              # Opiskelu
-    'classification':           (None, 'str'),              # Palvelun luokka
-    'immigration':              (None, 'str'),              # Maahanmuuttotausta
-    'age_group':                (None, 'str'),              # IkÃ¤ryhmÃ¤
-    'unemployment_duration':    (None, 'str'),              # TyÃ¶ttÃ¶myyden kesto
-    'health':                   (None, 'str'),              # Terveydentila / TyÃ¶kyky
-    'integration':              (None, 'str'),              # Kotouttaminen
 
     'notes':                    (None, 'str'),              # Palveluntarjoajan viestilaatikko
     'content_contact':          (None, 'str'),              # SisÃ¤llÃ¶n yhteyshenkilÃ¶

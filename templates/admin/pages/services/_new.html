@@ -79,8 +79,8 @@
               <div class="col-md-5 px-md-1">
                 <p> Start/End </p>
                 <div class="form-group">
-                  {{ form.start(id="start", placeholder="Start", class="form-control", value="") }}
-                  {{ form.end(id="end", placeholder="End", class="form-control", value="") }}
+                  {{ form.start(id="start", class="form-control", value="") }}
+                  {{ form.end(id="end", class="form-control", value="") }}
                 </div>
               </div>
             </div>
@@ -112,9 +112,9 @@
             </div>
             <p> Categories </p>
             <div class="form-group row">
-              <label for="name" class="col-sm-2 col-form-label">Items</label>
+              <label for="category_items" class="col-sm-2 col-form-label">Items</label>
               <div class="col-sm-9">
-                <select id="selectedCategoryItems" name="items" multiple class="form-control">
+                <select id="category_items" name="category_items" multiple class="form-control">
                 </select>
               </div>
               <div class="col-sm-1">
@@ -172,11 +172,43 @@
 
 {% block scripts %}
 <script>
-  $('#addService').unbind('submit').submit(function (event) {
+  $('#dateTimePicker').on('click', function (event) {
+    event.preventDefault();
+    $('timePicker').show();
+  });
+  $('#selectCategoryForm').on('submit', function (event) {
+    event.preventDefault();
+    $(this).serialize().split('=').forEach(function (option) {
+      var opt = "";
+      try {
+        opt = option.split('&')[0];
+      } catch {
+        opt = option;
+      }
+      if (opt === 'items') {
+        return;
+      }
+      console.log(opt);
+      $('#category_items').append(
+        '<option selected>' + opt + '</option>'
+      );
+    });
+    setTimeout(function () {
+      $('#selectCategories').modal('hide');
+    }, 125);
+  });
+  $('#addService').submit(function (event) {
+    event.preventDefault();
     $.ajax({
       type: 'POST',
       url: "{{ url_for('service.service', type='add') }}",
-      data: $(this).serialize()
+      data: $(this).serialize(),
+      success: function () {
+        $(location).attr('href', '{{ url_for("service.services") }}')
+      },
+      error: function () {
+        location.reload();
+      }
     });
   });
 </script>

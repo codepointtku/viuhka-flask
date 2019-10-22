@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from app.admin.models.service import Service, get_services, find_service, amount
+from app.services.models.service import Service, get_services, find_service, amount
 
 
 
