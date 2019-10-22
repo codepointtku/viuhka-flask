@@ -177,19 +177,12 @@
 <script>        
   $('#selectCategoryForm').on('submit', function (event) {
     event.preventDefault();
-    $(this).serialize().split('=').forEach(function(option) {
-      var opt = "";
-      try {
-        opt = option.split('&')[0];
-      } catch {
-        opt = option;
+    $(this).serializeArray().forEach(function (i, k) {
+      if($('#' + i.value).length == 0) {
+          $('#category_items').append(
+            '<option id=' + i.value + ' selected>' + i.value + '</option>'
+          );
       }
-      if (opt === 'items') {
-        return;
-      }
-      $('#category_items').append(
-        '<option selected>' + opt.replace('%20',' ') + '</option>'
-      );
     });
     setTimeout(function () {
       $('#selectCategories').modal('hide');
