@@ -179,9 +179,9 @@
   $('#selectCategoryForm').on('submit', function (event) {
     event.preventDefault();
     $(this).serializeArray().forEach(function (i, k) {
-      if($('#' + i.value).length == 0) {
+      if($('#' + i.value.split(' ').join('')).length == 0) {
           $('#category_items').append(
-            '<option id=' + i.value + ' selected>' + i.value + '</option>'
+            '<option id=' + i.value.split(' ').join('') + ' selected>' + i.value + '</option>'
           );
       }
     });
