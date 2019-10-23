@@ -26,7 +26,7 @@ Install all packages required for development with pip command:
 
 
 ### Create the database
-(also works with MYSQL)
+(also works with MYSQL and is recomended due to graphical interface)
 
 - Linux
 
@@ -70,9 +70,7 @@ SQL_DATABASE=employment_flask
 SQL_PORT=5432
 DEBUG=0
 ```
-### Run Django migrations and import data
+### Create database content
 
 ```shell
-python manage.py migrate
-python manage.py createsuperuser
-```
+python main.py --create
