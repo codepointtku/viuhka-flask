@@ -42,7 +42,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <input class="form-control" id="" placeholder="Haku"
+                <input class="form-control" id="serviceSearch" placeholder="Haku"
                     style="background: transparent;border:none;border-bottom:1px solid green;">
             </div>
         </div>
@@ -176,6 +176,20 @@
         var amount = filter(rows);
         var results = $('#results');
         results.text(amount + ' tulosta.');
+
+        $('#serviceSearch').on('keyup', function() {
+            var search = $(this).val().toUpperCase();
+            for (i = 0; i < rows.length; i++) {
+                td = rows[i].getElementsByTagName('td')[0];
+                title = td.getElementsByTagName('h2')[0];
+                if (~title.innerText.toUpperCase().indexOf(search)) {
+                    $(td).show(25);
+                } else {
+                    $(td).hide(25);
+                }
+            }
+        });
+
         $('a[id^=cg_]').on('click', function() {
             var search = $(this).attr('sanitized');
             for (i = 0; i < rows.length; i++) {
