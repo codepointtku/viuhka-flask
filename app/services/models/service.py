@@ -144,8 +144,11 @@ class Service(connector.Model):
     def joined(self):
         return ' '.join([i for i in self.category_items.values()])
     def joined_sanitized(self):
-
-        return ' '.join([i.replace(' ','').replace(',','').replace('-','').lower() for i in self.category_items.values()])
+        try:
+            s = ' '.join([i.replace(' ','').replace(',','').replace('-','').lower() for i in self.category_items.values()])
+        except:
+            return ""
+        return s
 
 def create_new(fields=[], form={}):
     return Service(form=form).save()
