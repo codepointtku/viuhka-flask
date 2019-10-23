@@ -11,7 +11,7 @@
     {% else %}
     <h1>Found {{ amount() }} services.</h1>
     {% endif %}
-    <div class="text-nowrap">
+    <div class="table-responsive-md text-nowrap">
         <td><a class="btn-info btn" href="{{ url_for('service.service', type='new') }}" role="button">Add</a></td>
         <table class="table">
             <thead>
