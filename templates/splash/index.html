@@ -88,7 +88,7 @@
                         Palvelut
                     </h2>
                 </div>
-                <p id="results"></p>
+                <p id="hakutulosta"></p>
                 <div class="row">
                     <div class="col"
                         style="background: transparent;border:none;border-top:1px solid green;border-bottom:1px solid green;">
@@ -154,6 +154,6 @@
 {% block scripts %}
 <script>
     var rows = $('#serviceTable tr').length;
-    $('#results').text(rows + ' results.');
+    $('#hakutulosta').text(rows + ' hakutulosta');
 </script>
 {% endblock %}
