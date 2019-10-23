@@ -26,7 +26,7 @@ Install all packages required for development with pip command:
 
 
 ### Create the database
-(also works with MYSQL)
+(also works with MYSQL and is recomended due to graphical interface)
 
 - Linux
 
@@ -39,22 +39,6 @@ sudo -u postgres psql -c "create database employment_flask"
 ```shell
 psql -U postgres -c "create role employment with encrypted password 'secure-password';"
 psql -U postgres -c "create database employment_flask"
-```
-
-### Build Employment Search static resources(Optional)
-
-Make sure you have nodejs installed.
-
-- Linux
-
-```shell
-chmod +x ./build-resources.sh
-./build-resources.sh
-```
-
-- Windows
-```shell
-start build-resources.bat
 ```
 
 ### Dev environment configuration
@@ -70,9 +54,7 @@ SQL_DATABASE=employment_flask
 SQL_PORT=5432
 DEBUG=0
 ```
-### Run Django migrations and import data
+### Create database content
 
 ```shell
-python manage.py migrate
-python manage.py createsuperuser
-```
+python main.py --create

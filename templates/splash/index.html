@@ -175,7 +175,7 @@
         var rows = $('#serviceTable tr');
         var amount = filter(rows);
         var results = $('#results');
-        results.text(amount + ' results');
+        results.text(amount + ' tulosta.');
         $('a[id^=cg_]').on('click', function() {
             var search = $(this).attr('sanitized');
             for (i = 0; i < rows.length; i++) {
@@ -190,7 +190,7 @@
             }
             rows = $('#serviceTable tr');
             amount = filter(rows);
-            results.text(amount + ' results.');
+            results.text(amount + ' tulosta.');
             $('a[id=resetFilters').text('Reset filters');
             $('a[id=resetFilters').show();
 
