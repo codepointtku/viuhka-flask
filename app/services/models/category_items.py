@@ -28,6 +28,9 @@ class CategoryItems(connector.Model):
         connector.session.delete(self)
         connector.session.commit()
 
+    def sanitized(self):
+        return self.text.replace(' ','').replace(',','').replace('-','').lower()
+
 
 def get_relation_type(category_id):
     query = CategoryItems.query.filter_by(category_id=category_id).all()

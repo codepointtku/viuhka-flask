@@ -25,9 +25,9 @@
     </div>
 </div>
 <div class="wip">
-<p> Verkkosivustoamme kehitetään.</p>
-<p> Sivuston toiminnassa ja sisällössä esiintyy tämän vuoksi puutteita.</p>
-<p> Puutteet korjataan vaiheittain vuoden 2019 aikana.</p>
+    <p> Verkkosivustoamme kehitetään.</p>
+    <p> Sivuston toiminnassa ja sisällössä esiintyy tämän vuoksi puutteita.</p>
+    <p> Puutteet korjataan vaiheittain vuoden 2019 aikana.</p>
 </div>
 <div class="row">
     <div class="col-md-4" style="box-shadow: 0 5px 3px 0 rgba(0, 0, 0, .1);">
@@ -66,7 +66,7 @@
                         <div id="{{ category.category.sanitized() }}" class="panel-collapse collapse">
                             {% for category_item in category.items %}
                             <div class="panel-body">
-                                <a style="color: black;" id="{{ category_item.id }}" href="{{ url_for('index.index', id=category_item.id) }}">
+                                <a style="color: black;" href="javascript:void(0);" id="cg_{{ category.id }}" sanitized="{{ category_item.sanitized() }}">
                                     {{ category_item.text }}
                                 </a>
                             </div>
@@ -88,7 +88,15 @@
                         Palvelut
                     </h2>
                 </div>
-                <p id="results"></p>
+                <div id="resultSet" class="col">
+                    <div class="row">
+                        <p id="results"></p>
+                    </div>
+                    <div class="row">
+                        <a id="resetFilters" href="javascript:void(0);">
+                        </a>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col"
                         style="background: transparent;border:none;border-top:1px solid green;border-bottom:1px solid green;">
@@ -96,7 +104,7 @@
                             <tbody>
                                 {% for service in services %}
                                 <tr>
-                                    <td>
+                                    <td id="row_{{ service.id }}" class="{{ service.joined_sanitized() }}">
                                         <div class="row">
                                             <div class="col">
                                                 <div class="d-flex justify-content-center">
@@ -153,7 +161,50 @@
 
 {% block scripts %}
 <script>
-    var rows = $('#serviceTable tr').length;
-    $('#results').text(rows + ' results.');
+    function filter(t) {
+        var count = 0;
+        t.filter(function() {
+            if (!($(this).find('td').attr('style') == 'none')) {
+                count += 1;
+            }
+        });
+        return count;
+    }
+
+    $(document).ready(function () {
+        var rows = $('#serviceTable tr');
+        var amount = filter(rows);
+        var results = $('#results');
+        results.text(amount + ' results');
+        $('a[id^=cg_]').on('click', function() {
+            var search = $(this).attr('sanitized');
+            for (i = 0; i < rows.length; i++) {
+                td = rows[i].getElementsByTagName('td')[0];
+                if (td) {
+                    if (!$(td).hasClass(search)) {
+                        $(td).hide(25);
+                    } else {
+                        $(td).show(25);
+                    }
+                }
+            }
+            rows = $('#serviceTable tr');
+            amount = filter(rows);
+            results.text(amount + ' results.');
+            $('a[id=resetFilters').text('Reset filters');
+            $('a[id=resetFilters').show();
+
+        });
+        $('a[id=resetFilters]').on('click', function() {
+            $(this).hide();
+            var rows = $('#serviceTable tr');
+            for (i = 0; i < rows.length; i++) {
+                td = rows[i].getElementsByTagName('td')[0];
+                if (td) {
+                    $(td).show(25);
+                }
+            }
+        });
+    });
 </script>
 {% endblock %}

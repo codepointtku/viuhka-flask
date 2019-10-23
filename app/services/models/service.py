@@ -140,6 +140,12 @@ class Service(connector.Model):
         elif t == 'end':
             return str(self.end).replace(' ','T')
         return ''
+    
+    def joined(self):
+        return ' '.join([i for i in self.category_items.values()])
+    def joined_sanitized(self):
+
+        return ' '.join([i.replace(' ','').replace(',','').replace('-','').lower() for i in self.category_items.values()])
 
 def create_new(fields=[], form={}):
     return Service(form=form).save()
