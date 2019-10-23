@@ -39,7 +39,7 @@
 <h3> Puutteet korjataan vaiheittain vuoden 2019 aikana.</h3>
 
 <div class="row">
-    <div class="col" style="box-shadow: -2px 2px 28px -6px rgba(117,117,117,1);">
+    <div class="col-md-4" style="box-shadow: 0 5px 3px 0 rgba(0, 0, 0, .1);">
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-center">
@@ -89,7 +89,7 @@
         </div>
     </div>
 
-    <div class="col" style="box-shadow: -2px 2px 28px -6px rgba(117,117,117,1);">
+    <div class="col" style="box-shadow: 0 5px 3px 0 rgba(0, 0, 0, .1);">
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-center" style="margin-bottom: 36px;">
@@ -100,21 +100,29 @@
                 <div class="row">
                     <div class="col"
                         style="background: transparent;border:none;border-top:1px solid green;border-bottom:1px solid green;">
-                        {% for service in services %}
-                        <div class="row">
-                            <div class="col">
-                                <div class="d-flex justify-content-center">
-                                    <div class="col">
-                                    <a href="{{ url_for('index.service', id=service.id) }}">
-                                        <h2>{{ service.name }}</h2>
-                                    </a>
-                                        <p>{{ service.organization }}</p>
-                                        <p>{{ service.description }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
+                        <table class="table">
+                            <tbody>
+                                {% for service in services %}
+                                <tr>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="col">
+                                                        <a href="{{ url_for('index.service', id=service.id) }}">
+                                                            <h2>{{ service.name }}</h2>
+                                                        </a>
+                                                        <p>{{ service.organization }}</p>
+                                                        <p>{{ service.ingress }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

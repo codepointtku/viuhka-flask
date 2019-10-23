@@ -13,6 +13,7 @@
                 <div class="container-fluid">
                     <div class="form-group row">
                         {% for category in categories() %}
+                        {% if category.amount() >= 1 %}
                         <label for="name" class="col-sm-2 col-form-label">{{ category.name }}</label>
                         <div class="col-sm-9">
                             <select id="categoryItems" name="items" multiple class="form-control">
@@ -26,6 +27,7 @@
                                 <i class="tim-icons icon-simple-add"></i>
                             </a>
                         </div>
+                        {% endif %}
                         {% endfor %}
                     </div>
                 </div>
