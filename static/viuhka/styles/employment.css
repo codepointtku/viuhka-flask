@@ -121,3 +121,9 @@ a:hover {
 a.navi-link:hover {
     color: white;
 }
+.wip {
+    color: #00A97A;
+    font-size: 80%;
+    text-align: center;
+    line-height: 20%;
+}
