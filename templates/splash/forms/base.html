@@ -16,18 +16,7 @@
     <link href="{{ url_for('static', filename='viuhka/styles/theme.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='viuhka/styles/starter-template.css') }}" rel="stylesheet" />
     <link href="{{ url_for('static', filename='viuhka/styles/employment.css') }}" rel="stylesheet" />
-    <!-- Load scripts -->
-    <script src="{{ url_for('static', filename='viuhka/scripts/tether.js') }}"></script>
-    <script src="{{ url_for('static', filename='viuhka/scripts/shepherd.js') }}"></script>
-    <script src="{{ url_for('static', filename='viuhka/scripts/tether.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='viuhka/scripts/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='viuhka/scripts/ie10-viewport-bug-workaround.js') }}"></script>
-    
-    <!-- CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
     <!-- Extra css/scripts from blocks -->
     {% block meta_extra %}
@@ -86,7 +75,7 @@
         </button>
     </nav>
     <!-- ./navbar -->
-    <div class="container sixhundredpx">
+    <div class="container base">
     {% block body_content %}
     {% endblock %}
     </div>
@@ -119,6 +108,20 @@
         </div>
     </footer>
     <!-- ./footer -->
+    {% endblock %}
+
+
+
+
+    <!-- Load scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='viuhka/scripts/tether.js') }}"></script>
+    <script src="{{ url_for('static', filename='viuhka/scripts/shepherd.js') }}"></script>
+    <script src="{{ url_for('static', filename='viuhka/scripts/tether.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='viuhka/scripts/ie10-viewport-bug-workaround.js') }}"></script>
+    {% block scripts %}
     {% endblock %}
 
     <script type="text/javascript">
