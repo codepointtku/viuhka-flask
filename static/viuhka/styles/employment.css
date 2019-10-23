@@ -109,9 +109,6 @@ a:hover {
 .navi-link {
     color:rgba(255,255,255,.5);
 }
-.sixhundredpx {
-    min-height: 600px;
-}
 .footer {
     max-height: 250px;
 }
@@ -126,4 +123,8 @@ a.navi-link:hover {
     font-size: 80%;
     text-align: center;
     line-height: 20%;
+}
+.container.base {
+    min-height: 600px;
+    width:1600px;
 }

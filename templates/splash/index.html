@@ -88,10 +88,11 @@
                         Palvelut
                     </h2>
                 </div>
+                <p id="results"></p>
                 <div class="row">
                     <div class="col"
                         style="background: transparent;border:none;border-top:1px solid green;border-bottom:1px solid green;">
-                        <table class="table">
+                        <table class="table" id="serviceTable">
                             <tbody>
                                 {% for service in services %}
                                 <tr>
@@ -152,8 +153,7 @@
 
 {% block scripts %}
 <script>
-    $('a').click(function () {
-        location.reload();
-    });
+    var rows = $('#serviceTable tr').length;
+    $('#results').text(rows + ' results.');
 </script>
 {% endblock %}
