@@ -173,9 +173,11 @@
 
     $(document).ready(function () {
         var rows = $('#serviceTable tr');
-        var amount = filter(rows);
         var results = $('#results');
-        results.text(amount + ' tulosta.');
+
+        setInterval(function() {
+            results.text($('td:visible').length + ' tulosta.');
+        }, 75);
 
         $('#serviceSearch').on('keyup', function() {
             var search = $(this).val().toUpperCase();
@@ -188,6 +190,9 @@
                     $(td).hide(25);
                 }
             }
+            rows = $('#serviceTable tr');
+            $('a[id=resetFilters').text('Reset filters');
+            $('a[id=resetFilters').show();
         });
 
         $('a[id^=cg_]').on('click', function() {
@@ -203,8 +208,6 @@
                 }
             }
             rows = $('#serviceTable tr');
-            amount = filter(rows);
-            results.text(amount + ' tulosta.');
             $('a[id=resetFilters').text('Reset filters');
             $('a[id=resetFilters').show();
 
@@ -218,6 +221,7 @@
                     $(td).show(25);
                 }
             }
+            $('#serviceSearch').val('');
         });
     });
 </script>
