@@ -41,22 +41,6 @@ psql -U postgres -c "create role employment with encrypted password 'secure-pass
 psql -U postgres -c "create database employment_flask"
 ```
 
-### Build Employment Search static resources(Optional)
-
-Make sure you have nodejs installed.
-
-- Linux
-
-```shell
-chmod +x ./build-resources.sh
-./build-resources.sh
-```
-
-- Windows
-```shell
-start build-resources.bat
-```
-
 ### Dev environment configuration
 
 Create a file `employment/.env` to configure the dev environment e.g.:
