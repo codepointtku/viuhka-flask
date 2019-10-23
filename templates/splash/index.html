@@ -75,7 +75,7 @@
                         <div id="{{ category.category.sanitized() }}" class="panel-collapse collapse">
                             {% for category_item in category.items %}
                             <div class="panel-body">
-                                <a id="{{ category_item.id }}" href="{{ url_for('index.index', id=category_item.id) }}">
+                                <a style="color: black;" id="{{ category_item.id }}" href="{{ url_for('index.index', id=category_item.id) }}">
                                     {{ category_item.text }}
                                 </a>
                             </div>
@@ -93,9 +93,9 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-center" style="margin-bottom: 36px;">
-                    <div class="column-title">
+                    <h2 class="column-title">
                         Palvelut
-                    </div>
+                    </h2>
                 </div>
                 <div class="row">
                     <div class="col"
