@@ -56,8 +56,9 @@
                         <div class="panel-heading" style="background-color: #00A97A;">
                             <h4 class="panel-title" style="background-color: #00A97A;">
                                 <div class="d-flex justify-content-center">
-                                    <a data-toggle="collapse" data-parent="#accordion"
-                                        href="#{{ category.category.sanitized() }}" style="color: white;">
+                                    <a id="cg_{{ category.category.sanitized() }}" data-toggle="collapse"
+                                        data-parent="#accordion" href="#{{ category.category.sanitized() }}"
+                                        style="color: white;" categoryId="{{ category.id }}">
                                         {{ category.category.name }}
                                     </a>
                                 </div>
@@ -66,7 +67,8 @@
                         <div id="{{ category.category.sanitized() }}" class="panel-collapse collapse">
                             {% for category_item in category.items %}
                             <div class="panel-body">
-                                <a style="color: black;" href="javascript:void(0);" id="cg_{{ category.id }}" sanitized="{{ category_item.sanitized() }}">
+                                <a style="color: black;" href="javascript:void(0);" id="cgItem_{{ category_item.id }}"
+                                    sanitized="{{ category_item.sanitized() }}" cgItemCategoryId={{ category.id }}>
                                     {{ category_item.text }}
                                 </a>
                             </div>
@@ -163,7 +165,7 @@
 <script>
     function filter(t) {
         var count = 0;
-        t.filter(function() {
+        t.filter(function () {
             if (!($(this).find('td').attr('style') == 'none')) {
                 count += 1;
             }
@@ -175,11 +177,19 @@
         var rows = $('#serviceTable tr');
         var results = $('#results');
 
-        setInterval(function() {
-            results.text($('td:visible').length + ' tulosta.');
-        }, 75);
+        function filter(t, a) {
+            t.forEach(function(i) {
+                if (i.toUpperCase() === a.toUpperCase())
+                    return true;
+            });
+            return false;
+        }
 
-        $('#serviceSearch').on('keyup', function() {
+        setInterval(function () {
+            results.text($('td:visible').length + ' tulosta.');
+        }, 125);
+
+        $('#serviceSearch').on('keyup', function () {
             var search = $(this).val().toUpperCase();
             for (i = 0; i < rows.length; i++) {
                 td = rows[i].getElementsByTagName('td')[0];
@@ -195,7 +205,27 @@
             $('a[id=resetFilters').show();
         });
 
-        $('a[id^=cg_]').on('click', function() {
+        $('a[id^=cg_').on('click', function () {
+            var categoryItems = $('a[cgItemCategoryId^=' + $(this).attr('categoryId') + ']');
+            console.log($(categoryItems));
+            for (i = 0; i < categoryItems.length; i++) {
+                var search = $(categoryItems[i]).attr('sanitized');
+                for (j = 0; j < rows.length; j++) {
+                    td = rows[i].getElementsByTagName('td')[0];
+                    if (td) {
+                        if ($.inArray(search, $(td).attr('class').split(' ')) !== -1) {
+                            $(td).hide(25);
+                        } else {
+                            $(td).show(25);
+                        }
+                    }
+                }
+                rows = $('#serviceTable tr');
+                $('a[id=resetFilters').text('Reset filters');
+                $('a[id=resetFilters').show();
+            }
+        });
+        $('a[id^=cgItem_]').on('click', function () {
             var search = $(this).attr('sanitized');
             for (i = 0; i < rows.length; i++) {
                 td = rows[i].getElementsByTagName('td')[0];
@@ -212,7 +242,7 @@
             $('a[id=resetFilters').show();
 
         });
-        $('a[id=resetFilters]').on('click', function() {
+        $('a[id=resetFilters]').on('click', function () {
             $(this).hide();
             var rows = $('#serviceTable tr');
             for (i = 0; i < rows.length; i++) {
