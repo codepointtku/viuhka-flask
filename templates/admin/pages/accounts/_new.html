@@ -1,0 +1,59 @@
+<div class="content">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="card-body">
+          <form id="addAccount" role="form" method="post" action="">
+            <div class="row">
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-6 px-md-2">
+                <div class="form-group">
+                  <p>Account Information</p>
+                  <br>
+                  {{ form.username(id="username", placeholder="Username", class="form-control", required=True) }}
+                  {{ form.email(id="email", placeholder="Email", class="form-control", required=True) }}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-6 px-md-2">
+                <div class="form-group">
+                  {{ form.password(id="password", placeholder="Password", class="form-control", type="password", required=True) }}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-6 px-md-2">
+                <div class="form-group">
+                {{ form.rank(id="rank", class="custom-select form-control") }}
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-1 px-md-1"></div>
+          <div class="col-md-3 px-md-1"></div>
+          <div class="col-md-1 px-md-1"></div>
+          <div class="col-md-2 px-md-6">
+            <div class="popup" name="popup">
+              <span class="poputext" id="popupmessage" name="popupmessage"></span>
+            </div>
+            <button id="savebtn" type="submit" class="btn btn-fill btn-info">Save</button>
+          </div>
+        </div>
+        <div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

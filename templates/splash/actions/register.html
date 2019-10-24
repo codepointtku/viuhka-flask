@@ -1,21 +1,11 @@
 {% extends "splash/forms/base.html" %}
 {{ super() }}
-
-{% block meta_extra %}
-<!-- jQuery Modal -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-{% endblock %}
-
 {% block body_content %}
-
 <!-- Modal -->
 <div id="registerOK" class="modal">
     <h2>Rekisteröinti onnistui.</h2>
     <p>Uudelleen ohjaamme sinut kirjautumis sivulle 5 sekunnin kuluttua.</p>
 </div>
-
-
 <div class="container">
     <form class="form-signin" action="/register" method="post" role="form">
         <center><h2 class="form-signin-heading">Rekisteröinti</h2></center>
@@ -29,6 +19,11 @@
             <p id="email_notification" style="color:red;display:none;"></p>
             <input type="password" name="password" class="form-control" placeholder="Salasana" required>
             <button class="btn btn-lg btn-primary btn-block" type="button">Rekisteröi</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
             <script>
                 $(function() {
                     $('button').click(function() {
@@ -62,6 +57,4 @@
                     });
                 });
             </script>
-    </form>
-</div>
 {% endblock %}
