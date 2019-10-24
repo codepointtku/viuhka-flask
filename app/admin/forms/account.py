@@ -1,5 +1,5 @@
 from wtforms_alchemy import ModelForm
-from wtforms import SelectField, SelectField
+from wtforms import SelectField
 from app.utils.models.account import Account
 from app.utils.models.rank import ranks
 
