@@ -144,14 +144,14 @@
             </style>
             <label for="published" class="col-sm-10 col-form-label">Published</label>
             <div class="col-sm-1">
-              {{ form.published(id="published",placeholder="Published",class="form-control", value=service.published) }}
+              {{ form.published(id="published",placeholder="Published",class="form-control", checked=service.published) }}
               <span>
                 <p id="published_notification" style="color:red;display:none;"></p>
               </span>
             </div>
             <label for="open_ended" class="col-sm-10 col-form-label">Open ended</label>
             <div class="col-sm-1">
-              {{ form.open_ended(id="open_ended",placeholder="Open ended",class="form-control", value=service.open_ended) }}
+              {{ form.open_ended(id="open_ended",placeholder="Open ended",class="form-control", checked=service.open_ended) }}
               <span>
                 <p id="open_ended_notification" style="color:red;display:none;"></p>
               </span>

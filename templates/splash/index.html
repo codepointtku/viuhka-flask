@@ -105,6 +105,7 @@
                         <table class="table" id="serviceTable">
                             <tbody>
                                 {% for service in services %}
+                                {% if service.published %}
                                 <tr>
                                     <td id="row_{{ service.id }}" class="{{ service.joined_sanitized() }}">
                                         <div class="row">
@@ -122,6 +123,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                {% endif %}
                                 {% endfor %}
                             </tbody>
                         </table>
