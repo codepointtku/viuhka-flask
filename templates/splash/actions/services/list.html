@@ -8,6 +8,7 @@
 </style>
 
 <center>
+  <div class="list-text panel panel-default">
 {% if amount() >= 1 %}
   {% for service in services() %}
       <a href="/details/{{ service.id }}">{{ service.name }}</a> &nbsp;
@@ -22,6 +23,7 @@
   <form method="get" action="{{ FORCE_SCRIPT_NAME }}/">
     <button type="submit" class="btn button-info">Takaisin</button>
   </form>
+</div>
 {% endif %}
 </center>
 {% endblock %}
