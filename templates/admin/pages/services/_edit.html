@@ -7,7 +7,7 @@
     <div class="col-md-10">
       <div class="card">
         <div class="card-body">
-          <form id="addService" role="form" method="post" action="">
+          <form id="addService" role="form">
             <div class="row">
               <div class="col-md-1 px-md-1"></div>
               <div class="col-md-1 px-md-1"></div>
@@ -115,9 +115,9 @@
               <label for="category_items" class="col-sm-2 col-form-label">Items</label>
               <div class="col-sm-9">
                 <select id="category_items" name="category_items" multiple class="form-control">
-                {% for option in form.category_items.data %}
-                    <option selected>{{ option }}</option>
-                {% endfor %}
+                  {% for option in form.category_items.data %}
+                  <option selected>{{ option }}</option>
+                  {% endfor %}
                 </select>
               </div>
               <div class="col-sm-1">
@@ -174,21 +174,30 @@
 {% endblock %}
 
 {% block scripts %}
-<script>        
+<script>
   $('#selectCategoryForm').on('submit', function (event) {
     event.preventDefault();
     $(this).serializeArray().forEach(function (i, k) {
-      if($('#' + i.value.split(' ').join('')).length == 0) {
-          $('#category_items').append(
-            '<option id=' + i.value.split(' ').join('') + ' selected>' + i.value + '</option>'
-          );
+      if ($('#' + i.value.split(' ').join('')).length == 0) {
+        $('#category_items').append(
+          '<option id=' + i.value.split(' ').join('') + ' selected>' + i.value + '</option>'
+        );
       }
     });
     setTimeout(function () {
       $('#selectCategories').modal('hide');
     }, 125);
   });
+  $('#deleteCategoryItem').on('click', function (event) {
+    event.preventDefault();
+    $('#category_items option:selected').remove();
+  });
   $('#addService').submit(function (event) {
+    event.preventDefault();
+    var items = $('#category_items option');
+    for(i = 0; i < items.length; i++) {
+      $(items[i]).prop('selected', true);
+    }
     var url = "{{ url_for('service.service', type='edit', id=service.id) }}".replace('&amp;','&');
     event.preventDefault();
     $.ajax({
@@ -196,7 +205,7 @@
       url: url,
       data: $(this).serialize(),
       success: function() {
-          $(location).attr('href','{{ url_for("service.services") }}')
+          $(location).attr('href', "{{ url_for('service.services') }}")
       }
     });
   });

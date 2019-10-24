@@ -196,6 +196,10 @@
 
   $('#addService').submit(function (event) {
     event.preventDefault();
+    var items = $('#category_items option');
+    for(i = 0; i < items.length; i++) {
+      $(items[i]).prop('selected', true);
+    }
     $.ajax({
       type: 'POST',
       url: "{{ url_for('service.service', type='add') }}",

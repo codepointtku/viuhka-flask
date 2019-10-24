@@ -21,7 +21,7 @@ date_types = [
 
 
 class Service(connector.Model):
-    id                              = connector.Column(connector.Integer,       primary_key = True)
+    id                              = connector.Column(connector.Integer,       primary_key = True, autoincrement=True)
     created                         = connector.Column(connector.DateTime,      default     = datetime.utcnow)
     published                       = connector.Column(connector.Boolean)                           # Julkinen
     
@@ -74,7 +74,6 @@ class Service(connector.Model):
                         contact_person="",  age_group=None,     unemployment_duration=None, health=None,                    contact_person_phone="",
                         contact_email="",   classification=None,                            category_items=None,            form={}):
 
-                        self.id                     = amount() + 1
                         self.published              = form.get('published')                 if form.get('published')                else published
                         self.ptv_service_id         = form.get('ptv_service_id')            if form.get('ptv_service_id')           else ptv_service_id
                         self.ptv_service_channel_id = form.get('ptv_service_channel_id')    if form.get('ptv_service_channel_id')   else ptv_service_channel_id

@@ -94,9 +94,6 @@
                 },
                 success: function () {
                     location.reload();
-                },
-                error: function () {
-                    console.log('erkeatkleglkdsg');
                 }
             })
         });
@@ -108,9 +105,6 @@
                 data: $(this).serialize(),
                 success: function () {
                     location.reload()
-                },
-                error: function (event) {
-                    console.log(event)
                 }
             });
         });
@@ -122,9 +116,6 @@
                 data: $(this).serialize(),
                 success: function () {
                     $(location).attr('href', '{{ url_for("category.categories") }}')
-                },
-                error: function (event) {
-                    console.log(event)
                 }
             });
         });
