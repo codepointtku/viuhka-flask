@@ -130,4 +130,9 @@ a.navi-link:hover {
 }
 .navbar-viuhka {
     font-size: 130%;
+    padding-bottom: 9px;
+    padding-top: 9px;
+}
+.navbar-login {
+    padding-left: 140px !important;
 }

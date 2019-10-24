@@ -54,17 +54,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('index.info') }}">Tietoa palvelutuottajalle</a>
                     </li>
-                </ul>
-            </div> 
-                <ul class="navbar-nav">
-                        {% if current_user.is_authenticated %}
-                        <li class="nav-item">
-                            <a style="width: 300px;" class="nav-link" href="{{ url_for('login_manager.logout') }}?next={{ request.path }}">{{ current_user.username }} (Kirjaudu ulos)</a>
-                        </li>
-                        {% else %}
-                        <li class="nav-item">
-                            <a style="width: 300px;" class="nav-link" href="{{ url_for('login_manager.login') }}?next={{ request.path }}">Kirjaudu sisään(palvelun tuottaja)</a>
-                        </li>
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link navbar-login" href="{{ url_for('login_manager.logout') }}?next={{ request.path }}">{{ current_user.username }} (Kirjaudu ulos)</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link navbar-login" href="{{ url_for('login_manager.login') }}?next={{ request.path }}">Kirjaudu sisään(palveluntuottaja)</a>
+                    </li>
                 </ul>
                 {% endif %}
             </div>
