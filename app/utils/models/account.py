@@ -50,6 +50,7 @@ class Account(UserMixin, connector.Model):
         return self
     
     def delete(self):
+        self.rank().delete()
         connector.session.delete(self)
         connector.session.commit()
 
