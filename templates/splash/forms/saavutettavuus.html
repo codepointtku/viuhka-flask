@@ -1,9 +1,9 @@
 {% extends "splash/forms/base.html" %}
 
 {% block body_content %}
-<center>
+
 <h1>Saavutettavuusseloste</h1>
-<div class=page-text-center>
+<div class=page-text-left>
 <p>Työllisyysviuhkan verkkosivustoa koskee laki digitaalisten palvelujen tarjoamisesta (306/2019), joka pohjautuu EU:n saavutettavuusdirektiiviin (2102/2016).
     Lain ja säädöksen mukaan julkishallinnon organisaatioiden verkkopalvelujen (verkkosivustot ja mobiilisovellukset) täytyy olla saavutettavia. Se tarkoittaa, että kuka tahansa voi käyttää palveluja helposti, toimintarajoitteista huolimatta.
         Työllisyysviuhkan verkkosivusto on julkaistu vuonna 2017. Lain mukaan ennen 23.9.2018 julkaistujen verkkosivustojen pitää olla saavutettavuusvaatimusten mukaisia viimeistään 23.9.2020.
@@ -12,7 +12,6 @@
             <p>Tämä saavutettavuusseloste on laadittu 23.9.2019.</p>
 </div>
 <form method="get" action="{{ FORCE_SCRIPT_NAME }}/">
-    <button type="submit" class="btn button-info">Sulje ohje</button>
+    <button type="submit" class="button-info-viuhka button-info">Sulje ohje</button>
 </form>
-</center>
 {% endblock %}

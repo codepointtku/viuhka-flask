@@ -8,6 +8,7 @@
 </style>
 
 <center>
+    <h1>Lista palveluista</h1>
   <div class="list-text panel panel-default">
 {% if amount() >= 1 %}
   {% for service in services() %}
@@ -21,7 +22,7 @@
   <h1>Palveluja ei ole vielä lisätty.</h1>
   <p> Palveluja ei ole vielä lisätty Työllisyysviuhkaan, odotathan.</p>
   <form method="get" action="{{ FORCE_SCRIPT_NAME }}/">
-    <button type="submit" class="btn button-info">Takaisin</button>
+    <button type="submit" class="button-info-viuhka button-info">Takaisin</button>
   </form>
 </div>
 {% endif %}

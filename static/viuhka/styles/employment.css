@@ -36,7 +36,7 @@
     font-weight: bold;
 }
 
-.button-info {
+.button-info-viuhka {
     border-radius: 0;
     background: none;
     border: 2pt solid #00A97A;
@@ -126,7 +126,7 @@ a.navi-link:hover {
 }
 .container.base {
     min-height: 600px;
-    width:1200px;
+    width:1400px;
 }
 .navbar-viuhka {
     font-size: 130%;
