@@ -1,7 +1,7 @@
 from random import randint
 
 from flask_login import UserMixin
-
+from sqlalchemy import func
 
 from app.utils.extensions.database import module as connector
 from app.utils.models.rank import Rank, get_object
@@ -10,7 +10,7 @@ from app.managers.password import generate_hash_pass, validate_hash_pass
 class Account(UserMixin, connector.Model):
     __tablename__                           = 'account'
     
-    id                                      = connector.Column(connector.Integer, primary_key=True)
+    id                                      = connector.Column(connector.Integer, primary_key=True, autoincrement=True)
     username                                = connector.Column(connector.String(32))
     email                                   = connector.Column(connector.String(100))
     password                                = connector.Column("sha_pass_hash", connector.String(40))
@@ -49,6 +49,11 @@ class Account(UserMixin, connector.Model):
         connector.session.commit()
         return self
     
+    def delete(self):
+        self.rank().delete()
+        connector.session.delete(self)
+        connector.session.commit()
+
     def is_staff(self):
         return self.rank().level >= 1
     
@@ -72,8 +77,13 @@ class Account(UserMixin, connector.Model):
 
 
 def find_account(id):
-    return Account.query.filter(id==id).first()
+    return Account.query.filter(Account.id==id).first()
 
+def find_account_by_username(name):
+    return Account.query.filter(func.upper(Account.username) == func.lower(name)).first()
+
+def find_account_by_email(email):
+    return Account.query.filter(func.upper(Account.email) == func.lower(email)).first()
 
 def list_accounts():
     return Account.query.all()

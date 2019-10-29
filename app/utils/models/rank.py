@@ -24,6 +24,10 @@ class Rank(connector.Model):
         connector.session.add(self)
         connector.session.commit()
         return self
+
+    def delete(self):
+        connector.session.delete(self)
+        connector.session.commit()
     
     def name(self):
         if self.level > 2:

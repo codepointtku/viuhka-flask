@@ -1,18 +1,23 @@
 from sqlalchemy import text
 
 from sys import argv, exit
-from os.path import dirname, join, abspath
-from os import sep, walk
+from os.path import dirname, join, abspath, exists
+from os import sep, walk, mkdir
 
 from functools import reduce
 
 from flask import Flask
 from flask_assets import Bundle
+from flask_minify import minify
 
 from app.managers.login import login_manager
 
+from datetime import datetime
+
 
 import json
+import cryptography
+
 
 ENV_IGNORE = [
     'SQL_USERNAME',
@@ -104,6 +109,11 @@ def register_blueprints(app):
                 for blueprint in dirs['app'][folder][subfolder]:
                     if '__init__.py' in blueprint.split(sep):
                         continue
+
+                    if is_ignored(join('app', folder, subfolder, blueprint)):
+                        if '--debug' in argv: print('Ignoring blueprint file: %s' % blueprint)
+                        continue
+
                     bpath = '.'.join(join('app', folder, subfolder, blueprint).split(sep)).replace('.py','')
                     try:
                         module = __import__(bpath, fromlist=['module'])
@@ -112,6 +122,10 @@ def register_blueprints(app):
                     except Exception as ex:
                         print('Failed to load route <%s>: %s' % (bpath, ex))
             elif subfolder == 'routes.py':
+                if is_ignored(join('app', folder, subfolder)):
+                    if '--debug' in argv: print('Ignoring blueprint file: %s' % subfolder)
+                    continue
+
                 bpath = '.'.join(join('app', folder, subfolder).split(sep)).replace('.py','')
                 module = __import__(bpath, fromlist=['module'])
                 app.register_blueprint(module.module)
@@ -132,6 +146,11 @@ def register_extensions(app):
     for file in dirs['extensions']:
         if file == '__init__.py':
             continue
+        
+        if is_ignored(join('app', 'utils', 'extensions', file)):
+            if '--debug' in argv: print('Ignoring extension file: %s' % file)
+            continue
+
         epath = '.'.join(join('app', 'utils', 'extensions', file).split(sep)).replace('.py', '')
         try:
             module = __import__(epath, fromlist=['module'])
@@ -166,6 +185,7 @@ def create():
         )
     )
     login_manager.init_app(app)
+    minify(app=app)
     return app
 
 
@@ -231,3 +251,6 @@ def find(path, words=[]):
         if word in words:
             return True
     return False
+
+def is_ignored(path):
+    return open(path, 'r').read().split('\n')[0] == '#ignore'

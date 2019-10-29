@@ -1,3 +1,5 @@
+#ignore
+
 from flask_assets import Environment
 
 

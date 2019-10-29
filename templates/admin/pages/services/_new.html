@@ -126,32 +126,23 @@
                 </a>
               </div>
             </div>
-            <style>
-              input[type=checkbox] {
-                -ms-transform: scale(.5);
-                /* IE */
-                -moz-transform: scale(.5);
-                /* FF */
-                -webkit-transform: scale(.5);
-                /* Safari and Chrome */
-                -o-transform: scale(.5);
-                /* Opera */
-                padding: 10px;
-              }
-            </style>
-            <label for="published" class="col-sm-10 col-form-label">Published</label>
+            <div class="form-group row">
+            <label for="published" class="col-sm-1 col-form-label">Published</label>
             <div class="col-sm-1">
-              {{ form.published(id="published",placeholder="Published",class="form-control", value="") }}
+              {{ form.published(id="published",placeholder="Published",class="sane form-control", value="") }}
               <span>
                 <p id="published_notification" style="color:red;display:none;"></p>
               </span>
             </div>
-            <label for="open_ended" class="col-sm-10 col-form-label">Open ended</label>
+            <div class="col-md-5"></div>
+            <div class="col-md-5"></div>
+            <label for="open_ended" class="col-sm-1 col-form-label">Open ended</label>
             <div class="col-sm-1">
-              {{ form.open_ended(id="open_ended",placeholder="Open ended",class="form-control", value="") }}
+              {{ form.open_ended(id="open_ended",placeholder="Open ended",class="sane form-control", value="") }}
               <span>
                 <p id="open_ended_notification" style="color:red;display:none;"></p>
               </span>
+            </div>
             </div>
             <div class="row">
               <div class="col-md-1 px-md-1"></div>
