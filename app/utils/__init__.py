@@ -109,6 +109,11 @@ def register_blueprints(app):
                 for blueprint in dirs['app'][folder][subfolder]:
                     if '__init__.py' in blueprint.split(sep):
                         continue
+
+                    if is_ignored(join('app', folder, subfolder, blueprint)):
+                        if '--debug' in argv: print('Ignoring blueprint file: %s' % blueprint)
+                        continue
+
                     bpath = '.'.join(join('app', folder, subfolder, blueprint).split(sep)).replace('.py','')
                     try:
                         module = __import__(bpath, fromlist=['module'])
@@ -117,6 +122,10 @@ def register_blueprints(app):
                     except Exception as ex:
                         print('Failed to load route <%s>: %s' % (bpath, ex))
             elif subfolder == 'routes.py':
+                if is_ignored(join('app', folder, subfolder)):
+                    if '--debug' in argv: print('Ignoring blueprint file: %s' % subfolder)
+                    continue
+
                 bpath = '.'.join(join('app', folder, subfolder).split(sep)).replace('.py','')
                 module = __import__(bpath, fromlist=['module'])
                 app.register_blueprint(module.module)
@@ -137,6 +146,11 @@ def register_extensions(app):
     for file in dirs['extensions']:
         if file == '__init__.py':
             continue
+        
+        if is_ignored(join('app', 'utils', 'extensions', file)):
+            if '--debug' in argv: print('Ignoring extension file: %s' % file)
+            continue
+
         epath = '.'.join(join('app', 'utils', 'extensions', file).split(sep)).replace('.py', '')
         try:
             module = __import__(epath, fromlist=['module'])
@@ -237,3 +251,6 @@ def find(path, words=[]):
         if word in words:
             return True
     return False
+
+def is_ignored(path):
+    return open(path, 'r').read().split('\n')[0] == '#ignore'
