@@ -89,7 +89,7 @@ body {
 
 h1 {
     font-weight: bold !important;
-    font-size: 300% !important;
+    font-size: 360% !important;
     color: #00A97A !important;
 }
 
@@ -126,7 +126,7 @@ a.navi-link:hover {
 }
 .container.base {
     min-height: 600px;
-    width:1600px;
+    width:1200px;
 }
 .navbar-viuhka {
     font-size: 130%;
@@ -137,3 +137,33 @@ a.navi-link:hover {
 .list-text {
     padding-top: 40px;
 }
+.wrapper{
+    width:70%;
+}
+.panel-heading {
+    padding: 0;
+      border:0;
+}
+.panel-title>a, .panel-title>a:active{
+    display:block;
+    padding:15px;
+    color:#555;
+    font-size:16px;
+    font-weight:bold;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    word-spacing:3px;
+    text-decoration:none;
+}
+.panel-heading  a:before {
+    font-family: 'Glyphicons Halflings';
+    content: "\e080";
+    float: left;
+    transition: all 0.01s;
+    margin-left: 15px;
+}
+.panel-heading.active a:before {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(90deg);
+    transform: rotate(90deg);
+} 
