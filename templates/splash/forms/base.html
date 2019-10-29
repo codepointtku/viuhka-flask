@@ -38,35 +38,47 @@
     <!-- navbar -->
     <nav class="navbar-viuhka navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
         <div class="container">
+                <div class="navbar-header"> 
             <a style="color:white; font-size: 120%;" class="navbar-brand" href="{{ FORCE_SCRIPT_NAME }}/">Työllisyysviuhka</a>
+                </div>
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav mr-auto">
+                <ul class="nav navbar-nav mr-auto navbar-left px-2">
                     {% if current_user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('service.list_service') }}">Lista palveluista</a>
                     </li>
+                </ul>
+                <ul class="nav navbar-nav mr-auto navbar-left px-2">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('index.provider_info') }}">Lisää palvelu</a>
                     </li>
                     {% endif %}
+                </ul>
+                <ul class="nav navbar-nav mr-auto navbar-left px-2 ">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('index.info') }}">Tietoa käyttäjälle</a>
                     </li>
+                </ul>
+                <ul class="nav navbar-nav mr-auto navbar-left px-2 ">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('index.info') }}">Tietoa palvelutuottajalle</a>
                     </li>
+                </ul> 
                     {% if current_user.is_authenticated %}
+                <ul class="nav navbar-nav navbar-right px-2">
                     <li class="nav-item">
-                        <a class="nav-link navbar-login" href="{{ url_for('login_manager.logout') }}?next={{ request.path }}">{{ current_user.username }} (Kirjaudu ulos)</a>
+                        <a class="nav-link" href="{{ url_for('login_manager.logout') }}?next={{ request.path }}">{{ current_user.username }} (Kirjaudu ulos)</a>
                     </li>
+                </ul>  
                     {% else %}
+                <ul class="nav navbar-nav navbar-right px-2">
                     <li class="nav-item">
-                        <a class="nav-link navbar-login" href="{{ url_for('login_manager.login') }}?next={{ request.path }}">Kirjaudu sisään(palveluntuottaja)</a>
+                        <a class="nav-link" href="{{ url_for('login_manager.login') }}?next={{ request.path }}">Kirjaudu sisään(palveluntuottaja)</a>
                     </li>
-                </ul>
+                </ul>         
                 {% endif %}
             </div>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+        <button class="navbar-toggle navbar-toggle-right" type="button" data-toggle="collapse"
                 data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
                 aria-label="Toggle naviation">
                 <span class="navbar-toggler-icon"></span>    
