@@ -56,19 +56,19 @@
                         <a class="nav-link" href="{{ url_for('index.info') }}">Tietoa käyttäjälle</a>
                     </li>
                 </ul>
-                    <ul class="nav navbar-nav mr-auto navbar-left px-2 ">
+                <ul class="nav navbar-nav mr-auto navbar-left px-2 ">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('index.info') }}">Tietoa palvelutuottajalle</a>
                     </li>
                 </ul> 
                     {% if current_user.is_authenticated %}
-                 <ul class="nav navbar-nav navbar-right px-2">
+                <ul class="nav navbar-nav navbar-right px-2">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('login_manager.logout') }}?next={{ request.path }}">{{ current_user.username }} (Kirjaudu ulos)</a>
                     </li>
-                    {% else %}
                 </ul>  
-                    <ul class="nav navbar-nav navbar-right px-2">
+                    {% else %}
+                <ul class="nav navbar-nav navbar-right px-2">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('login_manager.login') }}?next={{ request.path }}">Kirjaudu sisään(palveluntuottaja)</a>
                     </li>

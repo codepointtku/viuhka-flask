@@ -140,3 +140,8 @@ a.navi-link:hover {
 .list-text {
     padding-top: 40px;
 }
+ /* temporary? topnavbar button fix */ 
+.navbar-collapse  {   
+float:left !important;
+}
+ /* temporary? topnavbar button fix */ 
