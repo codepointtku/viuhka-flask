@@ -37,7 +37,9 @@
     <!-- navbar -->
     <nav class="navbar-viuhka navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
         <div class="container">
+                <div class="navbar-header"> 
             <a style="color:white; font-size: 120%;" class="navbar-brand" href="{{ FORCE_SCRIPT_NAME }}/">Työllisyysviuhka</a>
+                </div>
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="nav navbar-nav mr-auto navbar-left px-2">
                     {% if current_user.is_authenticated %}
@@ -75,7 +77,7 @@
                 </ul>         
                 {% endif %}
             </div>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+        <button class="navbar-toggle navbar-toggle-right" type="button" data-toggle="collapse"
                 data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
                 aria-label="Toggle naviation">
                 <span class="navbar-toggler-icon"></span>    
