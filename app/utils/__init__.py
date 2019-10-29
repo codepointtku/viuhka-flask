@@ -1,18 +1,23 @@
 from sqlalchemy import text
 
 from sys import argv, exit
-from os.path import dirname, join, abspath
-from os import sep, walk
+from os.path import dirname, join, abspath, exists
+from os import sep, walk, mkdir
 
 from functools import reduce
 
 from flask import Flask
 from flask_assets import Bundle
+from flask_minify import minify
 
 from app.managers.login import login_manager
 
+from datetime import datetime
+
 
 import json
+import cryptography
+
 
 ENV_IGNORE = [
     'SQL_USERNAME',
@@ -166,6 +171,7 @@ def create():
         )
     )
     login_manager.init_app(app)
+    minify(app=app)
     return app
 
 
