@@ -144,7 +144,8 @@ class Service(connector.Model):
         return ' '.join([i for i in self.category_items.values()])
     def joined_sanitized(self):
         try:
-            s = ' '.join([i.replace(' ','').replace(',','').replace('-','').lower() for i in self.category_items.values()])
+            _list = self.category_items.values() if not isinstance(self.category_items, list) else self.category_items
+            s = ' '.join([i.replace(' ','').replace(',','').replace('-','').lower() for i in _list])
         except:
             return ""
         return s
