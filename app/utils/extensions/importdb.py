@@ -1,7 +1,7 @@
 #ignore
 import json, requests
 
-from sys import exit
+from sys import exit, argv
 from os.path import exists
 from app.services.models.service import Service, get_service_by_name, get_category_item_by_name
 from app.services.models.category import get_categories, get_relation_type, get_category_by_category_items, Category, CategoryItems
