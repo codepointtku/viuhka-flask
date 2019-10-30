@@ -25,11 +25,11 @@ class Service(connector.Model):
     created                         = connector.Column(connector.DateTime,      default     = datetime.utcnow)
     published                       = connector.Column(connector.Boolean)                           # Julkinen
     
-    ptv_service_id                  = connector.Column(connector.String(100))                       # PTV Palvelun ID
-    ptv_service_channel_id          = connector.Column(connector.String(100))                       # PTV Palvelukanavan ID
+    ptv_service_id                  = connector.Column(connector.String(1000))                       # PTV Palvelun ID
+    ptv_service_channel_id          = connector.Column(connector.String(1000))                       # PTV Palvelukanavan ID
 
     search_result_priority          = connector.Column(connector.Integer,       primary_key = True) # Hakutulosprioriteetti
-    name                            = connector.Column(connector.String(100))                       # Palvelun nimi
+    name                            = connector.Column(connector.String(1000))                       # Palvelun nimi
     organization                    = connector.Column(connector.Text)                              # JÃ¤rjestÃ¤vÃ¤ organisaatio
     ingress                         = connector.Column(connector.Text)                              # Ingressi
 
@@ -47,22 +47,22 @@ class Service(connector.Model):
     start                           = connector.Column(connector.DateTime,      default     = datetime.utcnow)                          # Voimassaolon alku
     end                             = connector.Column(connector.DateTime,      default     = datetime.utcnow)                          # Voimassaolon loppu
     
-    address                         = connector.Column(connector.String(100))                       # Katuosoite
-    address_extended                = connector.Column(connector.String(100))                       # Osoitteen tarkennus
-    post_address                    = connector.Column(connector.String(20))                        # Postiosoite
+    address                         = connector.Column(connector.String(1000))                       # Katuosoite
+    address_extended                = connector.Column(connector.String(1000))                       # Osoitteen tarkennus
+    post_address                    = connector.Column(connector.String(1000))                        # Postiosoite
     
-    contact_person                  = connector.Column(connector.String(100))                       # YhteyshenkilÃ¶
-    contact_person_phone            = connector.Column(connector.String(100))                       # Puhelinnumero
-    contact_email                   = connector.Column(connector.String(100))                       # SÃ¤hkÃ¶posti
+    contact_person                  = connector.Column(connector.String(1000))                       # YhteyshenkilÃ¶
+    contact_person_phone            = connector.Column(connector.String(1000))                       # Puhelinnumero
+    contact_email                   = connector.Column(connector.String(1000))                       # SÃ¤hkÃ¶posti
     
-    www                             = connector.Column(connector.String(100))                       # Verkkosivu
-    facebook                        = connector.Column(connector.String(100))                       # Facebook
-    twitter                         = connector.Column(connector.String(100))                       # Twitter
+    www                             = connector.Column(connector.String(1000))                       # Verkkosivu
+    facebook                        = connector.Column(connector.String(1000))                       # Facebook
+    twitter                         = connector.Column(connector.String(1000))                       # Twitter
 
     category_items                  = connector.Column(connector.PickleType)
 
     notes                           = connector.Column(connector.Text)                              # Palveluntarjoajan viestilaatikko
-    content_contact                 = connector.Column(connector.String(100))                       # SisÃ¤llÃ¶n yhteyshenkilÃ¶
+    content_contact                 = connector.Column(connector.String(1000))                       # SisÃ¤llÃ¶n yhteyshenkilÃ¶
 
 
     def __init__(self,  published=True,     ptv_service_id="",  ptv_service_channel_id="",  search_result_priority=0,       name="", 
@@ -154,6 +154,9 @@ def create_new(fields=[], form={}):
 
 def get_services():
     return Service.query.all()
+
+def get_service_by_name(name):
+    return Service.query.filter(Service.name == name).first()
 
 
 def find_service(id):

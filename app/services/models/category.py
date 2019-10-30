@@ -1,5 +1,5 @@
 from app.utils.extensions.database import module as connector
-from app.services.models.category_items import get_relation_type
+from app.services.models.category_items import CategoryItems, get_relation_type
 
 class CategorySequalizer:
     def __init__(self, id, category):
@@ -45,6 +45,11 @@ def get_category(id):
 def get_category_by_name(name):
     return Category.query.filter_by(name=name).first()
 
+def get_category_by_category_items(name):
+    category_item = CategoryItems.query.filter(CategoryItems.text == name).first()
+    if category_item:
+        return Category.query.filter(Category.id == category_item.category_id).first()
+    return None
 
 def amount():
     return len(Category.query.all())
