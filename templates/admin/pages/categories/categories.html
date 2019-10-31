@@ -4,19 +4,19 @@
 {% block body_content %}
 <div class="container">
     {% if amount() == 0 %}
-    <h1>No categories have been added yet.</h1>
+    <h1>Yhtään kategoriaa ei ole vielä lisätty.</h1>
     {% elif amount() == 1 %}
-    <h1>Found {{ amount() }} category.</h1>
+    <h1>Löytyi {{ amount() }} kategoriaa.</h1>
     {% else %}
-    <h1>Found {{ amount() }} categories.</h1>
+    <h1>Löytyi {{ amount() }} kategoriaa.</h1>
     {% endif %}
     <div class="table-responsive text-nowrap">
-        <td><a class="btn-info btn" href="{{ url_for('category.category', type='new') }}" role="button">Add</a></td>
+        <td><a class="btn-info btn" href="{{ url_for('category.category', type='new') }}" role="button">Lisää kategoria</a></td>
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Name</th>
+                    <th scope="col">Nimi</th>
                 </tr>
             </thead>
             <tbody>

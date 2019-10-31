@@ -5,22 +5,22 @@
 {% block body_content %}
 <div class="container">
     {% if amount() == 0 %}
-    <h1>No services have been added yet.</h1>
+    <h1>Yhtään palvelua ei ole vielä lisätty.</h1>
     {% elif amount() == 1 %}
-    <h1>Found {{ amount() }} service.</h1>
+    <h1>Löytyi {{ amount() }} palvelua.</h1>
     {% else %}
-    <h1>Found {{ amount() }} services.</h1>
+    <h1>Löytyi {{ amount() }} palvelua.</h1>
     {% endif %}
     <div class="table-responsive-md text-nowrap">
-        <td><a class="btn-info btn" href="{{ url_for('service.service', type='new') }}" role="button">Add</a></td>
+        <td><a class="btn-info btn" href="{{ url_for('service.service', type='new') }}" role="button">Lisää palvelu</a></td>
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Created by</th>
-                    <th scope="col">Time of creation</th>
-                    <th scope="col">Published</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nimi</th>
+                    <th scope="col">Luoja</th>
+                    <th scope="col">Luonnin aika</th>
+                    <th scope="col">Julkaistu</th>
                 </tr>
             </thead>
             <tbody>

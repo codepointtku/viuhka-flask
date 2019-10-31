@@ -5,22 +5,22 @@
 {% block body_content %}
 <div class="container">
     {% if amount() == 0 %}
-    <h1>No accounts have been added yet.</h1>
+    <h1>Käyttäjiä ei ole vielä lisätty.</h1>
     {% elif amount() == 1 %}
-    <h1>Found {{ amount() }} account.</h1>
+    <h1>Löytyi {{ amount() }} käyttäjä.</h1>
     {% else %}
-    <h1>Found {{ amount() }} accounts.</h1>
+    <h1>Löytyi {{ amount() }} käyttäjä.</h1>
     {% endif %}
     <div class="table-responsive text-nowrap">
-        <td><a class="btn-info btn" href="{{ url_for('account.account', type='new') }}" role="button">Add</a></td>
+        <td><a class="btn-info btn" href="{{ url_for('account.account', type='new') }}" role="button">Lisää käyttäjä</a></td>
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Rank</th>
-                    <th scope="col">Staff</th>
+                    <th scope="col">Käyttäjänimi</th>
+                    <th scope="col">Sähköposti</th>
+                    <th scope="col">Käyttäjä luokka</th>
+                    <th scope="col">Onko admin</th>
                 </tr>
             </thead>
             <tbody>
