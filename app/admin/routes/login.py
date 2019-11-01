@@ -47,6 +47,7 @@ def admin_login():
 
 
 @module.route('/admin/logout', methods=['GET', 'POST'])
+@login_required
 def admin_logout():
     if not current_user.is_authenticated:
         return redirect(url_for('login_manager.admin_login'))
