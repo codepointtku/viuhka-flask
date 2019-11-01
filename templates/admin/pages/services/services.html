@@ -3,7 +3,7 @@
 
 
 {% block body_content %}
-<div class="container">
+<div class="container-fluid">
     {% if amount() == 0 %}
     <h1>Yhtään palvelua ei ole vielä lisätty.</h1>
     {% elif amount() == 1 %}
@@ -51,4 +51,10 @@
         </table>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$('sidebar').hide();
+</script>
 {% endblock %}

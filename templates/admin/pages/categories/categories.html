@@ -5,8 +5,6 @@
 <div class="container">
     {% if amount() == 0 %}
     <h1>Yhtään kategoriaa ei ole vielä lisätty.</h1>
-    {% elif amount() == 1 %}
-    <h1>Löytyi {{ amount() }} kategoriaa.</h1>
     {% else %}
     <h1>Löytyi {{ amount() }} kategoriaa.</h1>
     {% endif %}
