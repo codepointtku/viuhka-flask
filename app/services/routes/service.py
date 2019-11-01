@@ -2,8 +2,7 @@ from flask import Blueprint, render_template, request, redirect, Response, url_f
 from flask_login import login_required
 
 from app.services.models.service import ( Service, get_services, find_service, 
-                                        amount, get_fields, normalize, create_new, 
-                                        bool_types, int_types, date_types )
+                                        amount, create_new )
 from app.services.forms.service import ServiceForm
 from app.services.models.category import get_category, sequalized_categories
 
@@ -19,14 +18,14 @@ _name_ = 'Services'
 
 @module.route('/service/list', methods=['GET'])
 def list_service():
-    return render_template('splash/actions/services/list.html', services=get_services, amount=amount, fields=get_fields(), normalized_fields=normalize(get_fields()))
+    return render_template('splash/actions/services/list.html', services=get_services, amount=amount)
 
 
 @module.route('/admin/service', methods=['GET', 'POST'])
 @login_required
 def service():
     _type = str(request.args.get('type'))
-    id = request.args.get('id')
+    id = request.args.get('id') 
     if _type == 'edit':
         if request.method == 'GET':
             if id == 0:
@@ -106,5 +105,4 @@ def service():
 @login_required
 def services():
     return render_template('admin/pages/services/services.html', 
-                        services=get_services, amount=amount, fields=get_fields(), normalized_fields=normalize(get_fields()),
-                        int_types=int_types, date_types=date_types, bool_types=bool_types)
+                        services=get_services, amount=amount)

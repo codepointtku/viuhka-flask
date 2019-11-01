@@ -2,5 +2,104 @@
 {{ super() }}
 
 {% block body_content %}
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<div class="container">
+    <div class="row">
+        <a  class="btn btn-primary btn-lg"   
+            href="javascript:history.back()" 
+            role="button" 
+            style="background: #00A97A;border-color: #00A97A;">
+            <i class="fa fa-caret-left"></i>
+            <i class="fa fa-caret-left"></i>
+            <i class="fa fa-caret-left"></i>
+        &nbsp; Palaa hakuun
+        </a>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="row">
+            <h1> {{ service.name }} </h1>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <h2> Palvelun toteuttaja </h2>
+                    </div>
+                    <div class="row">
+                        <p> {{ service.organization }} </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <h2> Tiivistelmä </h2>
+                    </div>
+                    <div class="row">
+                        <p> {{ service.ingress }} </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <h2> Palvelun kuvaus </h2>
+                    </div>
+                        <p> {{ service.description | safe }} </p>
+                        <p> {{ service.description2 | safe }} </p>
+                        <p> {{ service.description3 | safe }} </p>
+                        <p> {{ service.description4 | safe }} </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <h2> Käyntitiedot </h2>
+                    </div>
+                    <div class="row">
+                        <p> {{ service.address }} </p>
+                    </div>
+                    <div class="row">
+                        <p> {{ service.address_extended }} </p>
+                    </div>
+                    <div class="row">
+                        <p> {{ service.post_address }} </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <h2> Verkkosivut </h2>
+                    </div>
+                        {{ service.www | safe }}
+                    {% if service.facebook %}
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <a href="{{ service.facebook }}">
+                                <i class="fa fa-facebook"></i>
+                                facebook
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if service.twitter %}
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                 <a href="{{ service.twitter }}">
+                                 <i class="fa fa-twitter"></i>
+                                  {{ service.twitter }}
+                                 </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -4,21 +4,6 @@ from datetime import datetime
 from app.utils.extensions.database import module as connector
 from app.services.models.category_items import get_category_item_by_name
 
-bool_types = [
-    'published',
-    'open_ended'
-]
-
-int_types = [
-    'search_result_priority',
-]
-
-date_types = [
-    'start',
-    'end'
-]
-
-
 
 class Service(connector.Model):
     id                              = connector.Column(connector.Integer,       primary_key = True, autoincrement=True)
@@ -183,46 +168,3 @@ def normalize(fields=[]):
         except:
             x.append(field.split('_')[0].capitalize())
     return x
-
-def get_fields():
-    fields = {                            
-    'published':                (None, 'bool'),             # Julkinen
-    
-    'ptv_service_id':           (None, 'str'),              # PTV Palvelun ID
-    'ptv_service_channel_id':   (None, 'str'),              # PTV Palvelukanavan ID
-
-    'search_result_priority':   (None, 'int'),              # Hakutulosprioriteetti
-    'name':                     (None, 'str'),              # Palvelun nimi
-    'organization':             (None, 'str'),              # JÃ¤rjestÃ¤vÃ¤ organisaatio
-    'ingress':                  (None, 'str'),              # Ingressi
-
-    'description':              (None, 'str'),              # Kuvaus
-    'description2':             (None, 'str'),              # Kuvaus 2
-    'description3':             (None, 'str'),              # Kuvaus 3
-    'description4':             (None, 'str'),              # Kuvaus 4
-
-    'provider':                 (None, 'str'),              # Toimija
-    'benefit_effect':           (None, 'str'),              # Vaikuttaako tukiin
-    'constraint':               (None, 'str'),              # Palvelun rajaukset
-
-    'open_ended':               (None, 'bool'),             # Voimassa toistaiseksi
-    
-    'start':                    (None, 'date'),             # Voimassaolon alku
-    'end':                      (None, 'date'),             # Voimassaolon loppu
-    
-    'address':                  (None, 'str'),              # Katuosoite
-    'address_extended':         (None, 'str'),              # Osoitteen tarkennus
-    'post_address':             (None, 'str'),              # Postiosoite
-    
-    'contact_person':           (None, 'str'),              # YhteyshenkilÃ¶
-    'contact_person_phone':     (None, 'str'),              # Puhelinnumero
-    'contact_email':            (None, 'str'),              # SÃ¤hkÃ¶posti
-    
-    'www':                      (None, 'str'),              # Verkkosivu
-    'facebook':                 (None, 'str'),              # Facebook
-    'twitter':                  (None, 'str'),              # Twitter
-
-    'notes':                    (None, 'str'),              # Palveluntarjoajan viestilaatikko
-    'content_contact':          (None, 'str'),              # SisÃ¤llÃ¶n yhteyshenkilÃ¶
-    }
-    return fields
