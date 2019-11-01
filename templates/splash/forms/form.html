@@ -190,7 +190,7 @@
             Kaikki posti tulee lähettää postilokero-osoitteeseen. Käyntiosoitteeseen ei postinjakoa.
         </p>
         {{ form.address(id="address", placeholder="Osoite", class="form-control", value="", required=True) }}
-        {{ form.address_extended(id="address_extended", placeholder="Address Extended", class="form-control", value="") }}
+        {{ form.address_extended(id="address_extended", placeholder="Aukioloajat", class="form-control", value="") }}
         <br>
         <br>
         <h2>Postiosoite*</h2>
@@ -219,7 +219,7 @@
         20701 Turku<br>
         Kaikki posti tulee lähettää postilokero-osoitteeseen. Käyntiosoitteeseen ei postinjakoa.
         </p>
-        {{ form.post_address(id="post_address", placeholder="Post Address", class="form-control", value="") }}<br>
+        {{ form.post_address(id="post_address", placeholder="Postiosoite", class="form-control", value="") }}<br>
         <br>
         <h2>Puhelinnumero*</h2>
         <p>Kirjoita puhelinasiointikanavan tai palvelupaikan nimi tai yhteyshenkilön tehtävänimike, puhelinnumero
@@ -245,8 +245,8 @@
         Asiakaspalvelu<br>
         02 262 5072
         </p>
-        {{ form.contact_person(id="contact_person", placeholder="Contact Person", class="form-control", value="", required=True) }}
-        {{ form.contact_person_phone(id="contact_person_phone", placeholder="Contact Person Phone", class="form-control", value="", required=True) }}
+        {{ form.contact_person(id="contact_person", placeholder="Yhteys henkilö/taho", class="form-control", value="", required=True) }}
+        {{ form.contact_person_phone(id="contact_person_phone", placeholder="Yhteyshenkilön puhelinnumero", class="form-control", value="", required=True) }}
         <br>
 
         <br>
@@ -271,7 +271,7 @@
         Organisaatiopostilaatikko<br>
         tyopiste@turku.fi
         </p>
-        {{ form.contact_email(id="contact_email", placeholder="Contact Email", class="form-control", value="", required=True) }}<br>
+        {{ form.contact_email(id="contact_email", placeholder="Sähköposti", class="form-control", value="", required=True) }}<br>
 
         <br>
         <h2>Verkkosivu</h2>
