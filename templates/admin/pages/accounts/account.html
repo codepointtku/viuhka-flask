@@ -2,16 +2,16 @@
 {{ super() }}
 {% block body_content %}
 {% if render_type == 'edit' %}
-    {% if current_user.rank().level <= account.rank().level %}
-        {% if current_user.is_staff() %}
-          {{ redirect(url_for('admin.index')) }}
-        {% else %}
-          {{ redirect(url_for('index.index')) }}
-        {% endif %}
-    {% endif %}
-    {% include "admin/pages/accounts/_edit.html" %}
+{% if current_user.rank().level <= account.rank().level %}
+{% if current_user.is_staff() %}
+{{ redirect(url_for('admin.index')) }}
+{% else %}
+{{ redirect(url_for('index.index')) }}
+{% endif %}
+{% endif %}
+{% include "admin/pages/accounts/_edit.html" %}
 {% elif render_type == 'new' %}
-    {% include "admin/pages/accounts/_new.html" %}
+{% include "admin/pages/accounts/_new.html" %}
 {% endif %}
 {% endblock %}
 {% block scripts %}
@@ -20,6 +20,16 @@
     event.preventDefault();
     var form_data = $(this).serialize();
     if (form_data) {
+      var csrf_token = "{{ csrf_token() }}";
+
+      $.ajaxSetup({
+        cache:false,
+        beforeSend: function (xhr, settings) {
+          if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrf_token);
+          }
+        }
+      });
       $.ajax({
         type: 'POST',
         url: "{{ url_for('account.account', type='add') }}",
@@ -28,17 +38,16 @@
           $(location).attr('href', "{{ url_for('account.accounts') }}")
         },
         error: function (response, status, error) {
-            try {
-              var msg = JSON.parse(response.responseText)
-              $('#popupmessage').text(
-                'Error: ' + msg['message']
-              )
-              $('#popup').show();
-              setTimeout(function(){
-                $('#popupmessage').text('');
-              },2000);
-            } catch (x) {
-          }
+          try {
+            var msg = JSON.parse(response.responseText)
+            $('#popupmessage').text(
+              'Error: ' + msg['message']
+            )
+            $('#popup').show();
+            setTimeout(function () {
+              $('#popupmessage').text('');
+            }, 2000);
+          } catch (x) {}
         }
       });
     }
@@ -47,6 +56,16 @@
     event.preventDefault();
     var form_data = validate($(this).serialize());
     if (form_data) {
+      var csrf_token = "{{ csrf_token() }}";
+
+      $.ajaxSetup({
+        cache:false,
+        beforeSend: function (xhr, settings) {
+          if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrf_token);
+          }
+        }
+      });
       $.ajax({
         type: 'POST',
         url: "{{ url_for('service.service', type='add') }}",

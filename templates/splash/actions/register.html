@@ -8,53 +8,64 @@
 </div>
 <div class="container">
     <form class="form-signin" action="/register" method="post" role="form">
-        <center><h2 class="form-signin-heading">Rekisteröinti</h2></center>
-            <br/>
-            <br />
-            <br />
-            <br />
-            <input type="username" name="username" class="form-control" placeholder="Käyttäjänimi" required autofocus>
-            <p id="username_notification" style="color:red;display:none;"></p>
-            <input type="email" name="email" class="form-control" placeholder="Sähköposti" required autofocus>
-            <p id="email_notification" style="color:red;display:none;"></p>
-            <input type="password" name="password" class="form-control" placeholder="Salasana" required>
-            <button class="btn btn-lg btn-primary btn-block" type="button">Rekisteröi</button>
+        <center>
+            <h2 class="form-signin-heading">Rekisteröinti</h2>
+        </center>
+        <br />
+        <br />
+        <br />
+        <br />
+        <input type="username" name="username" class="form-control" placeholder="Käyttäjänimi" required autofocus>
+        <p id="username_notification" style="color:red;display:none;"></p>
+        <input type="email" name="email" class="form-control" placeholder="Sähköposti" required autofocus>
+        <p id="email_notification" style="color:red;display:none;"></p>
+        <input type="password" name="password" class="form-control" placeholder="Salasana" required>
+        <button class="btn btn-lg btn-primary btn-block" type="button">Rekisteröi</button>
     </form>
 </div>
 {% endblock %}
 
 {% block scripts %}
-            <script>
-                $(function() {
-                    $('button').click(function() {
-                        $.ajax({
-                            url: '/register',
-                            data: $('form').serialize(),
-                            type: 'POST',
-                            success: function(response) {
-                                $('#registerOK').modal('show');
-                                setTimeout(function() {
-                                    $(location).attr('href', '{{ FORCE_SCRIPT_NAME }}/login');
-                                }, 5000);
-                            },
-                            error: function(error) {
-                                var error = JSON.parse(error.responseText);
-                                var notification = $('p[id=' + error['form'] + '_notification]');
-                                try {
-                                    notification.css(
-                                        {
-                                            'display': 'inline-block'
-                                        }
-                                    );
-                                    notification.text(error['errors'])
-                                    notification.show()
-                                    setTimeout(function() {
-                                        notification.hide()
-                                    }, 5000);
-                                } catch { }
-                            }
+<script>
+    $(function () {
+        $('button').click(function () {
+            var csrf_token = "{{ csrf_token() }}";
+
+            $.ajaxSetup({
+                cache: false,
+                beforeSend: function (xhr, settings) {
+                    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this
+                        .crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                    }
+                }
+            });
+            $.ajax({
+                url: '/register',
+                data: $('form').serialize(),
+                type: 'POST',
+                success: function (response) {
+                    $('#registerOK').modal('show');
+                    setTimeout(function () {
+                        $(location).attr('href', '{{ FORCE_SCRIPT_NAME }}/login');
+                    }, 5000);
+                },
+                error: function (error) {
+                    var error = JSON.parse(error.responseText);
+                    var notification = $('p[id=' + error['form'] + '_notification]');
+                    try {
+                        notification.css({
+                            'display': 'inline-block'
                         });
-                    });
-                });
-            </script>
+                        notification.text(error['errors'])
+                        notification.show()
+                        setTimeout(function () {
+                            notification.hide()
+                        }, 5000);
+                    } catch {}
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}

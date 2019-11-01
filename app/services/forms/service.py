@@ -4,9 +4,11 @@ from wtforms.fields.html5 import DateTimeLocalField
 
 from wtforms.validators import Required
 
+from flask_wtf import Form
+
 from ..models.service import Service
 
-class ServiceForm(ModelForm):
+class ServiceForm(ModelForm, Form):
     category_items              =   SelectMultipleField('Category Items', choices=[])
     
     search_result_priority      =   IntegerField(label="Search result priority")

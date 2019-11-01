@@ -143,22 +143,22 @@
               </div>
             </div>
             <div class="form-group row">
-            <label for="published" class="col-sm-1 col-form-label">Published</label>
-            <div class="col-sm-1">
-              {{ form.published(id="published",placeholder="Published",class="sane form-control", value="") }}
-              <span>
-                <p id="published_notification" style="color:red;display:none;"></p>
-              </span>
-            </div>
-            <div class="col-md-5"></div>
-            <div class="col-md-5"></div>
-            <label for="open_ended" class="col-sm-1 col-form-label">Open ended</label>
-            <div class="col-sm-1">
-              {{ form.open_ended(id="open_ended",placeholder="Open ended",class="sane form-control", value="") }}
-              <span>
-                <p id="open_ended_notification" style="color:red;display:none;"></p>
-              </span>
-            </div>
+              <label for="published" class="col-sm-1 col-form-label">Published</label>
+              <div class="col-sm-1">
+                {{ form.published(id="published",placeholder="Published",class="sane form-control", value="") }}
+                <span>
+                  <p id="published_notification" style="color:red;display:none;"></p>
+                </span>
+              </div>
+              <div class="col-md-5"></div>
+              <div class="col-md-5"></div>
+              <label for="open_ended" class="col-sm-1 col-form-label">Open ended</label>
+              <div class="col-sm-1">
+                {{ form.open_ended(id="open_ended",placeholder="Open ended",class="sane form-control", value="") }}
+                <span>
+                  <p id="open_ended_notification" style="color:red;display:none;"></p>
+                </span>
+              </div>
             </div>
             <div class="row">
               <div class="col-md-1 px-md-1"></div>
@@ -186,10 +186,10 @@
   $('#selectCategoryForm').on('submit', function (event) {
     event.preventDefault();
     $(this).serializeArray().forEach(function (i, k) {
-      if($('#' + i.value.split(' ').join('')).length == 0) {
-          $('#category_items').append(
-            '<option id=' + i.value.split(' ').join('') + ' selected>' + i.value + '</option>'
-          );
+      if ($('#' + i.value.split(' ').join('')).length == 0) {
+        $('#category_items').append(
+          '<option id=' + i.value.split(' ').join('') + ' selected>' + i.value + '</option>'
+        );
       }
     });
     setTimeout(function () {
@@ -204,9 +204,19 @@
   $('#addService').submit(function (event) {
     event.preventDefault();
     var items = $('#category_items option');
-    for(i = 0; i < items.length; i++) {
+    for (i = 0; i < items.length; i++) {
       $(items[i]).prop('selected', true);
     }
+    var csrf_token = "{{ csrf_token() }}";
+
+    $.ajaxSetup({
+      cache: false,
+      beforeSend: function (xhr, settings) {
+        if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+          xhr.setRequestHeader("X-CSRFToken", csrf_token);
+        }
+      }
+    });
     $.ajax({
       type: 'POST',
       url: "{{ url_for('service.service', type='add') }}",
