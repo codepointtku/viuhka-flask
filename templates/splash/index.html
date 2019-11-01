@@ -1,12 +1,6 @@
 {% extends "splash/forms/base.html" %}
 {{ super() }}
 
-{% block meta_extra %}
-<!-- Index CDN -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-<!-- ./index cdn -->
-{% endblock %}
-
 {% block body_content %}
 <style>
     label {
@@ -112,7 +106,7 @@
                                             <div class="col">
                                                 <div class="d-flex justify-content-center">
                                                     <div class="col">
-                                                        <a href="{{ url_for('index.service', id=service.id) }}">
+                                                        <a href="{{ url_for('index.details', id=service.id) }}">
                                                             <h2>{{ service.name }}</h2>
                                                         </a>
                                                         <p>{{ service.organization }}</p>
@@ -132,17 +126,6 @@
             </div>
         </div>
         <br>
-        <div class="row">
-            <div class="col">
-                <div class="d-flex justify-content-center">
-                    <a class="btn btn-primary btn-lg" href="/search" role="button"
-                        style="background: #00A97A;border-color: #00A97A;">
-                        <i class="fa fa-caret-left"></i>
-                        &nbsp; Hakuun
-                    </a>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="container">
         <div class="row">
@@ -165,27 +148,9 @@
 
 {% block scripts %}
 <script>
-    function filter(t) {
-        var count = 0;
-        t.filter(function () {
-            if (!($(this).find('td').attr('style') == 'none')) {
-                count += 1;
-            }
-        });
-        return count;
-    }
-
     $(document).ready(function () {
         var rows = $('#serviceTable tr');
         var results = $('#results');
-
-        function filter(t, a) {
-            t.forEach(function(i) {
-                if (i.toUpperCase() === a.toUpperCase())
-                    return true;
-            });
-            return false;
-        }
 
         setInterval(function () {
             results.text($('td:visible').length + ' tulosta.');

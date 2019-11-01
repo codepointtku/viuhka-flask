@@ -8,6 +8,7 @@ from os.path import exists
 from app.services.models.service import Service, get_service_by_name, get_category_item_by_name
 from app.services.models.category import get_categories, get_relation_type, get_category_by_category_items, Category, CategoryItems, get_category_by_name
 from sqlalchemy.exc import DataError
+from .html_parser import strip_tags
 
 CATEGORY_IDS = {
     'target': 'Neuvonta- ja ohjauspalvelut',
@@ -23,8 +24,7 @@ CATEGORY_IDS = {
 
 class Import:
     def __init__(self):
-        self.urls = ['https://viuhka.turku.fi/employment/_search?size=1000',
-                     'https://viuhka.turku.fi/services/_search?size=1000']
+        self.urls = ['https://viuhka.turku.fi/employment/_search?size=1000']
         self.data = []
         if '--debug' in argv:
             if not exists('viuhka-data.json'):
@@ -35,17 +35,13 @@ class Import:
                           indent=4, sort_keys=True)
             else:
                 try:
-                    self.data.append(json.load(open('viuhka-data.json', 'r')))
+                    self.data = json.load(open('viuhka-data.json', 'r'))
                 except json.decoder.JSONDecodeError:
                     print('Corrupt data, re-creating')
                     for url in self.urls:
                         self.data.append(json.loads(requests.get(url, headers={
                                          'User-Agent': 'PalveluViuhka python request'}).content.decode('utf-8')))
-                    c = 0
-                    for data in self.data:
-                        json.dump(data, open('viuhka-data-%s.json' %
-                                             c, 'w'), indent=4, sort_keys=True)
-                        c += 1
+                    json.dump(self.data, open('viuhka-data-%s.json', 'w'), indent=4, sort_keys=True)
         else:
             for url in self.urls:
                 self.data.append(json.loads(requests.get(url, headers={
