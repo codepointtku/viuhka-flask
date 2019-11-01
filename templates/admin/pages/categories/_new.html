@@ -25,7 +25,8 @@
                             <div class="col-md-1 px-md-1"></div>
                             <div class="col-md-6 px-md-2">
                                 <div class="form-group row">
-                                    <label for="categoryItems" class="col-sm-4 col-form-label">Kategoria objektit</label>
+                                    <label for="categoryItems" class="col-sm-4 col-form-label">Kategoria
+                                        objektit</label>
                                     <div class="col-sm-9">
                                         {{ form.category_items(id="categoryItems", placeholder="", class="form-control", required=True) }}
                                     </div>
@@ -72,11 +73,22 @@
         });
         $('#addCategory').submit(function (event) {
             event.preventDefault();
+            var csrf_token = "{{ csrf_token() }}";
+
+            $.ajaxSetup({
+                cache: false,
+                beforeSend: function (xhr, settings) {
+                    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this
+                        .crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                    }
+                }
+            });
             $.ajax({
                 type: 'POST',
                 url: "{{ url_for('category.category', type='new') }}",
                 data: $(this).serialize(),
-                success: function() {
+                success: function () {
                     $(location).attr('href', '{{ url_for("category.categories") }}')
                 }
             });
