@@ -10,10 +10,10 @@
               <div class="col-md-1 px-md-1"></div>
               <div class="col-md-6 px-md-2">
                 <div class="form-group">
-                  <p>Account Information</p>
+                  <p>Käyttäjätili tiedot</p>
                   <br>
-                  {{ form.username(id="username", placeholder="Username", class="form-control", required=True) }}
-                  {{ form.email(id="email", placeholder="Email", class="form-control", required=True) }}
+                  {{ form.username(id="username", placeholder="Käyttäjänimi", class="form-control", required=True) }}
+                  {{ form.email(id="email", placeholder="Sähköposti", class="form-control", required=True) }}
                 </div>
               </div>
             </div>
@@ -23,7 +23,7 @@
               <div class="col-md-1 px-md-1"></div>
               <div class="col-md-6 px-md-2">
                 <div class="form-group">
-                  {{ form.password(id="password", placeholder="Password", class="form-control", type="password", required=True) }}
+                  {{ form.password(id="password", placeholder="Salasana", class="form-control", type="password", required=True) }}
                 </div>
               </div>
             </div>
@@ -47,7 +47,7 @@
             <div class="popup" name="popup">
               <span class="poputext" id="popupmessage" name="popupmessage"></span>
             </div>
-            <button id="savebtn" type="submit" class="btn btn-fill btn-info">Save</button>
+            <button id="savebtn" type="submit" class="btn btn-fill btn-info">Tallenna</button>
           </div>
         </div>
         <div>
