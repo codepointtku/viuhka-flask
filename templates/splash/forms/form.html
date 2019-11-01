@@ -1,0 +1,379 @@
+{% extends 'splash/forms/base.html' %}
+{{ super() }}
+
+{% block body_content %}
+
+<style>
+    #id_classification {
+        min-height: 20em;
+        min-width: 400px;
+    }
+
+    #id_study, #id_service_path, #id_target, #id_immigration, #id_age_group,
+    #id_unemployment_duration, #id_ingress, #id_address, #id_post_address, #id_contact_person_phone, #id_contact_email,
+    #id_constraint, #id_address_extend, #id_organization
+    {
+        min-height: 8em;
+        min-width: 600px;
+    }
+
+    #id_integration, #id_health {
+        min-height: 5em;
+        min-width: 400px;
+    }
+
+    .label {
+        font-weight: bold;
+    }
+</style>
+
+<form id="addService" role="form" method="post" action="">
+
+    <div class="fieldWrapper">
+        <h1>Lisää palvelu</h1>
+        <p>Jäljempänä voit lisätä palvelun tiedot Työllisyysviuhkan tietokantaan. Tähdellä* merkityt
+            kohdat ovat pakollisia täyttää. Lue alla oleva ohjeteksti ennen kuin lisäät palvelun.
+        </p>
+        <p>Työllisyysviuhkaan kerätään tietoa Turun alueella tarjolla olevista työllistymistä edistävistä
+            palveluista. Tiedot palveluista lisätään järjestelmään palvelukohtaisesti. Jos palvelutuottajalla
+            on useita palveluja, tulee jokaisen palvelun tiedot lisätä tietokantaan erikseen.
+        </p>
+        <p>Laadi jokaisesta palvelusta oma erillinen palvelukuvauksensa. Kunkin kuvauksen tulee olla itsenäinen
+            kokonaisuus. Älä viittaa palvelukuvauksessa toiseen kuvaukseen, vaikka nämä koskisivat samaa aihepiiriä.
+        </p>
+        <p>Laadi palvelun kuvaus asiakkaan näkökulmasta. Kuvaa asiakkaalle tarjottavaa palvelua, älä palvelua
+            järjestävää organisaatiota tai sen tehtäviä. Mieti, mitä tietoja asiakas tarvitsee saadakseen kokonaiskuvan
+            palvelusta ja päästäkseen käyttämään palvelua. Kuvaa palvelu niin hyvin, ettei lukijan tarvitse kysyä
+            lisätietoja. Vältä mainosmaisia ilmauksia ja keskity kuvaamaan palvelua ja sen käyttöä.
+        </p>
+        <p>Puhuttele ja kohdista tekstin sisältö lukijalle sinä-muodossa (esim. Työkokeilussa voit tutustua eri
+            tehtäviin…, Uravalmennuksessa saat tietoa eri ammateista…). Ohjaa lukijaa toimimaan (Katso seuraavaksi…,
+            Ota yhteyttä…, Lähetä hakemus… jne.). Tekstin sisällöstä riippuen käytä tarvittaessa neutraalimpaa
+            esitystapaa (esim. Etsivän nuorisotyön tehtävänä on auttaa nuoria, jotka ovat koulutuksen ja työelämän
+            ulkopuolella...). Älä käytä me-muotoa (esim. Tule meille…, Meiltä saat tukea ja palvelua…).
+        </p>
+        <p>Kuvaa palvelu selkeästi ja lukijan kannalta ymmärrettävästi. Käytä yleiskieltä, vältä hallinnollisia
+            termejä. Käytä yksinkertaisia ilmaisuja ja tuttuja sanoja. Selitä lyhenteet ja vaikeat termit, jos niitä
+            on pakko käyttää.
+        </p>
+        <p>Voit jakaa tekstiä kappaleisiin. Esitä tärkein asia tekstin alussa ensimmäisessä kappaleessa. Käy suoraan
+            asiaan, taustoita lopussa. Tee kappalejakoja tekstiin. Esitä yhdessä kappaleessa vain yksi asia.
+            Kirjoita siten, että teksti on silmäiltävää ja helposti ymmärrettävää, lyhyttä ja helppolukuista ja
+            kestää hyvin aikaa.
+        </p>
+        <p>Tekstieditorilla voit tehdä tekstiin muotoiluja ja lisätä esim. linkin palvelusta kertovalle verkkosivulle.
+            Käytä näitä mahdollisuuksia vain silloin, kun se on tarpeellista. Linkin kannattaa lisätä esim. silloin,
+            kun palveluun liittyy nopeasti muuttuvaa tietoa, jota päivitetään muualla verkossa.
+        </p>
+        <p>Työllisyysviuhkaan tallennettavat tiedot omistaa Turun kaupunki. Tietoja voidaan soveltuvin osin jakaa
+            avoimena datana kaikkien vapaasti hyödynnettäväksi.
+        </p>
+        <h2>Palvelun nimi*</h2>
+        <p>Kirjoita palvelua kuvaava, asiakaslähtöinen nimi. Älä kirjoita organisaation nimeä palvelun nimeen.</p>
+        {{ form.name(id="name", placeholder="Nimi", class="form-control", value="", required=True) }}<br>
+        <br>
+        <h2>Palvelun toteuttaja*</h2>
+        <p>Kirjoita palvelun toteuttavan organisaation koko nimi virallisessa muodossaan. Palvelun toteuttaja on taho,
+            joka käytännössä toteuttaa palvelun asiakkaille. Mikäli palvelun toteuttajia on useita, kirjoita jokaisen
+            toteuttajan nimi omalle rivilleen. Kirjoita mahdollisen päätoteuttajan nimi ensimmäiselle riville.<br>
+            <br>
+            Esimerkiksi:<br>
+            <br>
+            Duuni ry<br>
+            Taito-säätiö<br>
+            JOB oy / JOB-koulutus<br>
+            Turun kaupunki / Työllisyyspalvelukeskus<br>
+        </p>
+        {{ form.organization(id="organization", placeholder="Organisaatio", class="form-control", value="", required=True) }}<br>
+        <br>
+        <h2>Tiivistelmä*</h2>
+        <p>Kirjoita tiivistelmä palvelun keskeisestä sisällöstä. Tiivistelmä esitetään Työllisyysviuhkan verkkosivulla
+            hakutuloksissa ja siitä on tarkoitus nopeasti saada selkeä kuva palvelusta.
+        </p>
+        {{ form.ingress(id="ingress", placeholder="Tiivistelmä", class="form-control", value="", required=True) }}<br>
+        <br>
+        <h2>Kuvaus*</h2>
+        <p>Kuvaa palvelu mahdollisimman selkeästi ja asiakkaan kannalta ymmärrettävästi. Kerro, kenelle palvelu on
+            tarkoitettu, miten sitä tarjotaan asiakkaalle, mitä se pitää sisällään, mitä palvelussa käytännössä
+            tehdään tai tapahtuu, mihin tarpeeseen se vastaa ja mihin sillä pyritään.
+        </p>
+        <p>Käytä selkeää yleiskieltä, vältä hallinnollisia termejä. Kuvaa asiakkaalle tarjottavaa palvelua, älä palvelua
+            järjestävää organisaatiota tai sen tehtäviä. Voit jakaa tekstiä kappaleisiin ja lisätä esim. linkin palvelusta
+            kertovalle verkkosivulle.
+        </p>
+        <p>
+            Lisää mahdolliset linkit siten, että verkkosivun verkko-osoite tulee mukaan itse tekstiin ja siten,
+            että verkko-osoitteen alussa on http:// tai https://.
+        </p>
+        {{ form.description(id="description", placeholder="Kuvaus", class="form-control", value="", required=True) }}
+       <br>
+        <br>
+        <h2>Toimintaohjeet*</h2>
+        <p>Kuvaa mahdollisimman tarkasti, miten asiakkaan on toimittava palvelun saamiseksi. Kerro, mitä tiettyä
+            toimintajärjestystä tai tietynlaista toimintatapaa palveluun hakeutuminen edellyttää. Voit kirjoittaa
+            tähän myös palvelun yhteyshenkilön tai -henkilöiden yhteystiedot tai lisätä linkin verkkosivulle,
+            jossa palveluun voi hakeutua. Henkilöiden yhteystiedot tulee ilmoittaa ensisijaisesti ilman henkilön
+            nimen sisältävää tietoa.</p>
+        <p>Esimerkiksi:<br>
+            <br>
+            Jos olet kiinnostunut Työtie-palveluun osallistumisesta, ota yhteyttä TE-toimistoon ja tarkista, kuulutko
+            Työtie-palvelun kohderyhmään. Jos kuulut kohderyhmään, kysy lisätietoa tai varaa käyntiaika
+            Työtie-ohjaajalle, puh. 050 123 4567 tai 050 123 4568, sähköposti työtieohjaaja1@duuni.fi tai
+            työtieohjaaja2@duuni.fi.<br>
+            <br>
+            Kysy lisätietoa tai varaa käyntiaika uraohjaajalle, puh. 050 123 4569, sähköposti uraohjaaja@polku.fi.
+        </p>
+        {{ form.description4(id="description4", placeholder="Toimintaohjeet", class="form-control", value="") }}<br>
+        <br>
+        <h2>Ehdot ja kriteerit</h2>
+        <p>Mikäli palvelu on tarkoitettu vain tietylle rajatulle kohderyhmälle tai palvelua saa vain tietyin
+            edellytyksin, kuvaa sanallisesti palvelun kohderyhmä, edellytykset, ehdot ja kriteerit.</p>
+        <p>Esimerkiksi:<br>
+        <li>Tukityöllistäminen on mahdollista vain henkilöille, joiden työllistämiseen työnantaja voi saada
+        palkkauskustannukset kokonaan kattavaa 100 % palkkatukea.
+        </li>
+        <li>Työtie-palveluun voivat osallistua vain työmarkkinatuen kuntaosuuden piiriin kuuluvat yli 300 päivää
+            työmarkkinatukea työttömyyden perusteella saaneet turkulaiset henkilöt.
+        </li>
+        <li>Työtie-palvelu on tarkoitettu alle 30-vuotiaille maahanmuuttajille.
+        </li>
+        <li>Työtie-hankkeen palveluihin voivat osallistua vain vähintään 24 kuukautta 28 kuukauden aikana työttömänä
+            olleet TE-toimiston työnhakijat ja vähintään 12 kuukautta avoimilta työmarkkinoilta poissaolleet
+            TE-toimiston työnhakijat.</li>
+        </p>
+        <p>Kuvaa myös, mikäli palveluun hakeutuminen edellyttää esim. tiettyjen tietojen tai dokumenttien
+            hankkimista.</p>
+        <p>Esimerkiksi:<br>
+            <li>Jos olet kiinnostunut tukityöllistämisestä, sinun tulee toimittaa Työtie-ohjaajalle tieto sinulle
+        työttömyyden perusteella maksetun työmarkkinatuen kestosta. Tieto ilmenee viimeisimmästä Kelan sinulle
+        postittamasta työmarkkinatuen maksuilmoituksesta. Mikäli et ole saanut postitse maksuilmoitusta, voit
+        tulostaa tiedon Kelan verkkoasiointipalvelusta. Tarvittaessa voit myös pyytää tiedon Kelan puhelinpalvelusta
+        tai Kelan toimistosta.</li>
+        <li>Jos olet kiinnostunut iltapäiväkerhotoiminnan tehtävistä, sinun tulee esittää hankkeen ohjaajalle enintään kuusi kuukautta vanha rikosrekisteriote.</li>
+        </p>
+        {{ form.constraint(id="description4", placeholder="Ehdot ja kriteerit", class="form-control", value="", required=True) }}<br>
+        <br>
+        <h2>Toiminta päättyy</h2>
+        <p>Mikäli palvelulla on tiedossa oleva päättymispäivä, kirjoita se tähän muodossa 00.00.0000. Esimerkiksi 31.03.2020.</p>
+        {{ form.end(id="end", class="form-control", value="") }}<br>
+        <br>
+        <h2>Käyntiosoite ja aukioloajat*</h2>
+        <p>Kirjoita organisaation nimi, mahdollinen palvelupaikan nimi, katuosoite, postinumero ja postitoimipaikka,
+            palveluajat sekä mahdollinen käyntiosoitteen lisätieto kukin omalle rivilleen. Mikäli palvelupaikkoja on
+            useita, kirjoita jokaisen palvelupaikan tiedot omaksi kappaleekseen.</p>
+        <p>Esimerkiksi:<br>
+            <br>
+            JOB oy<br>
+            JOB-koulutus<br>
+            Linnankatu 32 B 23, 1. kerros<br>
+            20100 Turku<br>
+            Avoinna ma–pe klo 09.00–16.00. Heinäkuussa suljettu.<br>
+            Sisäänkäynti sisäpihan kautta.<br>
+            <br>
+            Duuni ry<br>
+            Eerikinkatu 34 C 25, 2. kerros<br>
+            20100 Turku<br>
+            Avoinna ma–to klo 09.00–15.00. Perjantaisin suljettu.<br>
+            Rakennuksessa ei käytössä hissiä.<br>
+            <br>
+            Taito-säätiö<br>
+            Metallikatu 36 D 27, 3. kerros<br>
+            20240 Turku<br>
+            Avoinna ma, ti, to ja pe klo 10.00–15.00. Keskiviikkoisin suljettu.<br>
+            Toimipaikkaan pääsee busseilla 32 Pansioon ja 42 Pernoon.<br>
+            <br>
+            Turun kaupunki<br>
+            Työllisyyspalvelukeskus<br>
+            Käsityöläiskatu 10<br>
+            20100 Turku<br>
+            Avoinna ma–pe klo 8.30–16.00.<br>
+            Kaikki posti tulee lähettää postilokero-osoitteeseen. Käyntiosoitteeseen ei postinjakoa.
+        </p>
+        {{ form.address(id="address", placeholder="Osoite", class="form-control", value="", required=True) }}
+        {{ form.address_extended(id="address_extended", placeholder="Address Extended", class="form-control", value="") }}
+        <br>
+        <br>
+        <h2>Postiosoite*</h2>
+        <p>Kirjoita organisaation nimi, mahdollinen palvelupaikan nimi, postilokero-osoite tai katuosoite,
+            postinumero ja postitoimipaikka sekä mahdollinen postiosoitteen lisätieto kukin omalle rivilleen.
+            Mikäli palvelupaikkojen postiosoitteita on useita, kirjoita jokaisen palvelupaikan tiedot omaksi
+            kappaleekseen.</p>
+        <p>Esimerkiksi:<br>
+        <br>
+        JOB oy<br>
+        JOB-koulutus<br>
+        PL 123<br>
+        20101 Turku<br>
+        <br>
+        Duuni ry<br>
+        Eerikinkatu 34 C 25<br>
+        20100 Turku<br>
+        <br>
+        Taito-säätiö<br>
+        Metallikatu 36 D 27<br>
+        20240 Turku<br>
+        <br>
+        Turun kaupunki<br>
+        Työllisyyspalvelukeskus<br>
+        PL 1000<br>
+        20701 Turku<br>
+        Kaikki posti tulee lähettää postilokero-osoitteeseen. Käyntiosoitteeseen ei postinjakoa.
+        </p>
+        {{ form.post_address(id="post_address", placeholder="Post Address", class="form-control", value="") }}<br>
+        <br>
+        <h2>Puhelinnumero*</h2>
+        <p>Kirjoita puhelinasiointikanavan tai palvelupaikan nimi tai yhteyshenkilön tehtävänimike, puhelinnumero
+            ja mahdollinen puhelinnumeron lisätieto kukin omalle rivilleen. Mikäli puhelinnumeroita on useita,
+            kirjoita jokaisen puhelinnumeron tiedot omaksi kappaleekseen. Tiedot tulee ilmoittaa ensisijaisesti
+            ilman henkilönimen sisältävää tietoa.</p>
+        <p>Esimerkiksi:<br>
+        <br>
+        JOB-koulutus<br>
+        02 345 6789<br>
+        Vaihde<br>
+        <br>
+        Työtie-ohjaaja<br>
+        050 123 4569<br>
+        <br>
+        Uraohjaaja<br>
+        050 123 4567<br>
+        Puhelinaika ma–pe klo 9.00–11.30.<br>
+        <br>
+        Taito-säätiö, Metallikadun toimipaikka<br>
+        050 123 4568<br>
+        <br>
+        Asiakaspalvelu<br>
+        02 262 5072
+        </p>
+        {{ form.contact_person(id="contact_person", placeholder="Contact Person", class="form-control", value="", required=True) }}
+        {{ form.contact_person_phone(id="contact_person_phone", placeholder="Contact Person Phone", class="form-control", value="", required=True) }}
+        <br>
+
+        <br>
+        <h2>Sähköpostiosoite</h2>
+        <p>Kirjoita sähköpostikanavan nimi ja sähköpostiosoite kumpikin omalle rivilleen. Mikäli sähköpostiosoitteita
+            on useita, kirjoita jokaisen sähköpostiosoitteen tiedot omaksi kappaleekseen. Tiedot tulee ilmoittaa
+            ensisijaisesti ilman henkilönimen sisältävää tietoa.</p>
+        <p>Esimerkiksi:<br>
+        <br>
+        JOB-koulutus<br>
+        koulutus@job.fi<br>
+        <br>
+        Työtie-ohjaaja<br>
+        työtieohjaaja1@duuni.fi<br>
+        <br>
+        Uraohjaaja<br>
+        uraohjaaja@polku.fi<br>
+        <br>
+        Taito-säätiö, Metallikadun toimipaikka<br>
+        metallikatu@taito.fi<br>
+        <br>
+        Organisaatiopostilaatikko<br>
+        tyopiste@turku.fi
+        </p>
+        {{ form.contact_email(id="contact_email", placeholder="Contact Email", class="form-control", value="", required=True) }}<br>
+
+        <br>
+        <h2>Verkkosivu</h2>
+        <p>Anna verkkosivulle havainnollinen nimi ja anna tarkka verkko-osoite, josta verkkosivu avautuu.
+            Kirjoita kumpikin tieto omalle rivilleen. Mikäli verkkosivuja on useita, kirjoita jokaisen verkkosivun
+            tiedot omaksi kappaleekseen. Huolehdi, että verkko-osoitteen alussa on http:// tai https://.</p>
+        <p>Esimerkiksi:<br>
+        <br>
+        Turun kaupunki / Työllisyyspalvelut<br>
+        https://www.turku.fi/tyo-ja-yrityspalvelut/tyollisyyspalvelut<br>
+        <br>
+        Työpiste – Työ ja tekijät kohtaavat<br>
+        http://www.turku.fi/tyopiste
+        </p>
+        {{ form.www }}<br>
+
+        <br>
+<!--
+        <label class="label" for="{{ form.facebook.id_for_label }}">Facebook</label>
+        <p>Anna tarkka verkko-osoite, josta Facebook-sivu avautuu. Huolehdi, että verkko-osoitteen alussa on
+            http:// tai https://.</p>
+        {{ form.facebook }}<br>
+        <br>
+        <label class="label" for="{{ form.twitter.id_for_label }}">Twitter</label><br>
+        <p>Anna tarkka verkko-osoite, josta Twitter-sivu avautuu. Huolehdi, että verkko-osoitteen alussa on
+            http:// tai https://.
+        </p>
+        {{ form.twitter }}<br>
+        <br>
+-->
+        <h2>Palaute</h2>
+        <p>Tässä voit antaa palautetta Työllisyysviuhkan verkkosivuista ja tästä tietopohjalomakkeesta. Palautetta voi
+            myös lähettää suoraan sähköpostitse Työllisyysviuhkan ylläpitäjälle osoitteella viuhka@turku.fi</p>
+        <p>Jos olet edellä muokannut tai päivittänyt jo Työllisyysviuhkan verkkosivulla olevan palvelun tietoja, kirjoita
+            tähän tiedot muutoksista, jotka olet edellä tehnyt.</p>
+        <p>Tähän kirjoittamasi teksti on tarkoitettu palautteeksi ja tiedoksi Työllisyysviuhkan ylläpitäjälle. Teksti ei
+            siirry Työllisyysviuhkan verkkosivuille.</p>
+        {{ form.notes }}<br>
+        <br>
+        <h2>Yhteyshenkilö*</h2><br>
+        <p>Keneen henkilöön Työllisyysviuhkan ylläpitäjä voi olla tarvittaessa yhteydessä palvelun tietoja koskien?
+            Kirjoita tähän henkilön nimi, puhelinnumero ja sähköpostiosoite.</p>
+        <p>Tähän kirjoittamasi tiedot on tarkoitettu Työllisyysviuhkan ylläpitäjälle. Tiedot eivät siirry Työllisyysviuhkan verkkosivuille.</p>
+        {{ form.content_contact }}<br>
+    </div>
+    <br>
+    <label>Lähetä tiedot</label>
+    <p>Alla voit lähettää edellä lisäämäsi tai päivittämäsi palvelun tiedot Työllisyysviuhkan tietokantaan.</p>
+    <p>Tiedot siirtyvät Työllisyysviuhkan verkkosivuille, kun ylläpitäjä on tarkistanut ja hyväksynyt palvelun tiedot.</p>
+    <p><b>Muistathan jatkossa käydä päivittämässä palvelun tietoja, jos palvelussa tapahtuu muutoksia. Muista myös
+        päivittää verkko-osoitteiden linkit, jos ne muuttuvat.</b></p>
+    <p>Tietojen päivittäminen ja muokkaaminen tapahtuu kirjautumalla Työllisyysviuhkan verkkosivuille, etsimällä
+        palveluluettelosta oman palvelun ja valitsemalla Muokkaa.</p>
+    <br> <input type="submit" value="Lähetä">
+</form>
+<br>
+<br>
+<hr>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  $('#dateTimePicker').on('click', function (event) {
+    event.preventDefault();
+    $('timePicker').show();
+  });
+  $('#selectCategoryForm').on('submit', function (event) {
+    event.preventDefault();
+    $(this).serializeArray().forEach(function (i, k) {
+      if($('#' + i.value.split(' ').join('')).length == 0) {
+          $('#category_items').append(
+            '<option id=' + i.value.split(' ').join('') + ' selected>' + i.value + '</option>'
+          );
+      }
+    });
+    setTimeout(function () {
+      $('#selectCategories').modal('hide');
+    }, 125);
+  });
+  $('#deleteCategoryItem').on('click', function (event) {
+    event.preventDefault();
+    $('#category_items option:selected').remove();
+  });
+
+  $('#addService').submit(function (event) {
+    event.preventDefault();
+    var items = $('#category_items option');
+    for(i = 0; i < items.length; i++) {
+      $(items[i]).prop('selected', true);
+    }
+    $.ajax({
+      type: 'POST',
+      url: "{{ url_for('service.service', type='add') }}",
+      data: $(this).serialize(),
+      success: function () {
+        $(location).attr('href', '{{ url_for("service.list_service") }}')
+      },
+      error: function () {
+        location.reload();
+      }
+    });
+  });
+</script>
+{% endblock %}

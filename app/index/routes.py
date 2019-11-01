@@ -2,6 +2,19 @@ from flask import Blueprint, render_template, send_from_directory, request, redi
 from app.services.models.category import sequalized_categories
 from app.services.models.service import services_from_category
 from app.services.models.category_items import get_category_item_by_name
+from app.services.forms.service import ServiceForm
+from flask_login import login_required
+
+from app.services.models.service import ( Service, get_services, find_service, 
+                                        amount, get_fields, normalize, create_new, 
+                                        bool_types, int_types, date_types )
+from app.services.models.category import get_category, sequalized_categories
+
+from app.utils import root, join, exit
+
+import json
+import pickle
+
 
 module = Blueprint('index', __name__)
 
@@ -32,3 +45,8 @@ def provider_info():
 @module.route('/service')
 def service():
     return redirect(url_for('index.index'))
+    
+@module.route('/form', methods=['GET', 'POST'])
+@login_required
+def form():  
+    return render_template('splash/forms/form.html', form=ServiceForm()) 
