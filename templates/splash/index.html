@@ -162,9 +162,9 @@
                 td = rows[i].getElementsByTagName('td')[0];
                 title = td.getElementsByTagName('h2')[0];
                 if (~title.innerText.toUpperCase().indexOf(search)) {
-                    $(td).show(25);
+                    $(td).show();
                 } else {
-                    $(td).hide(25);
+                    $(td).hide();
                 }
             }
             rows = $('#serviceTable tr');
@@ -173,38 +173,45 @@
         });
 
         $('a[id^=cg_').on('click', function () {
-            var categoryItems = $('a[cgItemCategoryId^=' + $(this).attr('categoryId') + ']');
-            console.log($(categoryItems));
-            for (i = 0; i < categoryItems.length; i++) {
-                var search = $(categoryItems[i]).attr('sanitized');
-                for (j = 0; j < rows.length; j++) {
-                    td = rows[i].getElementsByTagName('td')[0];
-                    if (td) {
-                        if ($.inArray(search, $(td).attr('class').split(' ')) !== -1) {
-                            $(td).hide(25);
-                        } else {
-                            $(td).show(25);
+            if (!$(this).attr('aria-expanded') || $(this).attr('aria-expanded') === 'false')  {
+                var found = []
+                var categoryItems = $('a[cgItemCategoryId^=' + $(this).attr('categoryId') + ']');
+                $(categoryItems).each(function (idx, val) {
+                    for(i = 0; i < rows.length; i++) {
+                        td = rows[i].getElementsByTagName('td')[0];
+                        if (td) {
+                            if ($(td).hasClass($(val).attr('sanitized'))) {
+                                found.push($(td));
+                            }
+                            $(td).hide();
                         }
                     }
-                }
-                rows = $('#serviceTable tr');
+                });
+                found.forEach(function (idx, val) {
+                    $(found[val]).show();
+                });
                 $('a[id=resetFilters').text('Poista hakusuodattimet');
                 $('a[id=resetFilters').show();
+            } else {
+                $('a[id=resetFilters]').click();
             }
         });
         $('a[id^=cgItem_]').on('click', function () {
-            var search = $(this).attr('sanitized');
-            for (i = 0; i < rows.length; i++) {
-                td = rows[i].getElementsByTagName('td')[0];
-                if (td) {
-                    if (!$(td).hasClass(search)) {
-                        $(td).hide(25);
-                    } else {
-                        $(td).show(25);
+            var found = []
+            $(this).each(function (idx, val) {
+                for(i = 0; i < rows.length; i++) {
+                    td = rows[i].getElementsByTagName('td')[0];
+                    if (td) {
+                        if ($(td).hasClass($(val).attr('sanitized'))) {
+                            found.push($(td));
+                        }
+                        $(td).hide();
                     }
                 }
-            }
-            rows = $('#serviceTable tr');
+            });
+            found.forEach(function (idx, val) {
+                $(found[val]).show();
+            });
             $('a[id=resetFilters').text('Poista hakusuodattimet');
             $('a[id=resetFilters').show();
 
@@ -215,7 +222,7 @@
             for (i = 0; i < rows.length; i++) {
                 td = rows[i].getElementsByTagName('td')[0];
                 if (td) {
-                    $(td).show(25);
+                    $(td).show();
                 }
             }
             $('#serviceSearch').val('');
