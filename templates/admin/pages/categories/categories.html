@@ -3,16 +3,16 @@
 
 {% block body_content %}
 <div class="container">
-    {% if amount() == 0 %}
-    <h1>Yhtään kategoriaa ei ole vielä lisätty.</h1>
+    {% if amount() > 1 %}
+    <h1>Löytyi {{ amount() }} kategoriaa.</h1>
     {% elif amount() == 1 %}
-    <h1>Löytyi {{ amount() }} kategoriaa.</h1>
+    <h1>Löytyi {{ amount() }} kategoria.</h1>
     {% else %}
-    <h1>Löytyi {{ amount() }} kategoriaa.</h1>
+    <h1>Käyttäjiä ei ole vielä lisätty.</h1>
     {% endif %}
     <div class="table-responsive text-nowrap">
         <td><a class="btn-info btn" href="{{ url_for('category.category', type='new') }}" role="button">Lisää kategoria</a></td>
-        <table class="table table-hover">
+        <table class="table table-condensed table-hover">
             <thead>
                 <tr>
                     <th scope="col">#</th>

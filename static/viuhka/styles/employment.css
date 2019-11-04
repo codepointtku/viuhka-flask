@@ -149,3 +149,7 @@ a.navi-link:hover {
     -moz-transform: rotate(90deg);
     transform: rotate(90deg);
 } 
+
+.table-condensed {
+  font-size: 12px;
+}

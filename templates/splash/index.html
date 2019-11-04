@@ -93,7 +93,7 @@
                 <div class="row">
                     <div class="col"
                         style="background: transparent;border:none;border-top:1px solid green;border-bottom:1px solid green;">
-                        <table class="table" id="serviceTable">
+                        <table class="table table-condensed" id="serviceTable">
                             <tbody>
                                 {% for service in services %}
                                 {% if service.published %}
@@ -146,16 +146,18 @@
 {% block scripts %}
 <script>
     $(document).ready(function () {
-        $('#searchSpinner').hide();
+        var spinner = $('#searchSpinner');
         var rows = $('#serviceTable tr');
         var results = $('#results');
+
+        $(spinner).hide();
 
         setInterval(function () {
             results.text($('td:visible').length + ' tulosta.');
         }, 125);
 
         $('#serviceSearch').on('keyup', function () {
-            $('#searchSpinner').show();
+            $(spinner).show();
             var search = $(this).val().toUpperCase();
             for (i = 0; i < rows.length; i++) {
                 td = rows[i].getElementsByTagName('td')[0];
@@ -170,13 +172,13 @@
             $('a[id=resetFilters').text('Poista hakusuodattimet');
             $('a[id=resetFilters').show();
             setTimeout(function() {
-                $('#searchSpinner').hide();
+                $(spinner).hide();
             }, 375);
         });
 
         $('a[id^=cg_').on('click', function () {
             if (!$(this).attr('aria-expanded') || $(this).attr('aria-expanded') === 'false')  {
-                $('#searchSpinner').show();
+                $(spinner).show();
                 var found = []
                 var categoryItems = $('a[cgItemCategoryId^=' + $(this).attr('categoryId') + ']');
                 $(categoryItems).each(function (idx, val) {
@@ -194,7 +196,7 @@
                     $(found[val]).show(11);
                 });
                 setTimeout(function() {
-                    $('#searchSpinner').hide();
+                    $(spinner).hide();
                 }, 375);
                 $('a[id=resetFilters').text('Poista hakusuodattimet');
                 $('a[id=resetFilters').show();
@@ -204,7 +206,6 @@
         });
         $('a[id^=cgItem_]').on('click', function () {
             var found = []
-            $('#searchSpinner').show();
             $(this).each(function (idx, val) {
                 for(i = 0; i < rows.length; i++) {
                     td = rows[i].getElementsByTagName('td')[0];
@@ -219,9 +220,6 @@
             found.forEach(function (idx, val) {
                 $(found[val]).show(11);
             });
-            setTimeout(function() {
-                $('#searchSpinner').hide();
-            }, 375);
             $('a[id=resetFilters').text('Poista hakusuodattimet');
             $('a[id=resetFilters').show();
 
