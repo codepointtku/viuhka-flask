@@ -204,6 +204,7 @@
         }
       }
     });
+    var url = "{{ url_for('service.service', type='edit', id=service.id) }}".replace('&amp;','&');
     $.ajax({
       type: 'POST',
       url: url,
