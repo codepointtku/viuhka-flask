@@ -20,7 +20,7 @@
                     <th scope="col">Käyttäjänimi</th>
                     <th scope="col">Sähköposti</th>
                     <th scope="col">Käyttäjä luokka</th>
-                    <th scope="col">Onko admin</th>
+                    <th scope="col">Virkailija</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,7 +30,11 @@
                     <th>{{ account.username }}</th>
                     <th>{{ account.email }}</th>
                     <th>{{ account.rank().name() }}</th>
-                    <th>{{ account.is_staff() }}</th>
+                    {% if account.is_staff() %}
+                    <th>Kyllä</th>
+                    {% else %}
+                    <th>Ei</th>
+                    {% endif %}
                     <th>
                     <td>
                         <a href="{{ url_for('account.account', type='edit', id=account.id) }}">
