@@ -2,12 +2,6 @@
 {{ super() }}
 
 {% block body_content %}
-<style>
-    label {
-        font-weight: bold;
-        margin-top: 0.5em
-    }
-</style>
 <div class="row">
     <div class="col">
         <div class="d-flex justify-content-center">
@@ -84,6 +78,9 @@
                         Palvelut
                     </h2>
                 </div>
+                <div id="searchSpinner">
+                    <i class="fa fa-refresh ld ld-spin"></i>
+                </div>
                 <div id="resultSet" class="col">
                     <div class="row">
                         <p id="results"></p>
@@ -149,6 +146,7 @@
 {% block scripts %}
 <script>
     $(document).ready(function () {
+        $('#searchSpinner').hide();
         var rows = $('#serviceTable tr');
         var results = $('#results');
 
@@ -157,12 +155,13 @@
         }, 125);
 
         $('#serviceSearch').on('keyup', function () {
+            $('#searchSpinner').show();
             var search = $(this).val().toUpperCase();
             for (i = 0; i < rows.length; i++) {
                 td = rows[i].getElementsByTagName('td')[0];
                 title = td.getElementsByTagName('h2')[0];
                 if (~title.innerText.toUpperCase().indexOf(search)) {
-                    $(td).show();
+                    $(td).show(25);
                 } else {
                     $(td).hide();
                 }
@@ -170,10 +169,14 @@
             rows = $('#serviceTable tr');
             $('a[id=resetFilters').text('Poista hakusuodattimet');
             $('a[id=resetFilters').show();
+            setTimeout(function() {
+                $('#searchSpinner').hide();
+            }, 375);
         });
 
         $('a[id^=cg_').on('click', function () {
             if (!$(this).attr('aria-expanded') || $(this).attr('aria-expanded') === 'false')  {
+                $('#searchSpinner').show();
                 var found = []
                 var categoryItems = $('a[cgItemCategoryId^=' + $(this).attr('categoryId') + ']');
                 $(categoryItems).each(function (idx, val) {
@@ -188,8 +191,11 @@
                     }
                 });
                 found.forEach(function (idx, val) {
-                    $(found[val]).show();
+                    $(found[val]).show(11);
                 });
+                setTimeout(function() {
+                    $('#searchSpinner').hide();
+                }, 375);
                 $('a[id=resetFilters').text('Poista hakusuodattimet');
                 $('a[id=resetFilters').show();
             } else {
@@ -198,6 +204,7 @@
         });
         $('a[id^=cgItem_]').on('click', function () {
             var found = []
+            $('#searchSpinner').show();
             $(this).each(function (idx, val) {
                 for(i = 0; i < rows.length; i++) {
                     td = rows[i].getElementsByTagName('td')[0];
@@ -210,8 +217,11 @@
                 }
             });
             found.forEach(function (idx, val) {
-                $(found[val]).show();
+                $(found[val]).show(11);
             });
+            setTimeout(function() {
+                $('#searchSpinner').hide();
+            }, 375);
             $('a[id=resetFilters').text('Poista hakusuodattimet');
             $('a[id=resetFilters').show();
 
