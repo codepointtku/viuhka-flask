@@ -31,9 +31,9 @@
                     <th>{{ service.organization }}</th>
                     <th>{{ service.created.replace(microsecond=0) }}</th>
                     {% if service.published %}
-                    <th>Yes</th>
+                    <th>Kyllä</th>
                     {% else %}
-                    <th>No</th>
+                    <th>Ei</th>
                     {% endif %}
                     <td>
                     <td><a href="{{ url_for('service.service', type='edit', id=service.id) }}">
