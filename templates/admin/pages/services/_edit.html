@@ -129,19 +129,6 @@
                 </a>
               </div>
             </div>
-            <style>
-              input[type=checkbox] {
-                -ms-transform: scale(.5);
-                /* IE */
-                -moz-transform: scale(.5);
-                /* FF */
-                -webkit-transform: scale(.5);
-                /* Safari and Chrome */
-                -o-transform: scale(.5);
-                /* Opera */
-                padding: 10px;
-              }
-            </style>
             <label for="published" class="col-sm-10 col-form-label">Published</label>
             <div class="col-sm-1">
               {{ form.published(id="published",placeholder="Published",class="form-control", checked=service.published) }}

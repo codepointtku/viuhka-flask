@@ -153,3 +153,16 @@ a.navi-link:hover {
 .table-condensed {
   font-size: 12px;
 }
+
+
+input[type=checkbox] {
+  -ms-transform: scale(.5);
+  /* IE */
+  -moz-transform: scale(.5);
+  /* FF */
+  -webkit-transform: scale(.5);
+  /* Safari and Chrome */
+  -o-transform: scale(.5);
+  /* Opera */
+  padding: 10px;
+}
