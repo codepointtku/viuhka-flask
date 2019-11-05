@@ -49,21 +49,6 @@ def service():
                         if ff == sf:
                             if isinstance(form_fields[ff], TextAreaField):
                                 form_fields[ff].process_data(service_fields[sf])
-                            
-                """
-                if service.organization:   form.organization.process_data(     service.organization)
-                if service.ingress:        form.ingress.process_data(          service.ingress)
-                if service.description:    form.description.process_data(      service.description)
-                if service.description2:   form.description2.process_data(     service.description2)
-                if service.description3:   form.description3.process_data(     service.description3)
-                if service.description4:   form.description4.process_data(     service.description4)
-                if service.provider:       form.provider.process_data(         service.provider)
-                if service.benefit_effect: form.benefit_effect.process_data(   service.benefit_effect)
-                if service.constraint:     form.constraint.process_data(       service.constraint)
-                if service.notes:          form.notes.process_data(            service.notes)
-                """
-
-
                 try:
                     if service.start:          form.start.data = str(service.start).replace(' ','T')
                     if service.end:            form.end.data = str(service.end).replace(' ','T')
