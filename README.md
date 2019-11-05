@@ -44,7 +44,7 @@
   ```
 
   ```
-  SQL_DRIVER=pymysql+mysql
+  SQL_DRIVER=mysql+pymysql
   ```
   OR
   ```
