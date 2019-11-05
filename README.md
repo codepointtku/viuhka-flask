@@ -55,6 +55,7 @@
 **Installation**
 ---
 
+
 * Windows
   * `git clone https://github.com/digipointtku/viuhka-flask.git`
   * `cd viuhka-flask`

@@ -18,9 +18,12 @@ class Category(connector.Model):
     name                        = connector.Column(connector.String(100))
 
 
-    def __init__(self, name, csrf_token):
+    def __init__(self, name, csrf_token = "", skip_csrf_check=False):
         self.name = name
-        self.csrf_token
+        if not skip_csrf_check: 
+            if not csrf_token or csrf_token is None:
+                raise TypeError('__init__() missing 1 required positional argument: \'csrf_token\'')
+            self.csrf_token = csrf_token
     
     def save(self):
         connector.session.add(self)

@@ -67,8 +67,13 @@ class Import:
                                     _categoryItems = []
                                     if isinstance(hit[key][value], list):
                                         for item in hit[key][value]:
-                                            cgItem = get_category_item_by_name(
-                                                item)
+                                            try:
+                                                if isinstance(item, int):
+                                                    item = str(item)
+                                                cgItem = get_category_item_by_name(
+                                                    item)
+                                            except Exception as ex:
+                                                continue
                                             cgs = dict(enumerate(get_categories()))
                                             if not cgItem or cgItem is None:
                                                 print(
@@ -92,9 +97,12 @@ class Import:
                                                             print('1 or 2')
                                                     if inp == 1:
                                                         name = input(
-                                                            'Category name: ')
+                                                            'Category name: (%s) ' % CATEGORY_IDS[value])
+                                                        if not name or name is None:
+                                                            name = CATEGORY_IDS[value]
                                                         category = Category(
-                                                            name=name
+                                                            name=name,
+                                                            skip_csrf_check=True
                                                         ).save()
                                                         cgs = dict(
                                                             enumerate(get_categories()))
@@ -149,9 +157,12 @@ class Import:
                                                             print('1 or 2')
                                                     if inp == 1:
                                                         name = input(
-                                                            'Category name: ')
+                                                            'Category name: (%s) ' % CATEGORY_IDS[value])
+                                                        if not name or name is None:
+                                                            name = CATEGORY_IDS[value]
                                                         category = Category(
-                                                            name=name
+                                                            name=name,
+                                                            skip_csrf_check=True
                                                         ).save()
                                                         cgs = dict(
                                                             enumerate(get_categories()))
