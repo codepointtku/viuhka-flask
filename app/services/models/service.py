@@ -57,7 +57,8 @@ class Service(connector.Model):
                         www="",             facebook="",        twitter="",                 service_path=None,              target=None, 
                         study=None,         integration=None,   notes="",                   content_contact="",             immigration=None,
                         contact_person="",  age_group=None,     unemployment_duration=None, health=None,                    contact_person_phone="",
-                        contact_email="",   classification=None,                            category_items=None,            form={}):
+                        contact_email="",   classification=None,                            category_items=None,            csrf_token="",
+                        form={}):
 
                         self.published              = form.get('published')                 if form.get('published')                else published
                         self.ptv_service_id         = form.get('ptv_service_id')            if form.get('ptv_service_id')           else ptv_service_id
@@ -97,7 +98,7 @@ class Service(connector.Model):
                         self.contact_email          = form.get('contact_email')             if form.get('contact_email')            else contact_email
                         self.classification         = form.get('classification')            if form.get('classification')           else classification
                         self.category_items         = form.get('category_items')            if form.get('category_items')           else category_items
-
+                        self.csrf_token             = form.get('csrf_token')                if form.get('csrf_token')               else csrf_token
 
 
     def __str__(self):
