@@ -1,60 +1,79 @@
-### PalveluViuhka
-
-Installation
-------------
-
-### Prepare and activate virtualenv
-
-- Windows
-```shell
-python -m venv env
-call env/scripts/activate
-```
-
-- Linux
-```shell
-python3 -m venv env
-source venv/bin/activate
-```
+# PalveluViuhka
 
 
-### Install required packages
 
-Install all packages required for development with pip command:
+**Table of Contents**
+---
+> * [Requirements](#requirements)
+> * [Database](#database)
+> * [Installation](#installation)
+> * [FAQ](#faq)
+> * [Documentation](#documentation)
 
-    pip install -r requirements.txt
 
+**Requirements**
+---
+* Windows
+  * [MySQL (8.0+)](https://dev.mysql.com/downloads/mysql/)
+    * [Alternatively PostgreSQL (10+)](https://www.postgresql.org/download/windows/)
+    * [Universal Database Tool DBeaver](https://dbeaver.io/)
+      * [Github](https://github.com/dbeaver/dbeaver)
+  * [Python3.7](https://www.python.org/downloads/)
 
-### Create the database
-(also works with MYSQL and is recomended due to graphical interface)
+* Linux
+  * [MariaDB](aaa)
+  * [Python3.7](aaa)
 
-- Linux
+**Database**
+---
+  * Install [MySQL](https://dev.mysql.com/downloads/mysql/) or [PostgreSQL (10+)](https://www.postgresql.org/download/windows/) and follow GUI instructions
+  * Install [Python3.7](https://www.python.org/downloads/) and follow GUI instructions
+  * Create user and database
+  * Create .env file inside the project folder and add the following:
+  ```
+  SQLALCHEMY_TRACK_MODIFICATIONS=1
+  SECRET_KEY=28419842198412894
 
-```shell
-sudo -u postgres psql -c "create role employment with encrypted password 'secure-password';"
-sudo -u postgres psql -c "create database employment_flask"
-```
+  SQL_USERNAME=database_username
+  SQL_PASSWORD=database_username_password
+  SQL_DATABASE=database_name
+  SQL_CHARSET=utf8mb4
+  SQL_PORT=database_port
 
-- Windows
-```shell
-psql -U postgres -c "create role employment with encrypted password 'secure-password';"
-psql -U postgres -c "create database employment_flask"
-```
+  SESSION_COOKIE_SECURE=True
+  SESSION_COOKIE_HTTPONLY=True
+  SESSION_COOKIE_SAMESITE=Lax
+  ```
 
-### Dev environment configuration
+  ```
+  SQL_DRIVER=pymysql+mysql
+  ```
+  OR
+  ```
+  SQL_DRIVER=postgresql+psycopg2
+  ```
+  Depending on which database you chose to install.
 
-Create a file `employment/.env` to configure the dev environment e.g.:
+**Installation**
+---
 
-```
-SQLALCHEMY_TRACK_MODIFICATIONS=1
-SECRET_KEY=28419842198412894
-SQL_USERNAME=employment
-SQL_PASSWORD=
-SQL_DATABASE=employment_flask
-SQL_PORT=5432
-DEBUG=0
-```
-### Create database content
+* Windows
+  * `git clone https://github.com/digipointtku/viuhka-flask.git`
+  * `cd viuhka-flask`
+  * `python -m venv env`
+  * `call env/scripts/activate`
+  * `pip install -r requirements.txt`
+  * `python main.py --create`
+  * `python main.py --import`
+  * `python main.py`
 
-```shell
-python main.py --create
+* Linux
+  * `$ git clone https://github.com/digipointtku/viuhka-flask.git`
+  * `$ cd viuhka-flask`
+  * `$ python3 -m venv env`
+  * `$ source env/bin/activate`
+  * `$ pip install -r requirements.txt`
+  * `$ python main.py --create`
+  * `$ python main.py --import`
+  * `$ python main.py`
+  
