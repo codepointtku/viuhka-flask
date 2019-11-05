@@ -40,15 +40,12 @@ def service():
                     form.category_items.process_data([v for v in service.category_items.values()])
                 except:
                     form.category_items.process_data([] if service.category_items is None else service.category_items)
-                
-                form_fields = form.__dict__
-                service_fields = service.__dict__
 
-                for ff in form_fields:
-                    for sf in service_fields:
+                for ff in form.__dict__:
+                    for sf in service.__dict__:
                         if ff == sf:
-                            if isinstance(form_fields[ff], TextAreaField):
-                                form_fields[ff].process_data(service_fields[sf])
+                            if isinstance(form.__dict__[ff], TextAreaField):
+                                form.__dict__[ff].process_data(service.__dict__[sf])
                 try:
                     if service.start:          form.start.data = str(service.start).replace(' ','T')
                     if service.end:            form.end.data = str(service.end).replace(' ','T')
