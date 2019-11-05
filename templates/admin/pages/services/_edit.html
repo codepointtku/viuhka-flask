@@ -13,7 +13,7 @@
               <div class="col-md-1 px-md-1"></div>
               <div class="col-md-1 px-md-1"></div>
               <div class="col-md-5 px-md-1">
-                <h1> Service Information </h1>
+                <h1>Palvelun tiedot</h1>
                 <div class="form-group">
                   {{ form.ptv_service_id(id="ptv_service_id", placeholder="PTV Service ID", class="form-control", value=service.ptv_service_id, required=True) }}
                   {{ form.ptv_service_channel_id(id="ptv_service_channel_id", placeholder="PTV Service Channel ID", class="form-control", value=service.ptv_service_id, required=True) }}
@@ -38,19 +38,22 @@
               <div class="col-md-1 px-md-1"></div>
               <div class="col-md-1 px-md-1"></div>
               <div class="col-md-5 px-md-1">
-                <p> Information </p>
+                <p>Nimi</p>
                 <div class="form-group">
                   {{ form.name(id="name", placeholder="Name", class="form-control", value=service.name, required=True) }}
                 </div>
               </div>
             </div>
+            <p>Palvelun toteuttaja*</p>
             <div class="form-group">
-              {{ form.organization(id="organization", placeholder="Organization", class="form-control", required=True) }}
-              {{ form.ingress(id="ingress", placeholder="Ingress", class="form-control", required=True) }}
+              {{ form.organization(id="organization", placeholder="Organisaatio", class="form-control", value="", required=True) }}
+            </div>
+            <p>Tiivistelmä*</p>
+            <div class="form-group">
+              {{ form.ingress(id="ingress", placeholder="Ingress", class="form-control", value="", required=True) }}
             </div>
 
-
-            <p>Description</p>
+            <p>Kuvaus</p>
             <div class="form-group">
               {{ form.description(id="description", placeholder="Description", class="form-control", required=True) }}
               {{ form.description2(id="description2", placeholder="Description2", class="form-control") }}
