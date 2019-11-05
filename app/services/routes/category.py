@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required
+from flask_wtf.csrf import validate_csrf
 
 from app.services.models.category import sequalized_categories, get_category, get_category_by_name, amount, Category
 from app.services.models.category_items import CategoryItems, get_category_item_by_name
@@ -27,7 +28,10 @@ def category():
             form = CategoryForm(request.form)
             cat = get_category(form.id.data)
             if cat:
-                cat.name = form.name.data
+                cat.__init__(**form.data)
+            else:
+                cat = Category(**form.data)
+            validate_csrf(cat.csrf_token)
             cat.save()
             return json.dumps(
                 {
@@ -40,7 +44,7 @@ def category():
         else:
             form = CategoryForm(request.form)
             cat = Category(
-                name = form.name.data
+                **form.data
             )
             cat.save()
             for item in form.category_items.data:

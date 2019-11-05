@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, Response, url_for
 from flask_login import login_required
+from flask_wtf.csrf import validate_csrf
 
 from app.services.models.service import ( Service, get_services, find_service, 
                                         amount, create_new )
@@ -7,6 +8,8 @@ from app.services.forms.service import ServiceForm
 from app.services.models.category import get_category, sequalized_categories
 
 from app.utils import root, join, exit
+
+from wtforms.fields.simple import TextAreaField
 
 import json
 import pickle
@@ -37,7 +40,17 @@ def service():
                     form.category_items.process_data([v for v in service.category_items.values()])
                 except:
                     form.category_items.process_data([] if service.category_items is None else service.category_items)
+                
+                form_fields = form.__dict__
+                service_fields = service.__dict__
 
+                for ff in form_fields:
+                    for sf in service_fields:
+                        if ff == sf:
+                            if isinstance(form_fields[ff], TextAreaField):
+                                form_fields[ff].process_data(service_fields[sf])
+                            
+                """
                 if service.organization:   form.organization.process_data(     service.organization)
                 if service.ingress:        form.ingress.process_data(          service.ingress)
                 if service.description:    form.description.process_data(      service.description)
@@ -48,6 +61,7 @@ def service():
                 if service.benefit_effect: form.benefit_effect.process_data(   service.benefit_effect)
                 if service.constraint:     form.constraint.process_data(       service.constraint)
                 if service.notes:          form.notes.process_data(            service.notes)
+                """
 
 
                 try:
@@ -67,12 +81,19 @@ def service():
                 form.end.data = service.end
 
             service.__init__(**form.data)
+            validate_csrf(service.csrf_token)
             service.save()
-            return json.dumps(
-                {
-                    'success':True
-                }
-            ), 200, {'ContentType':'application/json'}
+            try:
+                if find_service(service.id):
+                    return json.dumps({
+                            'success': True
+                        }), 200, {'ContentType':'application/json'}
+            except:
+                pass
+            return json.dumps({
+                    'success': False
+                }), 400, {'ContentType':'application/json'}
+            
     elif _type == 'add':
         form = ServiceForm(request.form)
         service = Service(
@@ -80,15 +101,21 @@ def service():
             start=form.start.data,
             end=form.end.data
         )
+        validate_csrf(service.csrf_token)
         try: service.category_items = dict(enumerate(service.category_items))
         except: pass
         service.save()
-        return json.dumps(
-            {
-                'success':True,
-                'service_id': str(service.id)
-            }
-        ), 200, {"ContentType":"Application/Json"}
+        try:
+            if find_service(service.id):
+                return json.dumps({
+                        'success': True,
+                        'service_id': str(service.id)
+                    }), 200, {"ContentType":"Application/Json"}
+        except:
+            pass
+        return json.dumps({
+            'success':False,
+        }), 400, {'ContentType':'application/json'}
     elif _type == 'new':
         if request.method == 'GET':
             return render_template('admin/pages/services/_new.html', form=ServiceForm(), categories=sequalized_categories)

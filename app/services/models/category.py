@@ -18,8 +18,9 @@ class Category(connector.Model):
     name                        = connector.Column(connector.String(100))
 
 
-    def __init__(self, name):
+    def __init__(self, name, csrf_token):
         self.name = name
+        self.csrf_token
     
     def save(self):
         connector.session.add(self)

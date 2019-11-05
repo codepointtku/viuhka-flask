@@ -8,6 +8,7 @@
       <div class="card">
         <div class="card-body">
           <form id="addService" role="form">
+              {{ form.csrf_token }}
             <div class="row">
               <div class="col-md-1 px-md-1"></div>
               <div class="col-md-1 px-md-1"></div>
@@ -131,14 +132,14 @@
             </div>
             <label for="published" class="col-sm-10 col-form-label">Published</label>
             <div class="col-sm-1">
-              {{ form.published(id="published",placeholder="Published",class="form-control", checked=service.published) }}
+              {{ form.published(id="published",placeholder="Published",class="form-control sane", checked=service.published) }}
               <span>
                 <p id="published_notification" style="color:red;display:none;"></p>
               </span>
             </div>
             <label for="open_ended" class="col-sm-10 col-form-label">Open ended</label>
-            <div class="col-sm-1">
-              {{ form.open_ended(id="open_ended",placeholder="Open ended",class="form-control", checked=service.open_ended) }}
+            <div class="col-sm-1"><
+              {{ form.open_ended(id="open_ended",placeholder="Open ended",class="form-control sane", checked=service.open_ended) }}
               <span>
                 <p id="open_ended_notification" style="color:red;display:none;"></p>
               </span>

@@ -15,15 +15,15 @@
   <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', filename='admin/img/apple-icon.png') }}">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='Viuhka/img/favicon.ico') }}">
 
-  {% if title %}    
+  {% if title %}
   <title>{{ title }}</title>
   {% else %}
   <title>Viuhka Dashboard</title>
   {% endif %}
-    
-    
-    <meta name="description" content="Viuhka Dashboard">
-  
+
+
+  <meta name="description" content="Viuhka Dashboard">
+
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
@@ -46,13 +46,13 @@
       {% if current_user.is_authenticated %}
       {% include 'admin/includes/navigation.html' %}
       {% endif %}
-      
+
       <!-- Body content -->
-<br />
-<br />
-<br />
-<br />
-<br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       {% block body_content %}
       {% endblock %}
       <!-- ./body content -->
@@ -76,8 +76,8 @@
   {% block scripts %}
   {% endblock %}
   <script>
-    $(document).ready(function() {
-      $().ready(function() {
+    $(document).ready(function () {
+      $().ready(function () {
         $sidebar = $('.sidebar');
         $navbar = $('.navbar');
         $main_panel = $('.main-panel');
@@ -94,7 +94,7 @@
 
 
 
-        $('.fixed-plugin a').click(function(event) {
+        $('.fixed-plugin a').click(function (event) {
           if ($(this).hasClass('switch-trigger')) {
             if (event.stopPropagation) {
               event.stopPropagation();
@@ -104,7 +104,7 @@
           }
         });
 
-        $('.fixed-plugin .background-color span').click(function() {
+        $('.fixed-plugin .background-color span').click(function () {
           $(this).siblings().removeClass('active');
           $(this).addClass('active');
 
@@ -127,7 +127,7 @@
           }
         });
 
-        $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
+        $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function () {
           var $btn = $(this);
 
           if (sidebar_mini_active == true) {
@@ -141,23 +141,23 @@
           }
 
           // we simulate the window Resize so the charts will get updated in realtime.
-          var simulateWindowResize = setInterval(function() {
+          var simulateWindowResize = setInterval(function () {
             window.dispatchEvent(new Event('resize'));
           }, 180);
 
           // we stop the simulation of Window Resize after the animations are completed
-          setTimeout(function() {
+          setTimeout(function () {
             clearInterval(simulateWindowResize);
           }, 1000);
         });
 
-        $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
+        $('.switch-change-color input').on("switchChange.bootstrapSwitch", function () {
           var $btn = $(this);
 
           if (white_color == true) {
 
             $('body').addClass('change-background');
-            setTimeout(function() {
+            setTimeout(function () {
               $('body').removeClass('change-background');
               $('body').removeClass('white-content');
             }, 900);
@@ -165,7 +165,7 @@
           } else {
 
             $('body').addClass('change-background');
-            setTimeout(function() {
+            setTimeout(function () {
               $('body').removeClass('change-background');
               $('body').addClass('white-content');
             }, 900);
@@ -176,11 +176,11 @@
 
         });
 
-        $('.light-badge').click(function() {
+        $('.light-badge').click(function () {
           $('body').addClass('white-content');
         });
 
-        $('.dark-badge').click(function() {
+        $('.dark-badge').click(function () {
           $('body').removeClass('white-content');
         });
       });

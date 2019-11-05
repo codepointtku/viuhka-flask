@@ -46,7 +46,7 @@ def config(app):
         app.config['SQLALCHEMY_ECHO'] = False
     else:
         app.config.update(
-            read_env()
+            **read_env()
         )
         app.config['SQLALCHEMY_ECHO'] = '--quiet' not in argv
 

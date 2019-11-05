@@ -1,6 +1,5 @@
 from random import randint, SystemRandom
 from datetime import datetime
-
 from app.utils.extensions.database import module as connector
 from app.services.models.category_items import get_category_item_by_name
 
@@ -46,7 +45,7 @@ class Service(connector.Model):
 
     category_items                  = connector.Column(connector.PickleType)
 
-    notes                           = connector.Column(connector.Text)                              # Palveluntarjoajan viestilaatikko
+    notes                           = connector.Column(connector.Text)                       # Palveluntarjoajan viestilaatikko
     content_contact                 = connector.Column(connector.Text)                       # SisÃ¤llÃ¶n yhteyshenkilÃ¶
 
 
