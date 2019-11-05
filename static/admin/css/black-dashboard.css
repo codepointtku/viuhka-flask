@@ -6004,7 +6004,7 @@ button.close {
 .modal-body {
   position: relative;
   flex: 1 1 auto;
-  padding: 24px 24px 16px 24px;
+  padding: 24px 1px 16px 1px;
 }
 
 .modal-footer {
@@ -14102,9 +14102,9 @@ p.description {
 }
 
 select option {
-  margin: 40px;
-  background: #525f7f;
-  color: #f5f6fa;
+  margin: 5px;
+  color: white;
+  border: 1px solid green;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
 
