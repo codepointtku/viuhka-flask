@@ -37,11 +37,6 @@
 
 <body class="">
   <div class="wrapper">
-
-    {% if current_user.is_authenticated %}
-    {% include 'admin/includes/sidenav.html' %}
-    {% endif %}
-
     <div class="main-panel">
       {% if current_user.is_authenticated %}
       {% include 'admin/includes/navigation.html' %}
@@ -54,6 +49,49 @@
       <br />
       <br />
       {% block body_content %}
+      <div class="container">
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+        <div class="row">
+          <div class="col"></div>
+          <div class="col">
+            <a href="{{ url_for('service.services') }}">
+              <i class="tim-icons icon-bell-55"></i>
+              <p>Palvelut</p>
+            </a>
+          </div>
+          <div class="col">
+            <a href="{{ url_for('account.accounts') }}">
+              <i class="tim-icons icon-single-02"></i>
+              <p>Käyttäjätilit</p>
+            </a>
+          </div>
+          <div class="col"></div>
+          <div class="w-100"></div>
+          <div class="col"></div>
+          <div class="col">
+            <a href="{{ url_for('category.categories') }}">
+              <i class="tim-icons icon-single-copy-04"></i>
+              <p>Kategoriat</p>
+            </a>
+          </div>
+          <div class="col">
+            <a href="{{ url_for('login_manager.logout') }}">
+              <i class="tim-icons icon-lock-circle"></i>
+              <p>Kirjaudu ulos</p>
+            </a>
+          </div>
+          <div class="col"></div>
+        </div>
+      </div>
       {% endblock %}
       <!-- ./body content -->
       {{ content | safe }}
