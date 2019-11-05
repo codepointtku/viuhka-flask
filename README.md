@@ -54,6 +54,15 @@
 
 **Installation**
 ---
+(Point the system path to MySQL or PostgreSQL executable)
+
+* Create database via CLI
+  * MySQL
+    * `mysql -h localhost -u username -p`
+    * `CREATE DATABASE database_name;`
+    * `quit;`
+  * PostgreSQL
+    * `psql -U postgres -c 'CREATE DATABASE database_name;'`
 
 
 * Windows
