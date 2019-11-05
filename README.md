@@ -7,8 +7,6 @@
 > * [Requirements](#requirements)
 > * [Database](#database)
 > * [Installation](#installation)
-> * [FAQ](#faq)
-> * [Documentation](#documentation)
 
 
 **Requirements**
