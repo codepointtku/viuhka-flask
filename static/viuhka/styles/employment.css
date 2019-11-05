@@ -153,3 +153,9 @@ a.navi-link:hover {
 .table-condensed {
   font-size: 12px;
 }
+
+.admin-box {
+    font-size: 70px;
+    margin: 3%;
+    padding-right: 1%;
+  }
