@@ -73,6 +73,7 @@
   * `call env/scripts/activate`
   * `pip install -r requirements.txt`
   * `python main.py --create`
+  * `python main.py --createsuperuser`
   * `python main.py --import`
   * `python main.py`
 
@@ -83,6 +84,7 @@
   * `$ source env/bin/activate`
   * `$ pip install -r requirements.txt`
   * `$ python main.py --create`
+  * `$ python main.py --createsuperuser`
   * `$ python main.py --import`
   * `$ python main.py`
   
