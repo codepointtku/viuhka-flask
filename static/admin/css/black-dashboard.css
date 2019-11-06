@@ -14104,6 +14104,7 @@ p.description {
 select option {
   margin: 5px;
   color: white;
+  background: #00A97A;
   border: 1px solid green;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
