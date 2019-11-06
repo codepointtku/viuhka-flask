@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import current_user, logout_user, login_user
+from flask_wtf.csrf import validate_csrf
 
 from app.managers.password import generate_hash_pass
 
@@ -18,10 +19,9 @@ _name_ = 'Admin Login'
 
 @module.route('/admin/login', methods=['POST', 'GET'])
 def admin_login():
-    print('Login request: %s' % request.method)
     if request.method == 'POST':
         form = LoginForm(request.form)
-
+        validate_csrf(form.csrf_token)
         account = Account.query.filter_by(username=form.username.data, password=generate_hash_pass(form.username.data, form.password.data)).first()
         if account:
             login_user(account)
@@ -60,7 +60,6 @@ def admin_logout():
 def login():
     if request.method == 'POST':
         form = LoginForm(request.form)
-
         account = Account.query.filter_by(username=form.username.data, password=generate_hash_pass(form.username.data, form.password.data)).first()
         if account:
             login_user(account)
@@ -71,15 +70,10 @@ def login():
                 {
                     'success': False
                 }
-            ), 401, {'ContentType':'application/json'}
+            ), 400, {'ContentType':'application/json'}
     else:
         if current_user.is_authenticated and current_user.is_staff():
-            redirect(url_for('index.index'))
-            return json.dumps(
-                {
-                    'success': False
-                }
-            ), 302, {'ContentType':'application/json'}
+            return redirect(url_for('index.index'))
         return render_template('splash/actions/login.html', form=LoginForm())
 
 

@@ -62,7 +62,8 @@
     * `CREATE DATABASE database_name;`
     * `quit;`
   * PostgreSQL
-    * `psql -U postgres -c 'CREATE DATABASE database_name;'`
+    * `psql -U postgres -c "CREATE ROLE database_user WITH ENCRYPTED PASSWORD 'password';"`
+    * `psql -U postgres -c "CREATE DATABASE database_name;"`
 
 
 * Windows

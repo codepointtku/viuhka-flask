@@ -3,16 +3,24 @@
 
 {% block body_content %}
 <div class="container">
-    <form class="form-signin" action="/login" method="post" role="form">
-        <center>
-            <h2 class="form-signin-heading">Kirjaudu sisään</h2>
-        </center>
-        <br /> <br /> <br /> <br />
-        <input type="username" name="username" class="form-control" placeholder="Käyttäjänimi" required autofocus>
-        <p id="username_notification" style="color:red;display:none;"></p>
-        <input type="password" name="password" class="form-control" placeholder="Salasana" required>
-        <button class="btn btn-lg btn-primary btn-block" type="button">Kirjaudu</button>
-    </form>
+    <div class="d-flex justify-content-center">
+        <h2 class="form-signin-heading">Kirjaudu sisään</h2>
+    </div>
+    <div class="row">
+        <div class="col">
+            <br />
+            <br />
+            <br />
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <form class="form-signin" action="/login" method="post" role="form">
+            {{ form.hidden_tag() }}
+            {{ form.username(id="username", class="form-control", placeholder="Käyttäjänimi", required=True, autofocus=True) }}
+            {{ form.password(id="password", class="form-control", placeholder="Salasana", required=True) }}
+            <button class="btn btn-lg btn-primary btn-block" type="button">Kirjaudu</button>
+        </form>
+    </div>
 </div>
 <ul class="navbar-nav">
     <li class="nav-item">
@@ -27,7 +35,6 @@
     $(function () {
         $('button').click(function () {
             var csrf_token = "{{ csrf_token() }}";
-
             $.ajaxSetup({
                 cache: false,
                 beforeSend: function (xhr, settings) {
@@ -45,18 +52,7 @@
                     $(location).attr('href', "{{ url_for('index.index') }}");
                 },
                 error: function (error) {
-                    var error = JSON.parse(error.responseText);
-                    var notification = $('p[id=' + error['form'] + '_notification]');
-                    try {
-                        notification.css({
-                            'display': 'inline-block'
-                        });
-                        notification.text(error['errors'])
-                        notification.show()
-                        setTimeout(function () {
-                            notification.hide()
-                        }, 5000);
-                    } catch {}
+                    location.reload();
                 }
             });
         });

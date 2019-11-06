@@ -97,7 +97,7 @@ class Import:
                                                             print('1 or 2')
                                                     if inp == 1:
                                                         name = input(
-                                                            'Category name: (%s) ' % CATEGORY_IDS[value])
+                                                            'Category name: (Default: %s) ' % CATEGORY_IDS[value])
                                                         if not name or name is None:
                                                             name = CATEGORY_IDS[value]
                                                         category = Category(
@@ -157,7 +157,7 @@ class Import:
                                                             print('1 or 2')
                                                     if inp == 1:
                                                         name = input(
-                                                            'Category name: (%s) ' % CATEGORY_IDS[value])
+                                                            'Category name: (Default: %s) ' % CATEGORY_IDS[value])
                                                         if not name or name is None:
                                                             name = CATEGORY_IDS[value]
                                                         category = Category(
