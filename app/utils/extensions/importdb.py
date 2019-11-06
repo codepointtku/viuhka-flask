@@ -18,7 +18,8 @@ CATEGORY_IDS = {
     'age_group': 'Yrittäjyyspalvelut',
     'unemployment_duration': 'Terveys-, kuntoutus- ja sosiaalipalvelut',
     'health': 'Muut palvelut',
-    'integration': 'Palveluja kohderyhmittäin'
+    'integration': 'Palveluja kohderyhmittäin',
+    'study': 'Koulutuspalvelut'
 }
 
 

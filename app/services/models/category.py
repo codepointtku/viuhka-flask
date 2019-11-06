@@ -1,5 +1,6 @@
 from app.utils.extensions.database import module as connector
 from app.services.models.category_items import CategoryItems, get_relation_type
+from flask_wtf.csrf import validate_csrf
 
 class CategorySequalizer:
     def __init__(self, id, category):
@@ -23,6 +24,7 @@ class Category(connector.Model):
         if not skip_csrf_check: 
             if not csrf_token or csrf_token is None:
                 raise TypeError('__init__() missing 1 required positional argument: \'csrf_token\'')
+            validate_csrf(csrf_token)
             self.csrf_token = csrf_token
     
     def save(self):

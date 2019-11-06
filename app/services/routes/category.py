@@ -27,6 +27,9 @@ def category():
         else:
             form = CategoryForm(request.form)
             cat = get_category(form.id.data)
+            del form.id
+            category_items = form.category_items.data
+            del form.category_items
             if cat:
                 cat.__init__(**form.data)
             else:
@@ -43,11 +46,14 @@ def category():
             return render_template('admin/pages/categories/_new.html', form=CategoryForm(), render_type='new')
         else:
             form = CategoryForm(request.form)
+            del form.id
+            category_items = form.category_items.data
+            del form.category_items
             cat = Category(
                 **form.data
             )
             cat.save()
-            for item in form.category_items.data:
+            for item in category_items:
                 cat_items = CategoryItems(
                     category_id=cat.id,
                     text=item
@@ -77,11 +83,10 @@ def categories():
 def category_item():
     _type = request.args.get('type')
     id = request.args.get('id')
-    form = CategoryForm(request.form)
     if _type == 'add':
         cat = CategoryItems(
             category_id=id,
-            text=form.text.data
+            text=request.form.get('text')
         )
         cat.save()
         return json.dumps(
