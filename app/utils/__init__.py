@@ -48,7 +48,7 @@ def config(app):
         app.config.update(
             **read_env()
         )
-        app.config['SQLALCHEMY_ECHO'] = '--quiet' not in argv
+        app.config['SQLALCHEMY_ECHO'] = '--verbose' in argv
 
     database =  read_env('SQL_DATABASE').get('SQL_DATABASE')    if read_env('SQL_DATABASE').get('SQL_DATABASE') else SQL_DEFAULTS['SQL_DATABASE']
     username =  read_env('SQL_USERNAME').get('SQL_USERNAME')    if read_env('SQL_USERNAME').get('SQL_USERNAME') else SQL_DEFAULTS['SQL_USERNAME']
@@ -162,6 +162,9 @@ def register_extensions(app):
                         text = 'SELECT 1;'
                         module.module.engine.execute(text)
                     except Exception as ex:
+                        if isinstance(ex, KeyboardInterrupt):
+                            print('Attempt interrupted.')
+                            exit(2)
                         print('Failed to connect to database: %s' % ex)
                         exit(2)
             elif module._name_ == 'SCSS Loader':

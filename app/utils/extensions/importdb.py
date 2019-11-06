@@ -107,6 +107,7 @@ class Import:
                                                         cgs = dict(
                                                             enumerate(get_categories()))
                                                     elif inp == 2:
+                                                        print('\n'*50)
                                                         x = ''
                                                         for k in cgs:
                                                             x += '[%s] %s\n' % (
@@ -115,13 +116,15 @@ class Import:
                                                         while p:
                                                             print(x)
                                                             inp = input('$ ')
+                                                            if inp.lower() == 'exit':
+                                                                exit(2)
                                                             try:
                                                                 category = cgs[int(
                                                                     inp)]
                                                                 p = False
                                                             except:
                                                                 print(
-                                                                    'Invalid option')
+                                                                    'Invalid option, type exit to exit')
                                                         print(
                                                             'Selected category: %s' % category.name)
                                                         CategoryItems(
@@ -167,6 +170,7 @@ class Import:
                                                         cgs = dict(
                                                             enumerate(get_categories()))
                                                     elif inp == 2:
+                                                        print('\n'*50)
                                                         x = ''
                                                         for k in cgs:
                                                             x += '[%s] %s\n' (k,
@@ -175,13 +179,15 @@ class Import:
                                                         while p:
                                                             print(x)
                                                             inp = input('$ ')
+                                                            if inp.lower() == 'exit':
+                                                                exit(2)
                                                             try:
                                                                 category = cgs[int(
                                                                     inp)]
                                                                 p = False
                                                             except:
                                                                 print(
-                                                                    'Invalid option')
+                                                                    'Invalid option, type exit to exit.')
                                                         CategoryItems(
                                                             category.id,
                                                             cgItem
