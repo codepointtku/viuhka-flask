@@ -16,8 +16,8 @@
               <div class="col-md-5 px-md-1">
                 <h1>Palvelun tiedot</h1>
                 <div class="form-group">
-                  {{ form.ptv_service_id(id="ptv_service_id", placeholder="PTV Service ID", class="form-control", value=service.ptv_service_id, required=True) }}
-                  {{ form.ptv_service_channel_id(id="ptv_service_channel_id", placeholder="PTV Service Channel ID", class="form-control", value=service.ptv_service_id, required=True) }}
+                  {{ form.ptv_service_id(id="ptv_service_id", placeholder="PTV Service ID", class="form-control", value=service.ptv_service_id) }}
+                  {{ form.ptv_service_channel_id(id="ptv_service_channel_id", placeholder="PTV Service Channel ID", class="form-control", value=service.ptv_service_id) }}
                 </div>
               </div>
             </div>
@@ -27,7 +27,7 @@
               <div class="col-md-1 px-md-1"></div>
               <div class="col-md-5 px-md-1">
                 <div class="form-group">
-                  {{ form.search_result_priority(id="search_result_priority", placeholder="Search result priority", class="form-control", value=service.search_result_priority, required=True) }}
+                  {{ form.search_result_priority(id="search_result_priority", placeholder="Search result priority", class="form-control", value=service.search_result_priority) }}
                 </div>
               </div>
             </div>
@@ -59,7 +59,7 @@
               {{ form.description(id="description", placeholder="Description", class="form-control", required=True) }}
               {{ form.description2(id="description2", placeholder="Description2", class="form-control") }}
               {{ form.description3(id="description3", placeholder="Description3", class="form-control") }}
-              {{ form.description4(id="description4", placeholder="Description4", class="form-control")  }}
+              {{ form.description4(id="description4", placeholder="Toimintaohjeet", class="form-control")  }}
             </div>
             <br />
             <br />
@@ -68,9 +68,9 @@
 
             <p>Provider information</p>
             <div class="form-group">
-              {{ form.provider(id="provider", placeholder="Provider", class="form-control", required=True) }}
-              {{ form.benefit_effect(id="benefit_effect", placeholder="Benefit Effect", class="form-control", required=True) }}
-              {{ form.constraint(id="constraint", placeholder="Constraint", class="form-control", required=True) }}
+              {{ form.provider(id="provider", placeholder="Toimija", class="form-control") }}
+              {{ form.benefit_effect(id="benefit_effect", placeholder="Vaikuttaako tukiin", class="form-control") }}
+              {{ form.constraint(id="constraint", placeholder="Palvelun rajaukset", class="form-control") }}
             </div>
             <br />
             <br />
@@ -92,31 +92,31 @@
             <br />
             <br />
             <br />
-            <p> Address information </p>
+            <p>Address information</p>
             <div class="form-group">
-              {{ form.address(id="address", placeholder="Address", class="form-control", value=service.address, required=True) }}
-              {{ form.address_extended(id="address_extended", placeholder="Address Extended", class="form-control", value=service.address_extended) }}
-              {{ form.post_address(id="post_address", placeholder="Post Address", class="form-control", value=service.post_address) }}
+              {{ form.address(id="address", placeholder="Katuosoite", class="form-control", value=service.address) }}
+              {{ form.address_extended(id="address_extended", placeholder="Osoitteen tarkennus", class="form-control", value=service.address_extended) }}
+              {{ form.post_address(id="post_address", placeholder="Postiosoite", class="form-control", value=service.post_address) }}
             </div>
             <br />
             <br />
-            <p> Contact information </p>
+            <p>Contact information</p>
             <div class="form-group">
-              {{ form.contact_person(id="contact_person", placeholder="Contact Person", class="form-control", value=service.contact_person, required=True) }}
-              {{ form.contact_person_phone(id="contact_person_phone", placeholder="Contact Person Phone", class="form-control", value=service.contact_person_phone, required=True) }}
-              {{ form.contact_email(id="contact_email", placeholder="Contact Email", class="form-control", value=service.contact_email, required=True) }}
+              {{ form.contact_person(id="contact_person", placeholder="Yhteyshenkilö", class="form-control", value=service.contact_person) }}
+              {{ form.contact_person_phone(id="contact_person_phone", placeholder="Puhelinnumero", class="form-control", value=service.contact_person_phone) }}
+              {{ form.contact_email(id="contact_email", placeholder="Sähköposti", class="form-control", value=service.contact_email) }}
             </div>
             <br />
             <br />
-            <p> Social Media </p>
+            <p>Social Media</p>
             <div class="form-group">
-              {{ form.www(id="www", placeholder="www", class="form-control", value=service.www) }}
+              {{ form.www(id="www", placeholder="Verkkosivu", class="form-control", value=service.www) }}
               {{ form.facebook(id="facebook", placeholder="Facebook", class="form-control", value=service.facebook) }}
               {{ form.twitter(id="twitter", placeholder="Twitter", class="form-control", value=service.twitter) }}
             </div>
-            <p> Categories </p>
+            <p>Kategoriat</p>
             <div class="form-group row">
-              <label for="category_items" class="col-sm-2 col-form-label">Items</label>
+              <label for="category_items" class="col-sm-2 col-form-label"></label>
               <div class="col-sm-9">
                 <select id="category_items" name="category_items" multiple class="form-control">
                   {% for option in form.category_items.data %}
@@ -133,14 +133,14 @@
                 </a>
               </div>
             </div>
-            <label for="published" class="col-sm-10 col-form-label">Published</label>
+            <label for="published" class="col-sm-10 col-form-label">Julkaistu</label>
             <div class="col-sm-1">
               {{ form.published(id="published",placeholder="Published",class="form-control sane", checked=service.published) }}
               <span>
                 <p id="published_notification" style="color:red;display:none;"></p>
               </span>
             </div>
-            <label for="open_ended" class="col-sm-10 col-form-label">Open ended</label>
+            <label for="open_ended" class="col-sm-10 col-form-label">Voimassa toistaiseksi</label>
             <div class="col-sm-1">
               {{ form.open_ended(id="open_ended",placeholder="Open ended",class="form-control sane", checked=service.open_ended) }}
               <span>
