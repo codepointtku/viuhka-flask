@@ -41,7 +41,7 @@
                             <i class="tim-icons icon-pencil"></i>
                         </a>
                     </td>
-                    {% if current_user.rank().level >= 2 and account.id != current_user.id %}
+                    {% if current_user.rank().level >= 2 and account.id != current_user.id and account.rank().level < current_user.rank().level %}
                     <td>
                         <a href="{{ url_for('account.account', type='delete', id=account.id) }}">
                             <i class="tim-icons icon-trash-simple"></i>

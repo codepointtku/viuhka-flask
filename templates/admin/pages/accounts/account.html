@@ -65,7 +65,7 @@
         url: "{{ url_for('account.account', type='edit') }}",
         data: form_data,
         success: function() {
-          location.reload();
+          $(location).attr('href', '{{ url_for("account.accounts") }}');
         },
       });
     }
