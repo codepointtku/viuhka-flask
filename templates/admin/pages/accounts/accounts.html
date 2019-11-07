@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for account in accounts() %}
+                {% for account in accounts.items %}
                 <tr>
                     <th scope="row">{{ account.id }}</th>
                     <th>{{ account.username }}</th>
@@ -53,6 +53,15 @@
                 {% endfor %}
             </tbody>
         </table>
+            <i class="fa fa-address-book">
+            {% for page_num in accounts.iter_pages() %}
+                {% if page_num %}
+                    <a href="{{ url_for('account.accounts', page=page_num) }}" class="btn btn-link">{{ page_num }}</a>
+                {% else %}
+                    ...
+                {% endif %}
+            {% endfor %}
+            </i>
     </div>
 </div>
 {% endblock %}

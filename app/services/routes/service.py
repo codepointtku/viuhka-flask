@@ -7,7 +7,7 @@ from app.services.models.service import ( Service, get_services, find_service,
 from app.services.forms.service import ServiceForm
 from app.services.models.category import get_category, sequalized_categories
 
-from app.utils import root, join, exit
+from app.utils import root, join, exit, paginate
 
 from wtforms.fields.simple import TextAreaField
 
@@ -113,5 +113,7 @@ def service():
 @module.route('/admin/services', methods=['GET'])
 @login_required
 def services():
+    page = request.args.get('page', 1, int)
+    services = paginate(Service.query, page=page, per_page=25)
     return render_template('admin/pages/services/services.html', 
-                        services=get_services, amount=amount)
+                        services=services, amount=amount)

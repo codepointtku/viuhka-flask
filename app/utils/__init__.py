@@ -257,3 +257,7 @@ def find(path, words=[]):
 
 def is_ignored(path):
     return open(path, 'r').read().split('\n')[0] == '#ignore'
+
+
+def paginate(query, page=1, per_page=50):
+    return query.paginate(page=page, per_page=per_page)

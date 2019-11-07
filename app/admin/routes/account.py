@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, request, url_for, abort
 from flask_login import login_required, current_user
 
+from app.utils import paginate
 from app.utils.models.account import list_accounts, find_account, Account, amount, find_account_by_username, find_account_by_email
 from app.utils.models.rank import ranks
 from app.admin.forms.account import AccountForm
@@ -17,8 +18,11 @@ _name_ = 'Accounts'
 @login_required
 def accounts():
     if not current_user.is_staff() or not current_user.is_authenticated:
-        return redirect('/')
-    return render_template('admin/pages/accounts/accounts.html', accounts=list_accounts, find=find_account, amount=amount, ranks=ranks, form=AccountForm())
+        return redirect(url_for('index.index'))
+    
+    page = request.args.get('page', 1, type=int)
+    accounts = paginate(Account.query, page=page, per_page=25)
+    return render_template('admin/pages/accounts/accounts.html', accounts=accounts, find=find_account, amount=amount, ranks=ranks, form=AccountForm())
 
 
 @module.route('/account/', methods=['GET', 'POST'])
