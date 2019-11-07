@@ -119,10 +119,10 @@
                             </tbody>
                         </table>
                     
-                    <i class="fa fa-address-book">
+                    <i class="fa fa-address-book" id="pagination">
                     {% for page_num in services.iter_pages() %}
                         {% if page_num %}
-                            <a href="{{ url_for('index.index', page=page_num) }}" class="btn btn-link">{{ page_num }}</a>
+                            <a href="{{ url_for('index.index', page=page_num) }}" id="pagination_{{ page_num}}" name="pagination_{{ page_num}}" class="btn btn-link">{{ page_num }}</a>
                         {% else %}
                             ...
                         {% endif %}
@@ -210,6 +210,11 @@
                 }, 375);
                 $('a[id=resetFilters').text('Poista hakusuodattimet');
                 $('a[id=resetFilters').show();
+                if ($('td:visible').length < 49) {
+                    $('i[id=pagination]').hide()
+                } else {
+                    $('i[id=pagination]').show()
+                }
             } else {
                 $('a[id=resetFilters]').click();
             }
@@ -232,6 +237,11 @@
             });
             $('a[id=resetFilters').text('Poista hakusuodattimet');
             $('a[id=resetFilters').show();
+            if ($('td:visible').length < 49) {
+                $('i[id=pagination]').hide()
+            } else {
+                $('i[id=pagination]').show()
+            }
 
         });
         $('a[id=resetFilters]').on('click', function () {
@@ -244,6 +254,11 @@
                 }
             }
             $('#serviceSearch').val('');
+            if ($('td:visible').length < 49) {
+                $('i[id=pagination]').hide()
+            } else {
+                $('i[id=pagination]').show()
+            }
         });
     });
      $('.panel-collapse').on('show.bs.collapse', function () {
