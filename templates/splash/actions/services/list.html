@@ -4,36 +4,60 @@
 {% block body_content %}
 
 <style>
-  label {font-weight:bold; margin-top: 0.5em}
+  label {
+    font-weight: bold;
+    margin-top: 0.5em
+  }
 </style>
 
 <center>
-    <h1>Lista palveluista</h1>
+  <h1>Lista palveluistasi</h1>
   <div class="list-text panel panel-default">
-{% if amount() >= 1 %}
-  {% for service in services.items %}
-      <a href="/details/{{ service.id }}">{{ service.name }}</a> &nbsp;
-      {% if current_user.is_staff() %}
-        <a href="/edit/{{ service.id }}" style="color:lightgray">muokkaa</a>
-      {% endif %}
-      <br>
-  {% endfor %}
-      <i class="fa fa-address-book">
+    {% if amount() >= 1 %}
+      {% for service in services.items %}
+        {% if current_user.rank().level < 2 and service.owner_id == current_user.id %}
+        <a href="{{ url_for('index.details', id=service.id) }}">{{ service.name }}</a> &nbsp;
+        <a href="{{ url_for('index.edit', id=service.id) }}" style="color:lightgray">muokkaa</a>
+        {% else %}
+        <a href="{{ url_for('index.details', id=service.id) }}">{{ service.name }}</a> &nbsp;
+        <a href="{{ url_for('index.edit', id=service.id) }}" style="color:lightgray">muokkaa</a>
+        {% endif %}
+        <br>
+      {% endfor %}
+      <div id="pagination">
         {% for page_num in services.iter_pages() %}
-            {% if page_num %}
-                <a href="{{ url_for('service.list_service', page=page_num) }}" class="btn btn-link">{{ page_num }}</a>
-            {% else %}
-                ...
-            {% endif %}
+          {% if page_num %}
+          <a  href="{{ url_for('service.list_service', page=page_num) }}" 
+              class="btn btn-link">{{ page_num }}
+          </a>
+          {% else %}
+          ...
+          {% endif %}
         {% endfor %}
-        </i>
-{% else %}
-  <h1>Palveluja ei ole vielä lisätty.</h1>
-  <p> Palveluja ei ole vielä lisätty Työllisyysviuhkaan, odotathan.</p>
-  <form method="get" action="{{ FORCE_SCRIPT_NAME }}/">
-    <button type="submit" class="button-info-viuhka button-info">Takaisin</button>
-  </form>
-</div>
-{% endif %}
-</center>
+        {% if services.pages > 0 %}
+          {% if current_page + 1 > services.pages %}
+            <a href="{{ url_for('service.list_service', page=current_page - 1) }}" class="btn btn-link">
+              <i class="fa fa-chevron-left"></i>
+            </a>
+          {% else %}
+            <a href="{{ url_for('service.list_service', page=current_page + 1) }}" class="btn btn-link">
+              <i class="fa fa-chevron-right"></i>
+            </a>
+          {% endif %}
+        {% else %}
+          <h1>Et ole vielä lisännyt yhtään palvelua</h1>
+          <form method="get" action="{{ url_for('index.form') }}">
+        <button type="submit" class="button-info-viuhka button-info">Lisää palvelu</button>
+        </form>
+        {% endif %}
+      </div>
+    {% else %}
+      <h1>Palveluja ei ole vielä lisätty.</h1>
+      <p> Palveluja ei ole vielä lisätty Työllisyysviuhkaan, odotathan.</p>
+        <form method="get" action="{{ url_for('index.index') }}">
+        <button type="submit" class="button-info-viuhka button-info">Takaisin</button>
+        </form>
+    </div>
+    {% endif %}
+  </center>
 {% endblock %}

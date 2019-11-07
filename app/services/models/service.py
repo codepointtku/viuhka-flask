@@ -12,7 +12,7 @@ class Service(connector.Model):
     ptv_service_id                  = connector.Column(connector.Text)                       # PTV Palvelun ID
     ptv_service_channel_id          = connector.Column(connector.Text)                       # PTV Palvelukanavan ID
 
-    search_result_priority          = connector.Column(connector.Integer,       primary_key = True) # Hakutulosprioriteetti
+    search_result_priority          = connector.Column(connector.Integer,       default     = 0) # Hakutulosprioriteetti
     name                            = connector.Column(connector.Text)                       # Palvelun nimi
     organization                    = connector.Column(connector.Text)                              # JÃ¤rjestÃ¤vÃ¤ organisaatio
     ingress                         = connector.Column(connector.Text)                              # Ingressi
@@ -48,6 +48,8 @@ class Service(connector.Model):
     notes                           = connector.Column(connector.Text)                       # Palveluntarjoajan viestilaatikko
     content_contact                 = connector.Column(connector.Text)                       # SisÃ¤llÃ¶n yhteyshenkilÃ¶
 
+    owner_id                        = connector.Column(connector.Integer,       primary_key = True)
+
 
     def __init__(self,  published=True,     ptv_service_id="",  ptv_service_channel_id="",  search_result_priority=0,       name="", 
                         organization="",    ingress="",         description="",             description2="",                description3="", 
@@ -57,7 +59,7 @@ class Service(connector.Model):
                         study=None,         integration=None,   notes="",                   content_contact="",             immigration=None,
                         contact_person="",  age_group=None,     unemployment_duration=None, health=None,                    contact_person_phone="",
                         contact_email="",   classification=None,                            category_items=None,            csrf_token="",
-                        form={}):
+                        owner_id=0,         form={}):
 
                         self.published              = form.get('published')                 if form.get('published')                else published
                         self.ptv_service_id         = form.get('ptv_service_id')            if form.get('ptv_service_id')           else ptv_service_id
@@ -98,6 +100,7 @@ class Service(connector.Model):
                         self.classification         = form.get('classification')            if form.get('classification')           else classification
                         self.category_items         = form.get('category_items')            if form.get('category_items')           else category_items
                         self.csrf_token             = form.get('csrf_token')                if form.get('csrf_token')               else csrf_token
+                        self.owner_id               = form.get('owner_id')                  if form.get('owner_id')                 else owner_id
 
 
     def __str__(self):
@@ -168,3 +171,7 @@ def normalize(fields=[]):
         except:
             x.append(field.split('_')[0].capitalize())
     return x
+
+
+def paginate_service_owner_id(owner_id, page=1, per_page=50):
+    return Service.query.filter_by(owner_id=owner_id).paginate(page=page, per_page=per_page)

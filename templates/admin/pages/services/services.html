@@ -25,6 +25,7 @@
             </thead>
             <tbody>
                 {% for service in services.items %}
+                {% if current_user.rank().level < 2 and service.owner_id == current_user.id %}
                 <tr>
                     <th scope="row">{{ service.id }}</th>
                     <th>{{ service.name }}</th>
@@ -34,7 +35,7 @@
                     <th>Kyllä</th>
                     {% else %}
                     <th>Ei</th>
-                    {% endif %}                   
+                    {% endif %}               
                     <td><a href="{{ url_for('service.service', type='edit', id=service.id) }}">
                             <i class="tim-icons icon-pencil"></i>
                         </a></td>
@@ -45,6 +46,28 @@
                     </td>
                     </th>
                 </tr>
+                {% else %}
+                <tr>
+                    <th scope="row">{{ service.id }}</th>
+                    <th>{{ service.name }}</th>
+                    <th>{{ service.organization }}</th>
+                    <th>{{ service.created.replace(microsecond=0) }}</th>
+                    {% if service.published %}
+                    <th>Kyllä</th>
+                    {% else %}
+                    <th>Ei</th>
+                    {% endif %}               
+                    <td><a href="{{ url_for('service.service', type='edit', id=service.id) }}">
+                            <i class="tim-icons icon-pencil"></i>
+                        </a></td>
+                    <td>
+                        <a href="{{ url_for('service.service', type='delete', id=service.id) }}">
+                            <i class="tim-icons icon-trash-simple"></i>
+                        </a>
+                    </td>
+                    </th>
+                </tr>
+                {% endif %}
                 {% endfor %}
             </tbody>
         </table>
