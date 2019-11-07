@@ -1,7 +1,7 @@
 from app.utils.extensions.database import module as connector
 
 ranks = {
-    0: 'Asiakas',
+    0: 'Palveluntuottaja',
     1: 'Virkailija',
     2: 'Admin'
 }
