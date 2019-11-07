@@ -95,7 +95,7 @@
                         style="background: transparent;border:none;border-top:1px solid green;border-bottom:1px solid green;">
                         <table class="table table-condensed" id="serviceTable">
                             <tbody>
-                                {% for service in services %}
+                                {% for service in services.items %}
                                 {% if service.published %}
                                 <tr>
                                     <td id="row_{{ service.id }}" class="{{ service.joined_sanitized() }}">
@@ -118,6 +118,25 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+                    
+                    <div id="pagination">
+                    {% for page_num in services.iter_pages() %}
+                        {% if page_num %}
+                            <a href="{{ url_for('index.index', page=page_num) }}" id="pagination_{{ page_num}}" name="pagination_{{ page_num}}" class="btn btn-link">{{ page_num }}</a>
+                        {% else %}
+                            ...
+                        {% endif %}
+                    {% endfor %}
+                        {% if current_page + 1 > services.pages %}
+                        <a href="{{ url_for('index.index', page=current_page - 1) }}" class="btn btn-link">
+                            <i class="fa fa-chevron-left"></i>
+                        </a>
+                        {% else %}
+                        <a href="{{ url_for('index.index', page=current_page + 1) }}" class="btn btn-link">
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
+                        {% endif %}
+                    </div>
                     </div>
                 </div>
             </div>
@@ -153,7 +172,7 @@
         $(spinner).hide();
 
         setInterval(function () {
-            results.text($('td:visible').length + ' tulosta.');
+            results.text($('td:visible').length + ' results out of {{ total }}');
         }, 125);
 
         $('#serviceSearch').on('keyup', function () {
@@ -200,6 +219,11 @@
                 }, 375);
                 $('a[id=resetFilters').text('Poista hakusuodattimet');
                 $('a[id=resetFilters').show();
+                if ($('td:visible').length < 49) {
+                    $('i[id=pagination]').hide()
+                } else {
+                    $('i[id=pagination]').show()
+                }
             } else {
                 $('a[id=resetFilters]').click();
             }
@@ -222,6 +246,11 @@
             });
             $('a[id=resetFilters').text('Poista hakusuodattimet');
             $('a[id=resetFilters').show();
+            if ($('td:visible').length < 49) {
+                $('i[id=pagination]').hide()
+            } else {
+                $('i[id=pagination]').show()
+            }
 
         });
         $('a[id=resetFilters]').on('click', function () {
@@ -234,6 +263,11 @@
                 }
             }
             $('#serviceSearch').val('');
+            if ($('td:visible').length < 49) {
+                $('i[id=pagination]').hide()
+            } else {
+                $('i[id=pagination]').show()
+            }
         });
     });
      $('.panel-collapse').on('show.bs.collapse', function () {
