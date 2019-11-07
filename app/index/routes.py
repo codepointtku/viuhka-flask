@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, send_from_directory, request, redirect, url_for, abort
+
+from app.utils import paginate, paginate_id
 from app.services.models.category import sequalized_categories
-from app.services.models.service import services_from_category, find_service
+from app.services.models.service import Service, services_from_category, find_service, amount
 from app.services.models.category_items import get_category_item_by_name
 from app.services.forms.service import ServiceForm
 from flask_login import login_required
@@ -13,11 +15,12 @@ _name_ = 'Splash'
 @module.route('/')
 def index():
     _type = request.args.get('type')
+    page = request.args.get('page', 1, int)
     if _type is None or _type is not 'show':
-        return render_template('splash/index.html', categories=sequalized_categories(), services=services_from_category())
+        return render_template('splash/index.html', categories=sequalized_categories(), services=paginate(Service.query, page=page, per_page=50), total=amount())
     else:
         id = request.json.get('categoryname')
-        return render_template('splash/index.html', categories=sequalized_categories(), services=services_from_category(id))
+        return render_template('splash/index.html', categories=sequalized_categories(), services=paginate_id(Service.query, id=id, page=page, per_page=50), total=amount())
 
 @module.route('/info')
 def info():  

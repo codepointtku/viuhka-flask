@@ -21,7 +21,9 @@ _name_ = 'Services'
 
 @module.route('/service/list', methods=['GET'])
 def list_service():
-    return render_template('splash/actions/services/list.html', services=get_services, amount=amount)
+    page = request.args.get('page', 1, int)
+    services = paginate(Service.query, page=page, per_page=25)
+    return render_template('splash/actions/services/list.html', services=services, amount=amount)
 
 
 @module.route('/admin/service', methods=['GET', 'POST'])

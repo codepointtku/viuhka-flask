@@ -95,7 +95,7 @@
                         style="background: transparent;border:none;border-top:1px solid green;border-bottom:1px solid green;">
                         <table class="table table-condensed" id="serviceTable">
                             <tbody>
-                                {% for service in services %}
+                                {% for service in services.items %}
                                 {% if service.published %}
                                 <tr>
                                     <td id="row_{{ service.id }}" class="{{ service.joined_sanitized() }}">
@@ -118,6 +118,16 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+                    
+                    <i class="fa fa-address-book">
+                    {% for page_num in services.iter_pages() %}
+                        {% if page_num %}
+                            <a href="{{ url_for('index.index', page=page_num) }}" class="btn btn-link">{{ page_num }}</a>
+                        {% else %}
+                            ...
+                        {% endif %}
+                    {% endfor %}
+                    </i>
                     </div>
                 </div>
             </div>
@@ -153,7 +163,7 @@
         $(spinner).hide();
 
         setInterval(function () {
-            results.text($('td:visible').length + ' tulosta.');
+            results.text($('td:visible').length + ' results out of {{ total }}');
         }, 125);
 
         $('#serviceSearch').on('keyup', function () {

@@ -11,13 +11,22 @@
     <h1>Lista palveluista</h1>
   <div class="list-text panel panel-default">
 {% if amount() >= 1 %}
-  {% for service in services() %}
+  {% for service in services.items %}
       <a href="/details/{{ service.id }}">{{ service.name }}</a> &nbsp;
       {% if current_user.is_staff() %}
         <a href="/edit/{{ service.id }}" style="color:lightgray">muokkaa</a>
       {% endif %}
       <br>
   {% endfor %}
+      <i class="fa fa-address-book">
+        {% for page_num in services.iter_pages() %}
+            {% if page_num %}
+                <a href="{{ url_for('service.list_service', page=page_num) }}" class="btn btn-link">{{ page_num }}</a>
+            {% else %}
+                ...
+            {% endif %}
+        {% endfor %}
+        </i>
 {% else %}
   <h1>Palveluja ei ole vielä lisätty.</h1>
   <p> Palveluja ei ole vielä lisätty Työllisyysviuhkaan, odotathan.</p>
