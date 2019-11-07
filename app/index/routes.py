@@ -56,3 +56,11 @@ def details(id):
         if service:
             return render_template('splash/actions/services/view.html', service=service)
     abort(404)
+
+@module.route('/edit/<id>')
+def edit(id):
+    if id:
+        service = find_service(id)
+        if service:
+            return render_template('splash/actions/services/edit.html', service=service)
+    abort(404)

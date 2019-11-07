@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, Response, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 from flask_wtf.csrf import validate_csrf
 
 from app.services.models.service import ( Service, get_services, find_service, 
-                                        amount, create_new )
+                                        amount, create_new, paginate_service_owner_id )
 from app.services.forms.service import ServiceForm
 from app.services.models.category import get_category, sequalized_categories
 
@@ -22,8 +22,11 @@ _name_ = 'Services'
 @module.route('/service/list', methods=['GET'])
 def list_service():
     page = request.args.get('page', 1, int)
-    services = paginate(Service.query, page=page, per_page=25)
-    return render_template('splash/actions/services/list.html', services=services, amount=amount)
+    if current_user.rank().level < 2:
+        services = paginate_service_owner_id(current_user.id, page=page, per_page=25)
+    else:
+        services = paginate(Service.query, page=page, per_page=25)
+    return render_template('splash/actions/services/list.html', services=services, amount=amount, current_page=page)
 
 
 @module.route('/admin/service', methods=['GET', 'POST'])
@@ -81,10 +84,9 @@ def service():
     elif _type == 'add':
         form = ServiceForm(request.form)
         service = Service(
-            form=form.data,
-            start=form.start.data,
-            end=form.end.data
+            **form.data
         )
+        service.owner_id = current_user.id
         validate_csrf(service.csrf_token)
         try: service.category_items = dict(enumerate(service.category_items))
         except: pass
@@ -116,6 +118,9 @@ def service():
 @login_required
 def services():
     page = request.args.get('page', 1, int)
-    services = paginate(Service.query, page=page, per_page=25)
+    if current_user.rank().level < 2:
+        services = paginate_service_owner_id(current_user.id,  page=page, per_page=25)
+    else:
+        services = paginate(Service.query,  page=page, per_page=25)
     return render_template('admin/pages/services/services.html', 
                         services=services, amount=amount)
