@@ -66,22 +66,27 @@
             <br />
             <br />
 
-            <p>Provider information</p>
+            <p>Toimija</p>
             <div class="form-group">
-              {{ form.provider(id="provider", placeholder="Toimija", class="form-control") }}
-              {{ form.benefit_effect(id="benefit_effect", placeholder="Vaikuttaako tukiin", class="form-control") }}
-              {{ form.constraint(id="constraint", placeholder="Palvelun rajaukset", class="form-control") }}
+              {{ form.provider(id="provider", placeholder="Toimija", class="form-control", value="") }}
+            </div>
+            <p>Vaikuttaako tukiin</p>
+            <div class="form-group">
+              {{ form.benefit_effect(id="benefit_effect", placeholder="Vaikuttaako tukiin", class="form-control", value="") }}
+            </div>
+            <p>Palvelun rajaukset</p>
+            <div class="form-group">
+              {{ form.constraint(id="description4", placeholder="Palvelun rajaukset", class="form-control", value="") }}
             </div>
             <br />
             <br />
-
-
+           
             <div class="row">
               <div class="col-md-1 px-md-1"></div>
               <div class="col-md-1 px-md-1"></div>
               <div class="col-md-1 px-md-1"></div>
               <div class="col-md-5 px-md-1">
-                <p> Start/End </p>
+                <p> Toiminta päättyy/alkaa </p>
                 <div class="form-group">
                   {{ form.start(id="start", class="form-control", value=service.fixed('start')) }}
                   {{ form.end(id="end", class="form-control", value=service.fixed('end')) }}
@@ -92,19 +97,25 @@
             <br />
             <br />
             <br />
-            <p>Address information</p>
+            <p>Katuosoite</p>
             <div class="form-group">
-              {{ form.address(id="address", placeholder="Katuosoite", class="form-control", value=service.address) }}
-              {{ form.address_extended(id="address_extended", placeholder="Osoitteen tarkennus", class="form-control", value=service.address_extended) }}
-              {{ form.post_address(id="post_address", placeholder="Postiosoite", class="form-control", value=service.post_address) }}
+              {{ form.address(id="address", placeholder="Katuosoite", class="form-control", value="") }}
+            </div>
+            <p>Osoitteen tarkennus</p>
+            <div class="form-group">
+              {{ form.address_extended(id="address_extended", placeholder="Osoitteen tarkennus", class="form-control", value="") }}
+            </div>
+            <p>Postiosoite</p>
+            <div class="form-group">
+              {{ form.post_address(id="post_address", placeholder="Postiosoite", class="form-control", value="") }}
             </div>
             <br />
             <br />
-            <p>Contact information</p>
+            <p>Yhteyshenkilön tiedot</p>
             <div class="form-group">
-              {{ form.contact_person(id="contact_person", placeholder="Yhteyshenkilö", class="form-control", value=service.contact_person) }}
-              {{ form.contact_person_phone(id="contact_person_phone", placeholder="Puhelinnumero", class="form-control", value=service.contact_person_phone) }}
-              {{ form.contact_email(id="contact_email", placeholder="Sähköposti", class="form-control", value=service.contact_email) }}
+              {{ form.contact_person(id="contact_person", placeholder="Yhteyshenkilö", class="form-control", value="") }}
+              {{ form.contact_person_phone(id="contact_person_phone", placeholder="Puhelinnumero", class="form-control", value="") }}
+              {{ form.contact_email(id="contact_email", placeholder="Sähköposti", class="form-control", value="") }}
             </div>
             <br />
             <br />
