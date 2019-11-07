@@ -17,10 +17,10 @@ def index():
     _type = request.args.get('type')
     page = request.args.get('page', 1, int)
     if _type is None or _type is not 'show':
-        return render_template('splash/index.html', categories=sequalized_categories(), services=paginate(Service.query, page=page, per_page=50), total=amount())
+        return render_template('splash/index.html', categories=sequalized_categories(), services=paginate(Service.query, page=page, per_page=50), total=amount(), current_page=page)
     else:
         id = request.json.get('categoryname')
-        return render_template('splash/index.html', categories=sequalized_categories(), services=paginate_id(Service.query, id=id, page=page, per_page=50), total=amount())
+        return render_template('splash/index.html', categories=sequalized_categories(), services=paginate_id(Service.query, id=id, page=page, per_page=50), total=amount(), current_page=page)
 
 @module.route('/info')
 def info():  
