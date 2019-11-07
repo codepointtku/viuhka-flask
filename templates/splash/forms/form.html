@@ -301,7 +301,7 @@
             Työpiste – Työ ja tekijät kohtaavat<br>
             http://www.turku.fi/tyopiste
         </p>
-        {{ form.www }}<br>
+        {{ form.www(class="form-control", value="") }}<br>
 
         <br>
         <!--
@@ -325,14 +325,14 @@
             tähän tiedot muutoksista, jotka olet edellä tehnyt.</p>
         <p>Tähän kirjoittamasi teksti on tarkoitettu palautteeksi ja tiedoksi Työllisyysviuhkan ylläpitäjälle. Teksti ei
             siirry Työllisyysviuhkan verkkosivuille.</p>
-        {{ form.notes }}<br>
+        {{ form.notes(class="form-control", value="") }}<br>
         <br>
         <h2>Yhteyshenkilö*</h2><br>
         <p>Keneen henkilöön Työllisyysviuhkan ylläpitäjä voi olla tarvittaessa yhteydessä palvelun tietoja koskien?
             Kirjoita tähän henkilön nimi, puhelinnumero ja sähköpostiosoite.</p>
         <p>Tähän kirjoittamasi tiedot on tarkoitettu Työllisyysviuhkan ylläpitäjälle. Tiedot eivät siirry
             Työllisyysviuhkan verkkosivuille.</p>
-        {{ form.content_contact }}<br>
+        {{ form.content_contact(class="form-control", value="") }}<br>
     </div>
     <br>
     <label>Lähetä tiedot</label>
