@@ -18,12 +18,11 @@ class Account(UserMixin, connector.Model):
     is_active                               = connector.Column("active", connector.Boolean)
 
 
-    def __init__(self, username, email, password, online = 0):
-        self.id = len(self.query.all()) + 1
-        self.username = username
-        self.email = email
-        self.password = password
-        self.online = online
+    def __init__(self, *args, **kwargs):
+        self.username = kwargs.get('username')
+        self.email = kwargs.get('email')
+        self.password = kwargs.get('password')
+        self.online = kwargs.get('online') if kwargs.get('online') is not None else 0
         self.is_active = True
 
     

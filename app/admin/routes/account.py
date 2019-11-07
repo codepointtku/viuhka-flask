@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, request, url_for
+from flask import Blueprint, render_template, redirect, request, url_for, abort
 from flask_login import login_required, current_user
 
 from app.utils.models.account import list_accounts, find_account, Account, amount, find_account_by_username, find_account_by_email
@@ -28,14 +28,46 @@ def account():
     id = request.args.get('id')
     print(_type, id)
     if _type == 'edit':
-        if id == 0:
-            return redirect(url_for('account.accounts'))
-        account = find_account(id)
-        if account:
-            print('Editing account (%s) %s, request by: %s' % (account.id, account.username, current_user.username))
-            return render_template('admin/pages/accounts/account.html', account=account, form=AccountForm(), render_type='edit', redirect=redirect)
+        if request.method == 'GET':
+            if id == 0:
+                return redirect(url_for('account.accounts'))
+            account = find_account(id)
+            if account:
+                if current_user.rank().level < 2 and current_user.rank().level <= account.rank().level:
+                    if current_user.is_staff():
+                        return redirect(url_for('account.accounts'))
+                    else:
+                        return redirect(url_for('index.index'))
+                form = AccountForm()
+                form.rank.process_data(account.rank().level)
+                return render_template('admin/pages/accounts/account.html', account=account, form=form, render_type='edit', redirect=redirect)
+            else:
+                return render_template('admin/pages/404.html', reason='Account', content='Not found')
         else:
-            return render_template('admin/pages/404.html', reason='Account', content='Not found')
+            form = AccountForm(request.form)
+            account = find_account(form.id.data)
+            if account:
+                if current_user.rank().level < 2 and current_user.rank().level <= account.rank().level:
+                    abort(400)
+                form = AccountForm(request.form)
+                if form.password.data is None or not form.password.data:
+                    form.password.data = account.password
+                
+                if form.password.data != account.password:
+                    form.password.data = generate_hash_pass(account.username, form.password.data)
+                account.__init__(
+                    **form.data
+                )
+                account.save()
+
+                account.rank().level = int(form.rank.data)
+                account.rank().save()
+                return json.dumps({
+                    'success':True
+                }), 200, {'ContentType':'application/json'}
+            else:
+                abort(400)
+            return redirect(url_for('account.accounts'))
     elif _type == 'add':
         form = AccountForm(request.form)
         
@@ -65,11 +97,10 @@ def account():
                 'message':'Account already exists.'
             }), 400, {'ContentType':'application/json'}
 
+        form.password.data = generate_hash_pass(username=form.username.data, password=form.password.data)
+
         account = Account(
-            username=form.username.data,
-            password=generate_hash_pass(username=form.username.data, password=form.password.data),
-            email=form.email.data,
-            online=0
+            **form.data
         )
         account.change_rank(
             level=int(form.rank.data)
