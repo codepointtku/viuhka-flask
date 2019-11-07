@@ -3,13 +3,6 @@
 
 {% block body_content %}
   {% if render_type == 'edit' %}
-    {% if current_user.rank().level <= account.rank().level %}
-      {% if current_user.is_staff() %}
-        {{ redirect(url_for('admin.index')) }}
-      {% else %}
-        {{ redirect(url_for('index.index')) }}
-      {% endif %}
-    {% endif %}
     {% include "admin/pages/accounts/_edit.html" %}
   {% elif render_type == 'new' %}
     {% include "admin/pages/accounts/_new.html" %}
@@ -56,10 +49,9 @@
   });
   $('#editAccount').submit(function (event) {
     event.preventDefault();
-    var form_data = validate($(this).serialize());
+    var form_data = $(this).serialize();
     if (form_data) {
       var csrf_token = "{{ csrf_token() }}";
-
       $.ajaxSetup({
         cache:false,
         beforeSend: function (xhr, settings) {
@@ -70,8 +62,11 @@
       });
       $.ajax({
         type: 'POST',
-        url: "{{ url_for('service.service', type='add') }}",
-        data: form_data
+        url: "{{ url_for('account.account', type='edit') }}",
+        data: form_data,
+        success: function() {
+          location.reload();
+        },
       });
     }
   });
