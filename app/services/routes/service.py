@@ -62,15 +62,16 @@ def service():
         else:
             form = ServiceForm(request.form)
             service = find_service(id)
-
-            form.owner_id.data = service.owner_id
+            owner = service.owner_id # cache
 
             if form.start.data is None and service.start is not None:
                 form.start.data = service.start
             if form.end.data is None and service.end is not None:
                 form.end.data = service.end
 
+
             service.__init__(**form.data)
+            service.owner_id = owner
             validate_csrf(service.csrf_token)
             service.save()
             try:
