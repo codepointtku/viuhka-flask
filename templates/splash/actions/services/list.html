@@ -3,14 +3,7 @@
 
 {% block body_content %}
 
-<style>
-  label {
-    font-weight: bold;
-    margin-top: 0.5em
-  }
-</style>
-
-<center>
+<div class=center-text2>
   <h1>Lista palveluistasi</h1>
   <div class="list-text panel panel-default">
     {% if amount() >= 1 %}
@@ -58,6 +51,6 @@
         <button type="submit" class="button-info-viuhka button-info">Takaisin</button>
         </form>
     </div>
+ </div>
     {% endif %}
-  </center>
 {% endblock %}
