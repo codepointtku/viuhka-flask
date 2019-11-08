@@ -71,6 +71,7 @@ def edit(id):
 
             return render_template('splash/actions/services/edit.html', service=service, form=form)
     abort(404)
+    
 @module.route('/contact')
 def contact():  
     return render_template('splash/forms/contact.html')
