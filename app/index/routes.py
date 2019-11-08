@@ -8,6 +8,8 @@ from app.services.forms.service import ServiceForm
 from flask_login import login_required
 from wtforms.fields.simple import TextAreaField
 
+import json
+
 module = Blueprint('index', __name__)
 
 _name_ = 'Splash'
@@ -57,20 +59,38 @@ def details(id):
             return render_template('splash/actions/services/view.html', service=service)
     abort(404)
 
-@module.route('/edit/<id>')
+@module.route('/edit/<id>', methods=['GET','POST'])
 def edit(id):
-    if id:
+    if request.method == 'GET':
+        if id:
+            service = find_service(id)
+            if service:
+                form = ServiceForm()
+                for ff in form.__dict__:
+                    for sf in service.__dict__:
+                        if ff == sf:
+                            if isinstance(form.__dict__[ff], TextAreaField):
+                                form.__dict__[ff].process_data(service.__dict__[sf])
+                return render_template('splash/actions/services/edit.html', service=service, form=form)
+        return abort(404)
+    else:
+        form = ServiceForm(request.form)
         service = find_service(id)
-        if service:
-            form = ServiceForm()
-            for ff in form.__dict__:
-                for sf in service.__dict__:
-                    if ff == sf:
-                        if isinstance(form.__dict__[ff], TextAreaField):
-                            form.__dict__[ff].process_data(service.__dict__[sf])
+        owner = service.owner_id
 
-            return render_template('splash/actions/services/edit.html', service=service, form=form)
-    abort(404)
+        category_items = service.category_items
+
+        service.__init__(
+            **form.data
+        )
+        service.category_items = category_items
+        service.owner_id = owner
+        service.save()
+        if find_service(id):
+            return json.dumps({
+                'success':True
+            }), 200, {'ContentType':'application/json'}
+        return abort(400)
     
 @module.route('/contact')
 def contact():  
