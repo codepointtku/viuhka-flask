@@ -7,6 +7,7 @@ from app.services.models.category_items import get_category_item_by_name
 from app.services.forms.service import ServiceForm
 from flask_login import login_required
 from wtforms.fields.simple import TextAreaField
+from flask_wtf.csrf import validate_csrf
 
 import json
 
@@ -79,6 +80,8 @@ def edit(id):
         owner = service.owner_id
 
         category_items = service.category_items
+
+        validate_csrf(form.csrf_token.data)
 
         service.__init__(
             **form.data

@@ -3,20 +3,43 @@
 
 {% block body_content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<div class="row">
+  <a class="btn btn-primary btn-lg" href="javascript:history.back()" role="button"
+    style="background: #00A97A;border-color: #00A97A;">
+    <i class="fa fa-caret-left"></i>
+    <i class="fa fa-caret-left"></i>
+    <i class="fa fa-caret-left"></i>
+    &nbsp; Palaa hakuun
+  </a>
+</div>
+
 <div class="container">
 <form id="addService" role="form">
   {{ form.csrf_token }}
+  <h1>Muokkaa palvelua</h1>
+  <h2>Palvelun nimi</h2>
   {{ form.name(id="name", placeholder="Name", class="form-control", value=service.name, required=True) }}
+  <h2>Palvelun toteuttaja</h2>
   {{ form.organization(id="organization", placeholder="Organisaatio", class="form-control", value="", required=True) }}
+  <h2>Tiivistelmä</h2>
   {{ form.ingress(id="ingress", placeholder="Ingress", class="form-control", value="", required=True) }}
+  <h2>Palvelun kuvaus</h2>
   {{ form.description(id="description", placeholder="Description", class="form-control", required=True) }}
+  <h2>Toimintaohjeet</h2>
   {{ form.description4(id="description4", placeholder="Toimintaohjeet", class="form-control")  }}
+  <h2>Ehdot ja kriteerit</h2>
   {{ form.constraint(id="constraint", placeholder="Ehdot ja kriteerit", class="form-control", value="") }}
+  <h2>Käyntitiedot</h2>
   {{ form.address(id="address", placeholder="Katuosoite", class="form-control", value="") }}
+  <h2>Osoitteen tarkennus</h2>
   {{ form.address_extended(id="address_extended", placeholder="Osoitteen tarkennus", class="form-control", value="") }}
+  <h2>Postiosoite</h2>
   {{ form.post_address(id="post_address", placeholder="Postiosoite", class="form-control", value="") }}
+  <h2>Verkkosivu</h2>
   {{ form.www(id="www", placeholder="Verkkosivu", class="form-control", value=service.www) }}
+  <h2>Facebook</h2>
   {{ form.facebook(id="facebook", placeholder="Facebook", class="form-control", value=service.facebook) }}
+  <h2>Twitter</h2>
   {{ form.twitter(id="twitter", placeholder="Twitter", class="form-control", value=service.twitter) }}
   <button type="submit" class="btn btn-fill btn-primary">Tallenna</button>
 </form>
