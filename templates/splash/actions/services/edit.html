@@ -5,20 +5,19 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 <div class="container">
     <div class="row">
-        <a  class="btn btn-primary btn-lg"   
-            href="javascript:history.back()" 
-            role="button" 
+        <a class="btn btn-primary btn-lg" href="javascript:history.back()" role="button"
             style="background: #00A97A;border-color: #00A97A;">
             <i class="fa fa-caret-left"></i>
             <i class="fa fa-caret-left"></i>
             <i class="fa fa-caret-left"></i>
-        &nbsp; Palaa hakuun
+            &nbsp; Palaa hakuun
         </a>
     </div>
     <div class="row">
         <div class="col">
+            <form class="addService" role="form">
             <div class="row">
-            <h1> {{ service.name }} </h1>
+                {{ form.name(id="name", placeholder="Name", class="form-control", value=service.name, required=True) }}
             </div>
             <div class="row">
                 <div class="col">
@@ -26,7 +25,7 @@
                         <h2> Palvelun toteuttaja </h2>
                     </div>
                     <div class="row">
-                        <p> {{ service.organization }} </p>
+                        {{ form.organization(id="organization", placeholder="Organisaatio", class="form-control", value="", required=True) }}
                     </div>
                 </div>
             </div>
@@ -36,7 +35,7 @@
                         <h2> Tiivistelmä </h2>
                     </div>
                     <div class="row">
-                        <p> {{ service.ingress }} </p>
+                        {{ form.ingress(id="ingress", placeholder="Ingress", class="form-control", value="", required=True) }}
                     </div>
                 </div>
             </div>
@@ -45,10 +44,10 @@
                     <div class="row">
                         <h2> Palvelun kuvaus </h2>
                     </div>
-                        <p> {{ service.description | safe }} </p>
-                        <p> {{ service.description2 | safe }} </p>
-                        <p> {{ service.description3 | safe }} </p>
-                        <p> {{ service.description4 | safe }} </p>
+                    {{ form.description(id="description", placeholder="Description", class="form-control", required=True) }}
+                    {{ form.description2(id="description2", placeholder="Description2", class="form-control") }}
+                    {{ form.description3(id="description3", placeholder="Description3", class="form-control") }}
+                    {{ form.description4(id="description4", placeholder="Toimintaohjeet", class="form-control")  }}
                 </div>
             </div>
             <div class="row">
@@ -57,49 +56,77 @@
                         <h2> Käyntitiedot </h2>
                     </div>
                     <div class="row">
-                        <p> {{ service.address }} </p>
+                        {{ form.address(id="address", placeholder="Katuosoite", class="form-control", value="") }}
                     </div>
                     <div class="row">
-                        <p> {{ service.address_extended }} </p>
+                        {{ form.address_extended(id="address_extended", placeholder="Osoitteen tarkennus", class="form-control", value="") }}
                     </div>
                     <div class="row">
-                        <p> {{ service.post_address }} </p>
+                        {{ form.post_address(id="post_address", placeholder="Postiosoite", class="form-control", value="") }}
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col">
-                    <div class="row">
-                        <h2> Verkkosivut </h2>
-                    </div>
-                        {{ service.www | safe }}
-                    {% if service.facebook %}
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                <a href="{{ service.facebook }}">
-                                <i class="fa fa-facebook"></i>
-                                facebook
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                    {% if service.twitter %}
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                 <a href="{{ service.twitter }}">
-                                 <i class="fa fa-twitter"></i>
-                                  {{ service.twitter }}
-                                 </a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
+                {{ form.www(id="www", placeholder="Verkkosivu", class="form-control", value=service.www) }}
+                {{ form.facebook(id="facebook", placeholder="Facebook", class="form-control", value=service.facebook) }}
+                {{ form.twitter(id="twitter", placeholder="Twitter", class="form-control", value=service.twitter) }}
             </div>
+            <div class="row">
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-3 px-md-1"></div>
+              <div class="col-md-1 px-md-1"></div>
+              <div class="col-md-1 px-md-6">
+                <button type="submit" class="btn btn-fill btn-primary">Tallenna</button>
+              </div>
+            </div>
+            </form>
         </div>
     </div>
 </div>
+{% endblock %}
+
+
+
+{% block scripts %}
+<script>
+  $('#selectCategoryForm').on('submit', function (event) {
+    event.preventDefault();
+    $(this).serializeArray().forEach(function (i, k) {
+      if ($('#' + i.value.split(' ').join('')).length == 0) {
+        $('#category_items').append(
+          '<option id=' + i.value.split(' ').join('') + ' selected>' + i.value + '</option>'
+        );
+      }
+    });
+    setTimeout(function () {
+      $('#selectCategories').modal('hide');
+    }, 125);
+  });
+  $('#deleteCategoryItem').on('click', function (event) {
+    event.preventDefault();
+    $('#category_items option:selected').remove();
+  });
+  $('#addService').submit(function (event) {
+    event.preventDefault();
+    var csrf_token = "{{ csrf_token() }}";
+
+    $.ajaxSetup({
+      cache: false,
+      beforeSend: function (xhr, settings) {
+        if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+          xhr.setRequestHeader("X-CSRFToken", csrf_token);
+        }
+      }
+    });
+    var url = "{{ url_for('service.service', type='edit', id=service.id) }}".replace('&amp;','&');
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: $(this).serialize(),
+      success: function () {
+        $(location).attr('href', "{{ url_for('service.services') }}")
+      }
+    });
+  });
+</script>
 {% endblock %}

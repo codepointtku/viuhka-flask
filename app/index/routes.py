@@ -6,6 +6,7 @@ from app.services.models.service import Service, services_from_category, find_se
 from app.services.models.category_items import get_category_item_by_name
 from app.services.forms.service import ServiceForm
 from flask_login import login_required
+from wtforms.fields.simple import TextAreaField
 
 module = Blueprint('index', __name__)
 
@@ -15,12 +16,11 @@ _name_ = 'Splash'
 @module.route('/')
 def index():
     _type = request.args.get('type')
-    page = request.args.get('page', 1, int)
     if _type is None or _type is not 'show':
-        return render_template('splash/index.html', categories=sequalized_categories(), services=paginate(Service.query, page=page, per_page=50), total=amount(), current_page=page)
+        return render_template('splash/index.html', categories=sequalized_categories(), services=services_from_category(), total=amount())
     else:
         id = request.json.get('categoryname')
-        return render_template('splash/index.html', categories=sequalized_categories(), services=paginate_id(Service.query, id=id, page=page, per_page=50), total=amount(), current_page=page)
+        return render_template('splash/index.html', categories=sequalized_categories(), services=services_from_category(id), total=amount())
 
 @module.route('/info')
 def info():  
@@ -62,5 +62,12 @@ def edit(id):
     if id:
         service = find_service(id)
         if service:
-            return render_template('splash/actions/services/edit.html', service=service)
+            form = ServiceForm()
+            for ff in form.__dict__:
+                for sf in service.__dict__:
+                    if ff == sf:
+                        if isinstance(form.__dict__[ff], TextAreaField):
+                            form.__dict__[ff].process_data(service.__dict__[sf])
+
+            return render_template('splash/actions/services/edit.html', service=service, form=form)
     abort(404)

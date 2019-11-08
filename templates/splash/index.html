@@ -95,7 +95,7 @@
                         style="background: transparent;border:none;border-top:1px solid green;border-bottom:1px solid green;">
                         <table class="table table-condensed" id="serviceTable">
                             <tbody>
-                                {% for service in services.items %}
+                                {% for service in services %}
                                 {% if service.published %}
                                 <tr>
                                     <td id="row_{{ service.id }}" class="{{ service.joined_sanitized() }}">
@@ -118,25 +118,9 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                    
-                    <div id="pagination">
-                    {% for page_num in services.iter_pages() %}
-                        {% if page_num %}
-                            <a href="{{ url_for('index.index', page=page_num) }}" id="pagination_{{ page_num}}" name="pagination_{{ page_num}}" class="btn btn-link">{{ page_num }}</a>
-                        {% else %}
-                            ...
-                        {% endif %}
-                    {% endfor %}
-                        {% if current_page + 1 > services.pages %}
-                        <a href="{{ url_for('index.index', page=current_page - 1) }}" class="btn btn-link">
-                            <i class="fa fa-chevron-left"></i>
-                        </a>
-                        {% else %}
-                        <a href="{{ url_for('index.index', page=current_page + 1) }}" class="btn btn-link">
-                            <i class="fa fa-chevron-right"></i>
-                        </a>
-                        {% endif %}
-                    </div>
+                        <div class="d-flex flex-row bd-highlight mb-3">
+                        <div class="row" id="pagination"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -167,6 +151,22 @@
     $(document).ready(function () {
         var spinner = $('#searchSpinner');
         var rows = $('#serviceTable tr');
+
+        var n_rows = []
+
+        $(rows).each(function(i, row) {
+            return n_rows.push(row);
+        });
+        
+        $('#pagination').pagination({
+            dataSource: n_rows,
+            locator: 'data',
+            pageSize: 25,
+            callback: function(data, pagination) {
+                $('tbody').html(data);
+            }
+        });
+
         var results = $('#results');
 
         $(spinner).hide();
@@ -190,18 +190,18 @@
             rows = $('#serviceTable tr');
             $('a[id=resetFilters').text('Poista hakusuodattimet');
             $('a[id=resetFilters').show();
-            setTimeout(function() {
+            setTimeout(function () {
                 $(spinner).hide();
             }, 375);
         });
 
         $('a[id^=cg_').on('click', function () {
-            if (!$(this).attr('aria-expanded') || $(this).attr('aria-expanded') === 'false')  {
+            if (!$(this).attr('aria-expanded') || $(this).attr('aria-expanded') === 'false') {
                 $(spinner).show();
                 var found = []
                 var categoryItems = $('a[cgItemCategoryId^=' + $(this).attr('categoryId') + ']');
                 $(categoryItems).each(function (idx, val) {
-                    for(i = 0; i < rows.length; i++) {
+                    for (i = 0; i < rows.length; i++) {
                         td = rows[i].getElementsByTagName('td')[0];
                         if (td) {
                             if ($(td).hasClass($(val).attr('sanitized'))) {
@@ -214,16 +214,11 @@
                 found.forEach(function (idx, val) {
                     $(found[val]).show(11);
                 });
-                setTimeout(function() {
+                setTimeout(function () {
                     $(spinner).hide();
                 }, 375);
                 $('a[id=resetFilters').text('Poista hakusuodattimet');
                 $('a[id=resetFilters').show();
-                if ($('td:visible').length < 49) {
-                    $('i[id=pagination]').hide()
-                } else {
-                    $('i[id=pagination]').show()
-                }
             } else {
                 $('a[id=resetFilters]').click();
             }
@@ -231,7 +226,7 @@
         $('a[id^=cgItem_]').on('click', function () {
             var found = []
             $(this).each(function (idx, val) {
-                for(i = 0; i < rows.length; i++) {
+                for (i = 0; i < rows.length; i++) {
                     td = rows[i].getElementsByTagName('td')[0];
                     if (td) {
                         if ($(td).hasClass($(val).attr('sanitized'))) {
@@ -246,11 +241,6 @@
             });
             $('a[id=resetFilters').text('Poista hakusuodattimet');
             $('a[id=resetFilters').show();
-            if ($('td:visible').length < 49) {
-                $('i[id=pagination]').hide()
-            } else {
-                $('i[id=pagination]').show()
-            }
 
         });
         $('a[id=resetFilters]').on('click', function () {
@@ -263,19 +253,14 @@
                 }
             }
             $('#serviceSearch').val('');
-            if ($('td:visible').length < 49) {
-                $('i[id=pagination]').hide()
-            } else {
-                $('i[id=pagination]').show()
-            }
         });
     });
-     $('.panel-collapse').on('show.bs.collapse', function () {
-    $(this).siblings('.panel-heading').addClass('active');
-  });
+    $('.panel-collapse').on('show.bs.collapse', function () {
+        $(this).siblings('.panel-heading').addClass('active');
+    });
 
-  $('.panel-collapse').on('hide.bs.collapse', function () {
-    $(this).siblings('.panel-heading').removeClass('active');
-  });
+    $('.panel-collapse').on('hide.bs.collapse', function () {
+        $(this).siblings('.panel-heading').removeClass('active');
+    });
 </script>
 {% endblock %}

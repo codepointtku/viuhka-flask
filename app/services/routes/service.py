@@ -62,6 +62,9 @@ def service():
         else:
             form = ServiceForm(request.form)
             service = find_service(id)
+
+            form.owner_id.data = service.owner_id
+
             if form.start.data is None and service.start is not None:
                 form.start.data = service.start
             if form.end.data is None and service.end is not None:
@@ -86,7 +89,8 @@ def service():
         service = Service(
             **form.data
         )
-        service.owner_id = current_user.id
+        if current_user.rank().level < 1:
+            service.owner_id = current_user.id
         validate_csrf(service.csrf_token)
         try: service.category_items = dict(enumerate(service.category_items))
         except: pass
