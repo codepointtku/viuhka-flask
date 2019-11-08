@@ -165,7 +165,7 @@
             <li>Jos olet kiinnostunut iltapäiväkerhotoiminnan tehtävistä, sinun tulee esittää hankkeen ohjaajalle
                 enintään kuusi kuukautta vanha rikosrekisteriote.</li>
         </p>
-        {{ form.constraint(id="description4", placeholder="Ehdot ja kriteerit", class="form-control", value="", required=True) }}<br>
+        {{ form.constraint(id="constraint", placeholder="Ehdot ja kriteerit", class="form-control", value="", required=True) }}<br>
         <br>
         <h2>Toiminta päättyy</h2>
         <p>Mikäli palvelulla on tiedossa oleva päättymispäivä, kirjoita se tähän muodossa 00.00.0000. Esimerkiksi
@@ -205,7 +205,7 @@
             Kaikki posti tulee lähettää postilokero-osoitteeseen. Käyntiosoitteeseen ei postinjakoa.
         </p>
         {{ form.address(id="address", placeholder="Osoite", class="form-control", value="", required=True) }}
-        {{ form.address_extended(id="address_extended", placeholder="Aukioloajat", class="form-control", value="") }}
+        {{ form.address_extended(id="address_extended", placeholder="Osoitteen tarkennus", class="form-control", value="") }}
         <br>
         <br>
         <h2>Postiosoite*</h2>

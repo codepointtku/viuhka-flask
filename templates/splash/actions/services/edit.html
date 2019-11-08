@@ -4,84 +4,109 @@
 {% block body_content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 <div class="container">
-    <div class="row">
-        <a class="btn btn-primary btn-lg" href="javascript:history.back()" role="button"
-            style="background: #00A97A;border-color: #00A97A;">
-            <i class="fa fa-caret-left"></i>
-            <i class="fa fa-caret-left"></i>
-            <i class="fa fa-caret-left"></i>
-            &nbsp; Palaa hakuun
-        </a>
-    </div>
-    <div class="row">
-        <div class="col">
-            <form class="addService" role="form">
-            <div class="row">
-                {{ form.name(id="name", placeholder="Name", class="form-control", value=service.name, required=True) }}
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="row">
-                        <h2> Palvelun toteuttaja </h2>
-                    </div>
-                    <div class="row">
-                        {{ form.organization(id="organization", placeholder="Organisaatio", class="form-control", value="", required=True) }}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="row">
-                        <h2> Tiivistelmä </h2>
-                    </div>
-                    <div class="row">
-                        {{ form.ingress(id="ingress", placeholder="Ingress", class="form-control", value="", required=True) }}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="row">
-                        <h2> Palvelun kuvaus </h2>
-                    </div>
-                    {{ form.description(id="description", placeholder="Description", class="form-control", required=True) }}
-                    {{ form.description2(id="description2", placeholder="Description2", class="form-control") }}
-                    {{ form.description3(id="description3", placeholder="Description3", class="form-control") }}
-                    {{ form.description4(id="description4", placeholder="Toimintaohjeet", class="form-control")  }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="row">
-                        <h2> Käyntitiedot </h2>
-                    </div>
-                    <div class="row">
-                        {{ form.address(id="address", placeholder="Katuosoite", class="form-control", value="") }}
-                    </div>
-                    <div class="row">
-                        {{ form.address_extended(id="address_extended", placeholder="Osoitteen tarkennus", class="form-control", value="") }}
-                    </div>
-                    <div class="row">
-                        {{ form.post_address(id="post_address", placeholder="Postiosoite", class="form-control", value="") }}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                {{ form.www(id="www", placeholder="Verkkosivu", class="form-control", value=service.www) }}
-                {{ form.facebook(id="facebook", placeholder="Facebook", class="form-control", value=service.facebook) }}
-                {{ form.twitter(id="twitter", placeholder="Twitter", class="form-control", value=service.twitter) }}
-            </div>
-            <div class="row">
-              <div class="col-md-1 px-md-1"></div>
-              <div class="col-md-3 px-md-1"></div>
-              <div class="col-md-1 px-md-1"></div>
-              <div class="col-md-1 px-md-6">
-                <button type="submit" class="btn btn-fill btn-primary">Tallenna</button>
-              </div>
-            </div>
-            </form>
+  <div class="row">
+    <a class="btn btn-primary btn-lg" href="javascript:history.back()" role="button"
+      style="background: #00A97A;border-color: #00A97A;">
+      <i class="fa fa-caret-left"></i>
+      <i class="fa fa-caret-left"></i>
+      <i class="fa fa-caret-left"></i>
+      &nbsp; Palaa hakuun
+    </a>
+  </div>
+  <div class="row">
+    <div class="col">
+      <form class="addService" role="form">
+        <div class="row">
+          <h2>Muokkaa palvelua</h2>
         </div>
+        <div class="row">
+          <h2>Palvelun nimi</h2>
+        </div>
+        <div class="row">
+          {{ form.name(id="name", placeholder="Name", class="form-control", value=service.name, required=True) }}
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="row">
+              <h2> Palvelun toteuttaja </h2>
+            </div>
+            <div class="row">
+              {{ form.organization(id="organization", placeholder="Organisaatio", class="form-control", value="", required=True) }}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="row">
+              <h2> Tiivistelmä </h2>
+            </div>
+            <div class="row">
+              {{ form.ingress(id="ingress", placeholder="Ingress", class="form-control", value="", required=True) }}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="row">
+              <h2> Palvelun kuvaus </h2>
+            </div>
+            <div class="row">
+              {{ form.description(id="description", placeholder="Description", class="form-control", required=True) }}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="row">
+              <h2> Toimintaohjeet </h2>
+            </div>
+            <div class="row">
+              {{ form.description4(id="description4", placeholder="Toimintaohjeet", class="form-control")  }}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="row">
+              <h2> Ehdot ja kriteerit </h2>
+            </div>
+            <div class="row">
+                {{ form.constraint(id="constraint", placeholder="Ehdot ja kriteerit", class="form-control", value="") }}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="row">
+              <h2> Käyntitiedot </h2>
+            </div>
+            <div class="row">
+              {{ form.address(id="address", placeholder="Katuosoite", class="form-control", value="") }}
+            </div>
+            <div class="row">
+              {{ form.address_extended(id="address_extended", placeholder="Osoitteen tarkennus", class="form-control", value="") }}
+            </div>
+            <div class="row">
+              {{ form.post_address(id="post_address", placeholder="Postiosoite", class="form-control", value="") }}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          {{ form.www(id="www", placeholder="Verkkosivu", class="form-control", value=service.www) }}
+          {{ form.facebook(id="facebook", placeholder="Facebook", class="form-control", value=service.facebook) }}
+          {{ form.twitter(id="twitter", placeholder="Twitter", class="form-control", value=service.twitter) }}
+        </div>
+        <div class="row">
+          <div class="col-md-1 px-md-1"></div>
+          <div class="col-md-3 px-md-1"></div>
+          <div class="col-md-1 px-md-1"></div>
+          <div class="col-md-1 px-md-6">
+            <button type="submit" class="btn btn-fill btn-primary">Tallenna</button>
+          </div>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
 {% endblock %}
 
@@ -118,7 +143,7 @@
         }
       }
     });
-    var url = "{{ url_for('service.service', type='edit', id=service.id) }}".replace('&amp;','&');
+    var url = "{{ url_for('service.service', type='edit', id=service.id) }}".replace('&amp;', '&');
     $.ajax({
       type: 'POST',
       url: url,
