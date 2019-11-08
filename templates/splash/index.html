@@ -118,9 +118,6 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                        <div class="d-flex flex-row bd-highlight mb-3">
-                        <div class="row" id="pagination"></div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -151,22 +148,6 @@
     $(document).ready(function () {
         var spinner = $('#searchSpinner');
         var rows = $('#serviceTable tr');
-
-        var n_rows = []
-
-        $(rows).each(function(i, row) {
-            return n_rows.push(row);
-        });
-        
-        $('#pagination').pagination({
-            dataSource: n_rows,
-            locator: 'data',
-            pageSize: 25,
-            callback: function(data, pagination) {
-                $('tbody').html(data);
-            }
-        });
-
         var results = $('#results');
 
         $(spinner).hide();
