@@ -98,3 +98,7 @@ def edit(id):
 @module.route('/contact')
 def contact():  
     return render_template('splash/forms/contact.html')
+
+@module.route('/thank_you')
+def thank_you():  
+    return render_template('splash/forms/thank_you.html')
