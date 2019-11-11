@@ -265,3 +265,6 @@ def paginate(query, page=1, per_page=50):
 
 def paginate_id(query, id, page=1, per_page=50):
     return query.filter_by(id).paginate(page=page, per_page=per_page)
+
+def sanitize(text):
+    return text.replace(' ','').replace(',','').replace('-','').lower()

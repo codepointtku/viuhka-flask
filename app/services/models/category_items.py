@@ -31,6 +31,17 @@ class CategoryItems(connector.Model):
     def sanitized(self):
         return self.text.replace(' ','').replace(',','').replace('-','').lower()
 
+    def has_service(self):
+        from app.services.models.service import Service
+        from app.utils import sanitize
+        services = Service.query.all()
+        for service in services:
+            for cgItem in service.category_items:
+                if sanitize(cgItem) == self.sanitized():
+                    if service.published:
+                        return True
+        return False
+
 
 def get_relation_type(category_id):
     query = CategoryItems.query.filter_by(category_id=category_id).all()

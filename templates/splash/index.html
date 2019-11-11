@@ -54,12 +54,14 @@
                         </div>
                         <div id="{{ category.category.sanitized() }}" class="panel-collapse collapse">
                             {% for category_item in category.items %}
+                            {% if category_item.has_service() %}
                             <div class="panel-body">
                                 <a style="color: black;" href="javascript:void(0);" id="cgItem_{{ category_item.id }}"
                                     sanitized="{{ category_item.sanitized() }}" cgItemCategoryId="{{ category.id }}">
                                     {{ category_item.text }}
                                 </a>
                             </div>
+                            {% endif %}
                             {% endfor %}
                         </div>
                     </div>
