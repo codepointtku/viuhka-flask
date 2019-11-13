@@ -394,7 +394,7 @@
             url: "{{ url_for('service.service', type='add') }}",
             data: $(this).serialize(),
             success: function () {
-                $(location).attr('href', '{{ url_for("index.thank_you") }}')
+                $(location).attr('href', '{{ url_for("service.list_service") }}')
             },
             error: function () {
                 location.reload();

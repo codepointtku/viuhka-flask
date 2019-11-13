@@ -212,7 +212,7 @@
       url: url,
       data: $(this).serialize(),
       success: function () {
-        $(location).attr('href', "{{ url_for('services.thank_you') }}")
+        $(location).attr('href', "{{ url_for('service.services') }}")
       }
     });
   });
