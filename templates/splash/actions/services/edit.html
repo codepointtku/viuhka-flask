@@ -68,7 +68,7 @@
       url: url,
       data: $(this).serialize(),
       success: function () {
-        $(location).attr('href', "{{ url_for('index.thank_you') }}")
+        $(location).attr('href', "{{ url_for('index.search') }}")
       }
     });
   });
