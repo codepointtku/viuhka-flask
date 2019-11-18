@@ -164,7 +164,11 @@
             for (i = 0; i < rows.length; i++) {
                 td = rows[i].getElementsByTagName('td')[0];
                 title = td.getElementsByTagName('h2')[0];
-                if (~title.innerText.toUpperCase().indexOf(search)) {
+
+                organization = td.getElementsByTagName('p')[0];
+                ingress = td.getElementsByTagName('p')[1];
+                
+                if (~title.innerText.toUpperCase().indexOf(search) || ~organization.innerText.toUpperCase().indexOf(search) || ~ingress.innerText.toUpperCase().indexOf(search)) {
                     $(td).show(25);
                 } else {
                     $(td).hide();

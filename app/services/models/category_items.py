@@ -38,8 +38,7 @@ class CategoryItems(connector.Model):
         for service in services:
             for cgItem in service.category_items:
                 if sanitize(cgItem) == self.sanitized():
-                    if service.published:
-                        return True
+                    return service.published
         return False
 
 
