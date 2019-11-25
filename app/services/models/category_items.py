@@ -36,9 +36,10 @@ class CategoryItems(connector.Model):
         from app.utils import sanitize
         services = Service.query.all()
         for service in services:
-            for cgItem in service.category_items:
-                if sanitize(cgItem) == self.sanitized():
-                    return service.published
+            if service.category_items:
+                for cgItem in service.category_items:
+                    if sanitize(cgItem) == self.sanitized():
+                        return service.published
         return False
 
 
