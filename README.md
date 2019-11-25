@@ -37,10 +37,6 @@
   SQL_DATABASE=database_name
   SQL_CHARSET=utf8mb4
   SQL_PORT=database_port
-
-  SESSION_COOKIE_SECURE=True
-  SESSION_COOKIE_HTTPONLY=True
-  SESSION_COOKIE_SAMESITE=Lax
   ```
 
   ```
