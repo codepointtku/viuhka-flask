@@ -29,6 +29,7 @@ jinja2==2.10.3
 jsmin==2.2.2
 lazy-object-proxy==1.4.2
 lesscpy==0.13.0
+libsass==0.19.4
 markupsafe==1.1.1
 mccabe==0.6.1
 ply==3.11
