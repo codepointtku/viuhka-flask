@@ -111,4 +111,4 @@ requirements.in
 
 # vscode
 .vscode/
-static/css/index.scss.css.map
+*.map
