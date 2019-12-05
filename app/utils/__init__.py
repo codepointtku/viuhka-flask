@@ -9,6 +9,7 @@ from functools import reduce
 from flask import Flask
 from flask_assets import Bundle
 from flask_minify import minify
+from sassutils.wsgi import SassMiddleware
 
 from app.managers.login import login_manager
 
@@ -167,9 +168,6 @@ def register_extensions(app):
                             exit(2)
                         print('Failed to connect to database: %s' % ex)
                         exit(2)
-            elif module._name_ == 'SCSS Loader':
-                module.module.url = app.static_url_path
-                scss = Bundle('')
             print('Extension loaded: %s' % module._name_)
         except Exception as ex:
             print('Failed to load extension: %s' % ex)
@@ -189,6 +187,9 @@ def create():
     )
     login_manager.init_app(app)
     minify(app=app)
+    app.wsgi_app = SassMiddleware(app.wsgi_app, {
+            '__main__': ('static/scss', 'static/css', '/static/css')
+        })
     return app
 
 

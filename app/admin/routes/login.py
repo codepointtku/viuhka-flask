@@ -1,14 +1,14 @@
-from flask import Blueprint, render_template, request, redirect, url_for
-from flask_login import current_user, logout_user, login_user
-from flask_wtf.csrf import validate_csrf
+from flask                              import Blueprint, render_template, request, redirect, url_for
+from flask_login                        import current_user, logout_user, login_user
+from flask_wtf.csrf                     import validate_csrf
 
-from app.managers.password import generate_hash_pass
+from app.managers.password              import generate_hash_pass
 
-from app.utils.models import Account
-from app.utils.extensions.database import module as connector
+from app.utils.models                   import Account
+from app.utils.extensions.database      import module as connector
 
-from app.admin.forms.login import LoginForm
-from app.admin.forms.register import RegisterForm
+from app.admin.forms.login              import LoginForm
+from app.admin.forms.register           import RegisterForm
 
 import json
 

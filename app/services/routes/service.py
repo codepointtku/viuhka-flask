@@ -1,15 +1,15 @@
-from flask import Blueprint, render_template, request, redirect, Response, url_for
-from flask_login import login_required, current_user
-from flask_wtf.csrf import validate_csrf
+from flask                              import Blueprint, render_template, request, redirect, Response, url_for
+from flask_login                        import login_required, current_user
+from flask_wtf.csrf                     import validate_csrf
 
-from app.services.models.service import ( Service, get_services, find_service, 
+from app.services.models.service        import ( Service, get_services, find_service, 
                                         amount, create_new, paginate_service_owner_id )
-from app.services.forms.service import ServiceForm
-from app.services.models.category import get_category, sequalized_categories
+from app.services.forms.service         import ServiceForm
+from app.services.models.category       import get_category, sequalized_categories
 
-from app.utils import root, join, exit, paginate
+from app.utils                          import root, join, exit, paginate
 
-from wtforms.fields.simple import TextAreaField
+from wtforms.fields.simple              import TextAreaField
 
 import json
 import pickle

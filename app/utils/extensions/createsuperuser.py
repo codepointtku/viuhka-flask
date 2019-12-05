@@ -1,9 +1,9 @@
 #ignore
 
-from sys import exit, argv
-from getpass import getpass
-from app.utils.models.account import Account, find_account, find_account_by_username, find_account_by_email
-from app.managers.password import generate_hash_pass
+from sys                        import exit, argv
+from getpass                    import getpass
+from app.utils.models.account   import Account, find_account, find_account_by_username, find_account_by_email
+from app.managers.password      import generate_hash_pass
 
 
 

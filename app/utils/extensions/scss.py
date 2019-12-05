@@ -1,8 +1,9 @@
 #ignore
 
-from flask_assets import Environment
+from flask import Blueprint
+from sassutils.wsgi import SassMiddleware
 
 
-module = Environment()
+module = Blueprint('scss', __name__)
 
 _name_ = 'SCSS Loader'

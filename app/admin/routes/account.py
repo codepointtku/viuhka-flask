@@ -1,11 +1,11 @@
-from flask import Blueprint, render_template, redirect, request, url_for, abort
-from flask_login import login_required, current_user
+from flask                              import Blueprint, render_template, redirect, request, url_for, abort
+from flask_login                        import login_required, current_user
 
-from app.utils import paginate
-from app.utils.models.account import list_accounts, find_account, Account, amount, find_account_by_username, find_account_by_email
-from app.utils.models.rank import ranks
-from app.admin.forms.account import AccountForm
-from app.managers.password import generate_hash_pass
+from app.utils                          import paginate
+from app.utils.models.account           import list_accounts, find_account, Account, amount, find_account_by_username, find_account_by_email
+from app.utils.models.rank              import ranks
+from app.admin.forms.account            import AccountForm
+from app.managers.password              import generate_hash_pass
 
 import json
 
