@@ -1,14 +1,16 @@
 {% extends "splash/forms/base.html" %}
 {{ super() }}
 
+
+
 {% block body_content %}
-<div class="row">
+<div id="top_container_row" class="top_container row">
     <div class="col">
         <div class="d-flex justify-content-center">
             <h1><img src="{{ url_for('static', filename='viuhka/media/logo.png') }}">Työllisyysviuhka</h1>
         </div>
         <div class="d-flex justify-content-center">
-            <p style="border:none;border-bottom:1px solid green;">Työllistymistä edistäviä palveluja Turun alueella</p>
+            <p class="logo-smalltext">Työllistymistä edistäviä palveluja Turun alueella</p>
         </div>
     </div>
 </div>
@@ -17,8 +19,8 @@
     <p>Sivuston toiminnassa ja sisällössä esiintyy tämän vuoksi puutteita.</p>
     <p>Puutteet korjataan vaiheittain vuoden 2020 aikana.</p>
 </div>
-<div class="row">
-    <div class="col-md-4" style="box-shadow: 0 5px 3px 0 rgba(0, 0, 0, .1);">
+<div id="main_container_row" class="row">
+    <div class="sidebar col-md-12 col-lg-4">
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-center">
@@ -30,39 +32,41 @@
         </div>
         <div class="row">
             <div class="col">
-                <input class="form-control" id="serviceSearch" placeholder="Haku"
-                    style="background: transparent;border:none;border-bottom:1px solid green;">
+                <input class="form-control" id="serviceSearch" placeholder="Haku">
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col">
-                <div class="panel-group" id="accordion">
+                <div class="card-columns" id="accordion">
                     {% for category in categories %}
                     {% if category.amount() >= 1 %}
-                    <div class="panel panel-default">
-                        <div class="panel-heading" style="background-color: #00A97A;">
-                            <h4 class="panel-title" style="background-color: #00A97A;">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <h4 class="card-title-text">
                                 <div class="d-flex justify-content-left font-weight-bold">
                                     <a id="cg_{{ category.category.sanitized() }}" data-toggle="collapse"
                                         data-parent="#accordion" href="#{{ category.category.sanitized() }}"
-                                        style="color: white;" categoryId="{{ category.id }}">
+                                         categoryId="{{ category.id }}">
                                         {{ category.category.name }}
                                     </a>
                                 </div>
                             </h4>
                         </div>
-                        <div id="{{ category.category.sanitized() }}" class="panel-collapse collapse">
-                            {% for category_item in category.items %}
-                            {% if category_item.has_service() %}
-                            <div class="panel-body">
-                                <a style="color: black;" href="javascript:void(0);" id="cgItem_{{ category_item.id }}"
-                                    sanitized="{{ category_item.sanitized() }}" cgItemCategoryId="{{ category.id }}">
-                                    {{ category_item.text }}
-                                </a>
-                            </div>
-                            {% endif %}
-                            {% endfor %}
+                        <div class="card-content collapse" id="{{ category.category.sanitized() }}">
+                            <ul class="list-group list-group-flush">
+                                {% for category_item in category.items %}
+                                {% if category_item.has_service() %}
+                                <li class="list-group-item service">
+                                    <a href="javascript:void(0);" id="cgItem_{{ category_item.id }}"
+                                        sanitized="{{ category_item.sanitized() }}" cgItemCategoryId="{{ category.id }}">
+                                        {{ category_item.text }}
+                                    </a>
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
                         </div>
                     </div>
                     {% endif %}
@@ -72,11 +76,11 @@
         </div>
     </div>
 
-    <div class="col" style="box-shadow: 0 5px 3px 0 rgba(0, 0, 0, .1);">
+    <div class="main-content col">
         <div class="row">
             <div class="col">
-                <div class="d-flex justify-content-center" style="margin-bottom: 36px;">
-                    <h2 class="column-title">
+                <div class="d-flex justify-content-center title-container">
+                    <h2 class="column-titleasda">
                         Palvelut
                     </h2>
                 </div>
@@ -93,8 +97,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col"
-                        style="background: transparent;border:none;border-top:1px solid green;border-bottom:1px solid green;">
+                    <div class="col table-container">
                         <table class="table table-condensed" id="serviceTable">
                             <tbody>
                                 {% for service in services %}
@@ -126,7 +129,9 @@
         </div>
         <br>
     </div>
-    <div class="container">
+    
+</div>
+<div class="container">
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-center">
@@ -142,112 +147,9 @@
             </div>
         </div>
     </div>
-</div>
-{% endblock %}
 
+{% endblock %}
 {% block scripts %}
-<script>
-    $(document).ready(function () {
-        var spinner = $('#searchSpinner');
-        var rows = $('#serviceTable tr');
-        var results = $('#results');
-
-        $(spinner).hide();
-
-        setInterval(function () {
-            results.text($('td:visible').length + ' results out of {{ total }}');
-        }, 125);
-
-        $('#serviceSearch').on('keyup', function () {
-            $(spinner).show();
-            var search = $(this).val().toUpperCase();
-            for (i = 0; i < rows.length; i++) {
-                td = rows[i].getElementsByTagName('td')[0];
-                
-                title = td.getElementsByTagName('h2')[0];
-                organization = td.getElementsByTagName('p')[0];
-                ingress = td.getElementsByTagName('p')[1];
-                
-                if (~title.innerText.toUpperCase().indexOf(search) || ~organization.innerText.toUpperCase().indexOf(search) || ~ingress.innerText.toUpperCase().indexOf(search)) {
-                    $(td).show(25);
-                } else {
-                    $(td).hide();
-                }
-            }
-            rows = $('#serviceTable tr');
-            $('a[id=resetFilters').text('Poista hakusuodattimet');
-            $('a[id=resetFilters').show();
-            setTimeout(function () {
-                $(spinner).hide();
-            }, 375);
-        });
-
-        $('a[id^=cg_').on('click', function () {
-            if (!$(this).attr('aria-expanded') || $(this).attr('aria-expanded') === 'false') {
-                $(spinner).show();
-                var found = []
-                var categoryItems = $('a[cgItemCategoryId^=' + $(this).attr('categoryId') + ']');
-                $(categoryItems).each(function (idx, val) {
-                    for (i = 0; i < rows.length; i++) {
-                        td = rows[i].getElementsByTagName('td')[0];
-                        if (td) {
-                            if ($(td).hasClass($(val).attr('sanitized'))) {
-                                found.push($(td));
-                            }
-                            $(td).hide();
-                        }
-                    }
-                });
-                found.forEach(function (idx, val) {
-                    $(found[val]).show(11);
-                });
-                setTimeout(function () {
-                    $(spinner).hide();
-                }, 375);
-                $('a[id=resetFilters').text('Poista hakusuodattimet');
-                $('a[id=resetFilters').show();
-            } else {
-                $('a[id=resetFilters]').click();
-            }
-        });
-        $('a[id^=cgItem_]').on('click', function () {
-            var found = []
-            $(this).each(function (idx, val) {
-                for (i = 0; i < rows.length; i++) {
-                    td = rows[i].getElementsByTagName('td')[0];
-                    if (td) {
-                        if ($(td).hasClass($(val).attr('sanitized'))) {
-                            found.push($(td));
-                        }
-                        $(td).hide();
-                    }
-                }
-            });
-            found.forEach(function (idx, val) {
-                $(found[val]).show(11);
-            });
-            $('a[id=resetFilters').text('Poista hakusuodattimet');
-            $('a[id=resetFilters').show();
-
-        });
-        $('a[id=resetFilters]').on('click', function () {
-            $(this).hide();
-            var rows = $('#serviceTable tr');
-            for (i = 0; i < rows.length; i++) {
-                td = rows[i].getElementsByTagName('td')[0];
-                if (td) {
-                    $(td).show();
-                }
-            }
-            $('#serviceSearch').val('');
-        });
-    });
-    $('.panel-collapse').on('show.bs.collapse', function () {
-        $(this).siblings('.panel-heading').addClass('active');
-    });
-
-    $('.panel-collapse').on('hide.bs.collapse', function () {
-        $(this).siblings('.panel-heading').removeClass('active');
-    });
-</script>
-{% endblock %}
+<script type="text/javascript">var total = {{ total }}</script>
+<script type="text/javascript" src={{ url_for('static', filename='viuhka/scripts/templates/splash/index.js') }}></script>
+{% endblock scripts %}

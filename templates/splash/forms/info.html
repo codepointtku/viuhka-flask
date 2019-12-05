@@ -1,14 +1,21 @@
 {% extends "splash/forms/base.html" %}
 
 {% block body_content %}
-<h1>Tietoa palvelusta</h1>
-<div class=page-text-left>
-<p>Työllisyysviuhkan avulla voit etsiä työttömälle työnhakijalle tarkoitettuja palveluita yhdestä paikasta.
-    Olemme keränneet palveluita Turun alueen palvelutuottajilta kuten Turun kaupungilta, TE-toimistolta sekä
-    kolmannen sektorin toimijoilta. Palvelujen kerääminen jatkuu edelleen ja olemme erityisesti nyt kehitysvaiheessa
-    kiitollisia kaikesta palautteestanne.</p>
+<div class="row">
+    <div class="col">
+        <h1>Tietoa palvelusta</h1>
+    <div class=page-text-left>
+        <p>
+        Työllisyysviuhkan avulla voit etsiä työttömälle työnhakijalle tarkoitettuja palveluita yhdestä paikasta.
+        Olemme keränneet palveluita Turun alueen palvelutuottajilta kuten Turun kaupungilta, TE-toimistolta sekä
+        kolmannen sektorin toimijoilta. Palvelujen kerääminen jatkuu edelleen ja olemme erityisesti nyt kehitysvaiheessa
+        kiitollisia kaikesta palautteestanne.
+        </p>
     </div>
-<form method="get" action="{{ url_for('index.index') }}">
-    <button type="submit" class="button-info-viuhka button-info">Sulje ohje</button>
-</form>
+    <form method="get" action="{{ url_for('index.index') }}">
+        <button type="submit" class="button-info-viuhka button-info">Sulje ohje</button>
+    </form>
+    </div>
+</div>
+
 {% endblock %}
