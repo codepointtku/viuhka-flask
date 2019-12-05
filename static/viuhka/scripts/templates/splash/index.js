@@ -2,17 +2,36 @@ $(document).ready(function () {
     var spinner = $('#searchSpinner');
     var rows = $('#serviceTable tr');
     var results = $('#results');
+    var paginationNum;
+    var totalResults;
     var visibleResults;
     $(spinner).hide();
     updateResults();
+
     function updateResults() {
         results.text($('td:visible').length + ' results of ' + total);
         visibleResults = $('td:visible');
-       $(visibleResults[0]).css('border-top','none');
+        totalResults = $('td.result');
+        paginationNum = visibleResults.length / 25;
+       $(visibleResults[0]).addClass('first-result');
+//       console.log('pagination amount ' + Math.round(paginationNum));
+//       console.log(totalResults.length);
+
+    }
+
+    function addResult(x) {
+        if(!$(x).hasClass('result')){
+            $(x).addClass('result');
+        }
+    }
+
+    function removeResult(x) {
+        if($(x).hasClass('result')){$(x).removeClass('result')}
     }
 
     $('#serviceSearch').on('keyup', function () {
         $(spinner).show();
+
         var search = $(this).val().toUpperCase();
         for (i = 0; i < rows.length; i++) {
             td = rows[i].getElementsByTagName('td')[0];
@@ -22,8 +41,12 @@ $(document).ready(function () {
             ingress = td.getElementsByTagName('p')[1];
 
             if (~title.innerText.toUpperCase().indexOf(search) || ~organization.innerText.toUpperCase().indexOf(search) || ~ingress.innerText.toUpperCase().indexOf(search)) {
+                addResult(td);
+
                 $(td).show(25);
             } else {
+                removeResult(td);
+
                 $(td).hide();
             }
         }
@@ -49,11 +72,14 @@ $(document).ready(function () {
                             found.push($(td));
                         }
                         $(td).hide();
+                        removeResult(td);
                     }
                 }
             });
             found.forEach(function (idx, val) {
+                addResult(found[val]);
                 $(found[val]).show(11);
+            
             });
             setTimeout(function () {
                 $(spinner).hide();
@@ -75,10 +101,12 @@ $(document).ready(function () {
                         found.push($(td));
                     }
                     $(td).hide();
+                    removeResult(td);
                 }
             }
         });
         found.forEach(function (idx, val) {
+            addResult(found[val]);
             $(found[val]).show(11);
         });
         $('a[id=resetFilters').text('Poista hakusuodattimet');
@@ -91,6 +119,8 @@ $(document).ready(function () {
         for (i = 0; i < rows.length; i++) {
             td = rows[i].getElementsByTagName('td')[0];
             if (td) {
+                if($(td).hasClass('first-result')){$(td).removeClass('first-result')};
+                addResult(td);
                 $(td).show();
             }
         }

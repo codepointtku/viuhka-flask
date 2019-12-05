@@ -72,12 +72,19 @@
                     a {
                         color: black;
                         text-decoration: none;
+
+                        &:hover{
+                            text-decoration: underline;
+                        }
                     }
                 }
             }
         }
     }
     
+    .accordion-container {
+        padding-bottom: 10px;
+    }
 }
 
 // splash / index.html -> main
@@ -96,10 +103,17 @@ main.container {
 }
 
 .main-content {
+    
     .col.table-container {
         background: transparent;
         border:none;
         border-top:1px solid green;
         border-bottom:1px solid green;
+        box-shadow: -1px 0 1px 0 rgba(0, 0 , 0, .1);
+
+        table td.first-result {
+            border-top: none;
+        }
     }
 }
+
