@@ -38,7 +38,7 @@
         <br>
         <div class="row">
             <div class="col">
-                <div class="card-columns" id="accordion">
+                <div class="accordion" id="accordion">
                     {% for category in categories %}
                     {% if category.amount() >= 1 %}
                     <div class="card">
@@ -47,14 +47,14 @@
                             <h4 class="card-title-text">
                                 <div class="d-flex justify-content-left font-weight-bold">
                                     <a id="cg_{{ category.category.sanitized() }}" data-toggle="collapse"
-                                        data-parent="#accordion" href="#{{ category.category.sanitized() }}"
+                                         href="#{{ category.category.sanitized() }}"
                                          categoryId="{{ category.id }}">
                                         {{ category.category.name }}
                                     </a>
                                 </div>
                             </h4>
                         </div>
-                        <div class="card-content collapse" id="{{ category.category.sanitized() }}">
+                        <div class="card-content collapse" id="{{ category.category.sanitized() }}" data-parent="#accordion">
                             <ul class="list-group list-group-flush">
                                 {% for category_item in category.items %}
                                 {% if category_item.has_service() %}

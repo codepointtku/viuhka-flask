@@ -15,7 +15,7 @@
     <link href="{{ url_for('static', filename='viuhka/styles/bootstrap4/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ url_for('static', filename='viuhka/styles/theme.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='viuhka/styles/starter-template.css') }}" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='viuhka/styles/styles.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/index.scss.css')}}" rel="stylesheet" />
     <link href="{{ url_for('static', filename='viuhka/styles/employment.css') }}" rel="stylesheet" />
     <link href="{{ url_for('static', filename='vendor/loading.io/loading.css') }}" rel="stylesheet" />
 <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
@@ -88,7 +88,7 @@
     <!-- Footer -->
     {% block footer_context %}
     {% endblock %}
-    <footer class="footer bg-inverse">
+    <div class="footer" style="background-color: #292b2c;">
         <div class="container" style="color:white;">
             <br />
             <span style="float:right">
@@ -105,7 +105,7 @@
             <br>
             &nbsp;
         </div>
-    </footer>
+    </div>
     <footer>
         <div class="container">
             <br>
