@@ -1,10 +1,10 @@
-from flask import Blueprint, render_template, request, redirect, url_for
-from flask_login import login_required
-from flask_wtf.csrf import validate_csrf
+from flask                                  import Blueprint, render_template, request, redirect, url_for
+from flask_login                            import login_required
+from flask_wtf.csrf                         import validate_csrf
 
-from app.services.models.category import sequalized_categories, get_category, get_category_by_name, amount, Category
-from app.services.models.category_items import CategoryItems, get_category_item_by_name
-from app.services.forms.category import CategoryForm
+from app.services.models.category           import sequalized_categories, get_category, get_category_by_name, amount, Category
+from app.services.models.category_items     import CategoryItems, get_category_item_by_name
+from app.services.forms.category            import CategoryForm
 
 import json
 

@@ -1,11 +1,11 @@
-from random import randint
+from random                         import randint
 
-from flask_login import UserMixin
-from sqlalchemy import func
+from flask_login                    import UserMixin
+from sqlalchemy                     import func
 
-from app.utils.extensions.database import module as connector
-from app.utils.models.rank import Rank, get_object
-from app.managers.password import generate_hash_pass, validate_hash_pass
+from app.utils.extensions.database  import module as connector
+from app.utils.models.rank          import Rank, get_object
+from app.managers.password          import generate_hash_pass, validate_hash_pass
 
 class Account(UserMixin, connector.Model):
     __tablename__                           = 'account'

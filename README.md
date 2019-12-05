@@ -7,6 +7,7 @@
 > * [Requirements](#requirements)
 > * [Database](#database)
 > * [Installation](#installation)
+> * [Starting](#starting)
 
 
 **Requirements**
@@ -84,3 +85,12 @@
   * `$ python main.py --import`
   * `$ python main.py`
   
+**Starting**
+---
+* Windows
+  * `call env/scripts/activate`
+  * `python main.py`
+
+* Linux
+  * `$ source env/bin/activate`
+  * `$ python main.py`

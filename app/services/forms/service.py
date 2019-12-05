@@ -1,12 +1,12 @@
-from wtforms_alchemy import ModelForm, QuerySelectMultipleField
-from wtforms import SelectMultipleField, IntegerField
-from wtforms.fields.html5 import DateTimeLocalField
+from wtforms_alchemy                                import ModelForm, QuerySelectMultipleField
+from wtforms                                        import SelectMultipleField, IntegerField
+from wtforms.fields.html5                           import DateTimeLocalField
 
-from wtforms.validators import Required
+from wtforms.validators                             import Required
 
-from flask_wtf import Form
+from flask_wtf                                      import Form
 
-from ..models.service import Service
+from ..models.service                               import Service
 
 class ServiceForm(ModelForm, Form):
     category_items              =   SelectMultipleField('Category Items', choices=[])

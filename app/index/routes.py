@@ -1,13 +1,12 @@
-from flask import Blueprint, render_template, send_from_directory, request, redirect, url_for, abort
-
-from app.utils import paginate, paginate_id
-from app.services.models.category import sequalized_categories
-from app.services.models.service import Service, services_from_category, find_service, amount
+from flask                              import Blueprint, render_template, send_from_directory, request, redirect, url_for, abort
+from app.utils                          import paginate, paginate_id
+from app.services.models.category       import sequalized_categories
+from app.services.models.service        import Service, services_from_category, find_service, amount
 from app.services.models.category_items import get_category_item_by_name
-from app.services.forms.service import ServiceForm
-from flask_login import login_required
-from wtforms.fields.simple import TextAreaField
-from flask_wtf.csrf import validate_csrf
+from app.services.forms.service         import ServiceForm
+from flask_login                        import login_required
+from wtforms.fields.simple              import TextAreaField
+from flask_wtf.csrf                     import validate_csrf
 
 import json
 
@@ -50,7 +49,6 @@ def form():
 @module.route('/search', methods=['GET'])
 def search():
     return redirect(url_for('index.index'))
-
 
 @module.route('/details/<id>')
 def details(id):

@@ -1,7 +1,7 @@
-from random import randint, SystemRandom
-from datetime import datetime
-from app.utils.extensions.database import module as connector
-from app.services.models.category_items import get_category_item_by_name
+from random                                 import randint, SystemRandom
+from datetime                               import datetime
+from app.utils.extensions.database          import module as connector
+from app.services.models.category_items     import get_category_item_by_name
 
 
 class Service(connector.Model):

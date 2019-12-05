@@ -1,6 +1,6 @@
-from flask_login import LoginManager, current_user
-from app.utils.models.account import find_account
-from app.admin.models.anonymoususer import AnonymousUser
+from flask_login                                import LoginManager, current_user
+from app.utils.models.account                   import find_account
+from app.admin.models.anonymoususer             import AnonymousUser
 
 
 

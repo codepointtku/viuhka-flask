@@ -1,6 +1,6 @@
-from app.utils.extensions.database import module as connector
-from app.services.models.category_items import CategoryItems, get_relation_type
-from flask_wtf.csrf import validate_csrf
+from app.utils.extensions.database              import module as connector
+from app.services.models.category_items         import CategoryItems, get_relation_type
+from flask_wtf.csrf                             import validate_csrf
 
 class CategorySequalizer:
     def __init__(self, id, category):
