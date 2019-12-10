@@ -142,7 +142,7 @@ def create_new(fields=[], form={}):
     return Service(form=form).save()
 
 def get_services():
-    return Service.query.filter(Service.published == True).all()
+    return Service.query.all()
 
 def get_service_by_name(name):
     return Service.query.filter(Service.name == name).first()
