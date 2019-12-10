@@ -31,32 +31,46 @@ $(document).ready(function () {
 
     $('#serviceSearch').on('keyup', function () {
         $(spinner).show();
+        var search = $(this).val();
+        $.ajax({
+            url: "{{ url_for('index.get_service') }}",
+            type: 'GET',
+            data: "service=" + search,
+            success: function (data,status,obj) {
+                tableBody = $('#serviceTable tbody');
+                tableBody.empty();
+                services = JSON.parse(data)["data"];
+                for (i = 0; i < services.length; i++) {
+                    service = services[i];
+                    tableBody.append(`
+                    <tr>
+                        <td id="row_${service["id"]}" class="${service["sanitized"]}">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="d-flex justify-content-center">
+                                        <div class="col">
+                                            <a href="${service["url"]}">
+                                                <h2>${service["name"]}</h2>
+                                            </a>
+                                            <p>${service["organization"]}</p>
+                                            <p>${service["ingress"]}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    `);
+                }
 
-        var search = $(this).val().toUpperCase();
-        for (i = 0; i < rows.length; i++) {
-            td = rows[i].getElementsByTagName('td')[0];
-
-            title = td.getElementsByTagName('h2')[0];
-            organization = td.getElementsByTagName('p')[0];
-            ingress = td.getElementsByTagName('p')[1];
-
-            if (~title.innerText.toUpperCase().indexOf(search) || ~organization.innerText.toUpperCase().indexOf(search) || ~ingress.innerText.toUpperCase().indexOf(search)) {
-                addResult(td);
-
-                $(td).show(25);
-            } else {
-                removeResult(td);
-
-                $(td).hide();
             }
-        }
+        });
         rows = $('#serviceTable tr');
         $('a[id=resetFilters').text('Poista hakusuodattimet');
         $('a[id=resetFilters').show();
         setTimeout(function () {
             $(spinner).hide();
         }, 375);
-        updateResults();
     });
 
     $('a[id^=cg_').on('click', function () {
