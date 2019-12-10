@@ -30,7 +30,6 @@ def accounts():
 def account():
     _type = request.args.get('type')
     id = request.args.get('id')
-    print(_type, id)
     if _type == 'edit':
         if request.method == 'GET':
             if id == 0:
@@ -118,7 +117,6 @@ def account():
     elif _type == 'delete':
         account = find_account(id)
         if account:
-            print('Username: %s' % account.username)
             account.delete()
             return redirect(url_for('account.accounts'))
         else:
