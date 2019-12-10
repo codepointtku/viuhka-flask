@@ -145,19 +145,13 @@
             <div class="form-group row">
               <label for="published" class="col-sm-1 col-form-label">Julkaistu</label>
               <div class="col-sm-1">
-                {{ form.published(id="published",placeholder="Published",class="form-control sane", value="") }}
-                <span>
-                  <p id="published_notification" style="color:red;display:none;"></p>
-                </span>
+                {{ form.published(id="published",placeholder="Published",class="form-control sane") }}
               </div>
               <div class="col-md-5"></div>
               <div class="col-md-5"></div>
               <label for="open_ended" class="col-sm-1 col-form-label">Voimassa toistaiseksi</label>
               <div class="col-sm-1">
-                {{ form.open_ended(id="open_ended",placeholder="Open ended",class="form-control sane", value="") }}
-                <span>
-                  <p id="open_ended_notification" style="color:red;display:none;"></p>
-                </span>
+                {{ form.open_ended(id="open_ended",placeholder="Open ended",class="form-control sane") }}
               </div>
             </div>
             <div class="row">
