@@ -79,10 +79,10 @@ def find_account(id):
     return Account.query.filter(Account.id==id).first()
 
 def find_account_by_username(name):
-    return Account.query.filter(func.upper(Account.username) == func.lower(name)).first()
+    return Account.query.filter(func.upper(Account.username) == func.upper(name)).first()
 
 def find_account_by_email(email):
-    return Account.query.filter(func.upper(Account.email) == func.lower(email)).first()
+    return Account.query.filter(func.upper(Account.email) == func.upper(email)).first()
 
 def list_accounts():
     return Account.query.all()
