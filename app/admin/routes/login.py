@@ -27,21 +27,12 @@ def admin_login():
             if login_user(account):
                 account.set_status(online=True).save()
                 return redirect(url_for('admin.index'), code=302)
-        return json.dumps(
-            {
+        return json.dumps({
                 'success': False
-            }
-        ), 401, {'ContentType':'application/json'}
+            }), 401, {'ContentType':'application/json'}
     else:
         if current_user.is_authenticated and current_user.is_staff():
-            redirect(url_for('admin.index'))
-            return json.dumps(
-                {
-                    'success': False
-                }
-            ), 302, {'ContentType':'application/json'}
-        
-        print('Rendering page')
+            return redirect(url_for('admin.index'), code=302)
         return render_template('admin/pages/login.html', form=LoginForm())
 
 
@@ -66,8 +57,7 @@ def login():
                 return redirect(url_for('index.index'), code=302)
         return json.dumps({
                 'success': False
-            }
-        ), 400, {'ContentType':'application/json'}
+            }), 400, {'ContentType':'application/json'}
     else:
         if current_user.is_authenticated and current_user.is_staff():
             return redirect(url_for('index.index'))
@@ -143,11 +133,9 @@ def register():
         account = Account.query.filter_by(username=username, password=password, email=email).first()
         if account:
             return json.dumps(callback), 200, {'ContentType':'application/json'}
-        else:
-            return json.dumps(
-                {
-                    'success': False
-                }
-            ), 401, {'ContentType':'application/json'}
+        return json.dumps(
+            {
+                'success': False
+            }), 401, {'ContentType':'application/json'}
     else:
         return render_template('splash/actions/register.html')
