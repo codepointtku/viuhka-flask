@@ -24,8 +24,7 @@ def admin_login():
         validate_csrf(form.csrf_token)
         account = Account.query.filter_by(username=form.username.data, password=generate_hash_pass(form.username.data, form.password.data)).first()
         if account:
-            login_user(account)
-            account.set_status(online=True).save()
+            account.set_status(online=login_user(account)).save()
             return redirect(url_for('admin.index'), code=302)
         else:
             return json.dumps(
@@ -62,8 +61,7 @@ def login():
         form = LoginForm(request.form)
         account = Account.query.filter_by(username=form.username.data, password=generate_hash_pass(form.username.data, form.password.data)).first()
         if account:
-            login_user(account)
-            account.set_status(online=True).save()
+            account.set_status(online=login_user(account)).save()
             return redirect(url_for('index.index'), code=302)
         else:
             return json.dumps(
