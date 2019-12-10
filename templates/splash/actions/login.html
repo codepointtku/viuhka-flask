@@ -26,30 +26,30 @@
 
 {% block scripts %}
 <script>
-    $(function () {
-        $('button').click(function () {
-            var csrf_token = "{{ csrf_token() }}";
-            $.ajaxSetup({
-                cache: false,
-                beforeSend: function (xhr, settings) {
-                    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this
-                        .crossDomain) {
-                        xhr.setRequestHeader("X-CSRFToken", csrf_token);
-                    }
+$(function () {
+    $('button').click(function () {
+        var csrf_token = "{{ csrf_token() }}";
+        $.ajaxSetup({
+            cache: false,
+            beforeSend: function (xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this
+                    .crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrf_token);
                 }
-            });
-            $.ajax({
-                url: "{{ url_for('login_manager.login') }}",
-                data: $('form').serialize(),
-                type: 'POST',
-                success: function (response) {
-                    $(location).attr('href', "{{ url_for('index.index') }}");
-                },
-                error: function (error) {
-                    location.reload();
-                }
-            });
+            }
+        });
+        $.ajax({
+            url: "{{ url_for('login_manager.login') }}",
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function (response) {
+                $(location).attr('href', "{{ url_for('index.index') }}");
+            },
+            error: function (error) {
+                location.reload();
+            }
         });
     });
+});
 </script>
 {% endblock %}

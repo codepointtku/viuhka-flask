@@ -12,12 +12,13 @@
     <link href="{{ url_for('static', filename='viuhka/media/favicon.ico') }}" rel="shortcut icon" />
     <!-- Load css -->
     <link href="{{ url_for('static', filename='viuhka/styles/shepherd-theme-arrows.css') }}" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='viuhka/styles/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='viuhka/styles/bootstrap4/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ url_for('static', filename='viuhka/styles/theme.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='viuhka/styles/starter-template.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/index.scss.css')}}" rel="stylesheet" />
     <link href="{{ url_for('static', filename='viuhka/styles/employment.css') }}" rel="stylesheet" />
     <link href="{{ url_for('static', filename='vendor/loading.io/loading.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
@@ -25,64 +26,69 @@
 {% block body %}
 <body>
     <!-- navbar -->
-    <nav class="navbar-viuhka navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
-        <div class="container">
-                <div class="navbar-header"> 
-            <a style="color:white; font-size: 120%;" class="navbar-brand" href="{{ FORCE_SCRIPT_NAME }}/">Työllisyysviuhka</a>
-                </div>
+    
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="{{ FORCE_SCRIPT_NAME }}/">Työllisyysviuhka</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
+                aria-label="Toggle naviation">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+        
+                
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="nav navbar-nav mr-auto navbar-left px-2">
+            <div class="nav-container w-100">
+                <ul class="nav navbar-nav mr-asduto navbar-lesft pxs-2 nav-fill">
                     {% if current_user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('service.list_service') }}">Lista palveluista</a>
                     </li>
-                </ul>
-                <ul class="nav navbar-nav mr-auto navbar-left px-2">
+          <!--      </ul>
+                <ul class="nav navbar-nav mr-autso navbar-left px-2">-->
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('index.provider_info') }}">Lisää palvelu</a>
                     </li>
                     {% endif %}
-                </ul>
-                <ul class="nav navbar-nav mr-auto navbar-left px-2 ">
+           <!--     </ul>
+                <ul class="nav navbar-nav mr-autso navbar-left px-2 ">-->
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('index.info') }}">Tietoa käyttäjälle</a>
                     </li>
-                </ul>
-                <ul class="nav navbar-nav mr-auto navbar-left px-2 ">
+              <!--  </ul>
+                <ul class="nav navbar-nav mr-autso navbar-left px-2 ">-->
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('index.contact') }}">Tietoa palvelutuottajalle</a>
                     </li>
-                </ul> 
+            <!--    </ul> -->
                     {% if current_user.is_authenticated %}
-                <ul class="nav navbar-nav navbar-right px-2">
-                    <li class="nav-item">
+            <!--     <ul class="nav navbar-nav navbar-right px-2">-->
+                    <li class="nav-item" style="float:right;">
                         <a class="nav-link" href="{{ url_for('login_manager.logout') }}?next={{ request.path }}">{{ current_user.username }} (Kirjaudu ulos)</a>
                     </li>
-                </ul>  
+            <!--    </ul>  -->
                     {% else %}
-                <ul class="nav navbar-nav navbar-right px-2">
+             <!--   <ul class="nav navbar-nav navbar-right px-2">-->
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('login_manager.login') }}?next={{ request.path }}">Kirjaudu sisään(palveluntuottaja)</a>
                     </li>
-                </ul>         
+                </ul>
                 {% endif %}
+                </div>
             </div>
-        <button class="navbar-toggle navbar-toggle-right" type="button" data-toggle="collapse"
-                data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
-                aria-label="Toggle naviation">
-                <span class="navbar-toggler-icon"></span>    
-        </button>
+        
     </nav>
+    
+    
     <!-- ./navbar -->
-    <div class="container base">
+    <main class="container">
     {% block body_content %}
     {% endblock %}
-    </div>
+    </main>
     {% block footer %}
     <!-- Footer -->
     {% block footer_context %}
     {% endblock %}
-    <footer class="footer bg-inverse">
+ <!--   <div class="footer" style="background-color: #292b2c;">
         <div class="container" style="color:white;">
             <br />
             <span style="float:right">
@@ -99,8 +105,26 @@
             <br>
             &nbsp;
         </div>
-    </footer>
+    </div>-->
     <footer>
+    <div class="footer" style="background-color: #292b2c;">
+        <div class="container" style="color:white;">
+            <br />
+            <span style="float:right">
+                  <a class="navi-link" href="{{ url_for('index.info') }}">Tietoa sivustosta</a>
+                | <a class="navi-link" href="https://www.turku.fi/tietosuoja">Rekisteriseloste</a>
+                | <a class="navi-link" href="https://www.turku.fi/tietosuoja">Tietosuoja</a>
+                | <a class="navi-link" href="{{ url_for('index.saavutettavuus') }}">Saavutettavuus</a>
+                | <a class="navi-link" href="mailto:viuhka@turku.fi">Palaute</a>
+                | <a class="navi-link" href="http://data.turku.fi/">Avoin data</a>
+            </span>
+            <b>Työllisyysviuhka</b>
+            <br>
+            <img src="{{ url_for('static', filename='viuhka/media/turkulogo.svg') }}" height="72">
+            <br>
+            &nbsp;
+        </div>
+    </div>
         <div class="container">
             <br>
             <img width="100%" src="{{ url_for('static', filename='viuhka/media/alalogot.png') }}">
@@ -116,12 +140,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static',filename='viuhka/styles/bootstrap4/js/bootstrap.min.js') }}"></script>
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
     <script src="https://pagination.js.org/dist/2.1.4/pagination.min.js"></script>
     <script src="{{ url_for('static', filename='viuhka/scripts/tether.js') }}"></script>
     <script src="{{ url_for('static', filename='viuhka/scripts/shepherd.js') }}"></script>
     <script src="{{ url_for('static', filename='viuhka/scripts/tether.min.js') }}"></script>
     <script src="{{ url_for('static', filename='viuhka/scripts/ie10-viewport-bug-workaround.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
     {% block scripts %}
     {% endblock %}
 

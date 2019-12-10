@@ -3,9 +3,11 @@
 
 {% block body_content %}
 
-<div class=center-text2>
+<div class='center-text2 container'>
   <h1>Lista palveluistasi</h1>
-  <div class="list-text panel panel-default">
+  <div class="row">
+    <div class="col">
+    <div class="list-text panel panel-default" style="text-align:initial;">
     {% if amount() >= 1 %}
       {% for service in services.items %}
         {% if current_user.rank().level < 2 and service.owner_id == current_user.id %}
@@ -17,7 +19,7 @@
         {% endif %}
         <br>
       {% endfor %}
-      <div id="pagination">
+      <div id="pagination" style="text-align:center;">
         {% for page_num in services.iter_pages() %}
           {% if page_num %}
           <a  href="{{ url_for('service.list_service', page=page_num) }}" 
@@ -51,6 +53,9 @@
         <button type="submit" class="button-info-viuhka button-info">Takaisin</button>
         </form>
     </div>
+    </div>
+  </div>
+  
  </div>
     {% endif %}
 {% endblock %}

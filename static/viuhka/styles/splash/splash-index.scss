@@ -1,0 +1,119 @@
+// splash / index.html -> top
+
+.top_container {
+    .logo-smalltext {
+        border: none;
+        border-bottom: 1px solid green;
+    }
+
+    h1 {
+        font-size: 3rem;
+    }
+}
+
+
+// splash / index.html -> sidebar
+
+.sidebar {
+
+    input.form-control {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid green;
+    padding: 0;
+    }
+
+    // menu
+
+    .card {
+        box-shadow: 0 5px 3px 0 rgba(0, 0 , 0, .1);
+
+        &-columns {
+            column-count: 1;
+        }
+
+        &-header {
+            background-color: #00A97A;
+            color: white;
+
+            &.active a::before {
+                transform: rotate(90deg);
+            }
+
+            a {
+                color: white;
+                &::before {
+                    font-family: 'Times New Roman', Times, serif;
+                    transition: all 0.01s;
+                    content:"\25B6";
+                    float: left;
+                    margin-right:10px;
+                }
+            }
+        }
+
+        &-title-text {
+            font-size: 16px;
+            margin-bottom: 0;
+        }
+
+        &-body {
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+        }
+
+        &-content {
+            ul {
+                list-style: none;
+        
+                li.list-group-item.service {
+                    padding: 15px;
+
+                    a {
+                        color: black;
+                        text-decoration: none;
+
+                        &:hover{
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    .accordion-container {
+        padding-bottom: 10px;
+    }
+}
+
+// splash / index.html -> main
+
+
+#main_container_row {
+    box-shadow: 0 5px 3px 0 rgba(0, 0 , 0, .1);
+}
+
+main.container {
+    padding: 20px 0 0 0;
+}
+
+#results {
+    margin: 0;
+}
+
+.main-content {
+    
+    .col.table-container {
+        background: transparent;
+        border:none;
+        border-top:1px solid green;
+        border-bottom:1px solid green;
+        box-shadow: -1px 0 1px 0 rgba(0, 0 , 0, .1);
+
+        table td.first-result {
+            border-top: none;
+        }
+    }
+}
+
