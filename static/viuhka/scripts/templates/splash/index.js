@@ -33,7 +33,7 @@ $(document).ready(function () {
         $(spinner).show();
         var search = $(this).val();
         $.ajax({
-            url: "{{ url_for('index.get_service') }}",
+            url: "/get_service",
             type: 'GET',
             data: "service=" + search,
             success: function (data,status,obj) {

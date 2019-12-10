@@ -150,6 +150,6 @@
 
 {% endblock %}
 {% block scripts %}
-<script type="text/javascript">var total = {{ total }}</script>
+<script type="text/javascript">var total = "{{ total }}"; </script>
 <script type="text/javascript" src={{ url_for('static', filename='viuhka/scripts/templates/splash/index.js') }}></script>
 {% endblock scripts %}
