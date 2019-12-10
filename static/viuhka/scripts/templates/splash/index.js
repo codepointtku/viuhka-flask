@@ -62,7 +62,7 @@ $(document).ready(function () {
                     </tr>
                     `);
                 }
-
+                updateResults();
             }
         });
         rows = $('#serviceTable tr');
