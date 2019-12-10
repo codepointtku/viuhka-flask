@@ -51,7 +51,7 @@ def account():
             account = find_account(form.id.data)
             if account:
                 if current_user.rank().level < 2 and current_user.rank().level <= account.rank().level:
-                    abort(400)
+                    return abort(400)
                 form = AccountForm(request.form)
                 if form.password.data is None or not form.password.data:
                     form.password.data = account.password
@@ -69,7 +69,7 @@ def account():
                     'success':True
                 }), 200, {'ContentType':'application/json'}
             else:
-                abort(400)
+                return abort(400)
             return redirect(url_for('account.accounts'))
     elif _type == 'add':
         form = AccountForm(request.form)

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect
+from flask import Blueprint, render_template, redirect, url_for
 from flask_login import current_user
 
 
@@ -17,5 +17,4 @@ _name_ = 'Flask Admin'
 def index():
     if current_user.is_authenticated:
         return render_template('admin/index.html')
-    else:
-        return redirect('/login')
+    return redirect(url_for('login_manager.login'))

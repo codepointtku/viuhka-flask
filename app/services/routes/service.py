@@ -56,7 +56,6 @@ def service():
                     if service.end:            form.end.data = str(service.end).replace(' ','T')
                 except:
                     pass
-
                 return render_template('admin/pages/services/_edit.html', service=service, form=form, categories=sequalized_categories)
             return render_template('admin/pages/404.html', reason='Service', content='Not found')
         else:

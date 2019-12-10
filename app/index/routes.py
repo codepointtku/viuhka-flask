@@ -1,7 +1,7 @@
 from flask                              import Blueprint, render_template, send_from_directory, request, redirect, url_for, abort
 from app.utils                          import paginate, paginate_id
 from app.services.models.category       import sequalized_categories
-from app.services.models.service        import Service, services_from_category, find_service, amount
+from app.services.models.service        import Service, services_from_category, find_service, amount, get_services
 from app.services.models.category_items import get_category_item_by_name
 from app.services.forms.service         import ServiceForm
 from flask_login                        import login_required
@@ -57,6 +57,36 @@ def details(id):
         if service:
             return render_template('splash/actions/services/view.html', service=service)
     abort(404)
+
+"""
+                                                            <h2>{{ service.name }}</h2>
+                                                        </a>
+                                                        <p>{{ service.organization }}</p>
+                                                        <p>{{ service.ingress }}</p>
+"""
+
+
+@module.route('/get_service', methods=['GET'])
+def get_service():
+    ret = {'data': []}
+    search = request.args.get('service')
+    for service in get_services():
+        if search.lower() in service.name.lower() or search.lower() in service.organization.lower() or search.lower() in service.ingress.lower():
+            ret['data'].append(
+                    {
+                        'name': str(service.name),
+                        'organization': str(service.organization),
+                        'ingress': str(service.ingress),
+                        'url': str(url_for('index.details', id=service.id)),
+                        'id': int(service.id),
+                        'sanitized': str(service.joined_sanitized())
+                    }
+            )
+    return json.dumps({
+        'status': True,
+        **ret,
+        'length': len(ret)
+    }), 200, {'ContentType':'application/json'}
 
 @module.route('/edit/<id>', methods=['GET','POST'])
 def edit(id):
