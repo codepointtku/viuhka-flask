@@ -24,14 +24,14 @@ def admin_login():
         validate_csrf(form.csrf_token)
         account = Account.query.filter_by(username=form.username.data, password=generate_hash_pass(form.username.data, form.password.data)).first()
         if account:
-            account.set_status(online=login_user(account)).save()
-            return redirect(url_for('admin.index'), code=302)
-        else:
-            return json.dumps(
-                {
-                    'success': False
-                }
-            ), 401, {'ContentType':'application/json'}
+            if login_user(account):
+                account.set_status(online=True).save()
+                return redirect(url_for('admin.index'), code=302)
+        return json.dumps(
+            {
+                'success': False
+            }
+        ), 401, {'ContentType':'application/json'}
     else:
         if current_user.is_authenticated and current_user.is_staff():
             redirect(url_for('admin.index'))
@@ -61,14 +61,13 @@ def login():
         form = LoginForm(request.form)
         account = Account.query.filter_by(username=form.username.data, password=generate_hash_pass(form.username.data, form.password.data)).first()
         if account:
-            account.set_status(online=login_user(account)).save()
-            return redirect(url_for('index.index'), code=302)
-        else:
-            return json.dumps(
-                {
-                    'success': False
-                }
-            ), 400, {'ContentType':'application/json'}
+            if login_user(account):
+                account.set_status(online=True).save()
+                return redirect(url_for('index.index'), code=302)
+        return json.dumps({
+                'success': False
+            }
+        ), 400, {'ContentType':'application/json'}
     else:
         if current_user.is_authenticated and current_user.is_staff():
             return redirect(url_for('index.index'))
