@@ -63,9 +63,9 @@ $(document).ready(function () {
                     `);
                 }
                 updateResults();
+                rows = $('#serviceTable tr');
             }
         });
-        rows = $('#serviceTable tr');
         $('a[id=resetFilters').text('Poista hakusuodattimet');
         $('a[id=resetFilters').show();
         setTimeout(function () {
