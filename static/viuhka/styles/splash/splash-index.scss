@@ -6,11 +6,29 @@
         border-bottom: 1px solid green;
     }
 
+    img {
+        @media(max-width: 600px){
+            display: none;
+        }
+        height: 48px;
+        width: 48px;
+        align-self: center;
+    }
+
     h1 {
         font-size: 3rem;
     }
 }
 
+main {
+    .wip {
+        line-height: normal;
+        font-size: smaller;
+        color:#00A97A;
+        text-align: center;
+        word-break: break-word;
+    }
+}
 
 // splash / index.html -> sidebar
 
@@ -95,7 +113,7 @@
 }
 
 main.container {
-    padding: 20px 0 0 0;
+    padding-top: 20px;
 }
 
 #results {
@@ -103,6 +121,9 @@ main.container {
 }
 
 .main-content {
+    &.col {
+        word-break: break-word;
+    }
     
     .col.table-container {
         background: transparent;

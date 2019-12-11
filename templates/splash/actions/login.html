@@ -2,32 +2,38 @@
 {{ super() }}
 
 {% block body_content %}
-<div class="container">
-    <div class="d-flex justify-content-center">
-        <h2 class="form-signin-heading">Kirjaudu sisään</h2>
+<div class="row">
+    <div class="col-12 d-flsdex justify-content-center">
+        <h2 class="form-signin-heading text-center">Kirjaudu sisään</h2>
     </div>
-    <div class="row">
+ <!--   <div class="row">
         <div class="col">
             <br />
             <br />
             <br />
         </div>
-    </div>
-    <div class="d-flex justify-content-center">
+    </div>-->
+    <div class=" col-12 d-flesdx justify-content-center">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 offset-md-4 mx-auto" style="">
         <form class="form-signin" method="post" role="form">
             {{ form.hidden_tag() }}
             {{ form.username(id="username", class="form-control", placeholder="Käyttäjänimi", required=True, autofocus=True) }}
             {{ form.password(id="password", class="form-control", placeholder="Salasana", required=True) }}
-            <button class="btn btn-lg btn-primary btn-block" type="button">Kirjaudu</button>
+            <button class="btn btdn-lg btn-primary btn-block" type="submit">Kirjaudu</button>
         </form>
+        </div>
+    </div>
     </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
+
+
 $(function () {
-    $('button').click(function () {
+    $('button').submit(function () {
         var csrf_token = "{{ csrf_token() }}";
         $.ajaxSetup({
             cache: false,

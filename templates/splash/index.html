@@ -7,22 +7,25 @@
 <div id="top_container_row" class="top_container row">
     <div class="col">
         <div class="d-flex justify-content-center">
-            <h1><img src="{{ url_for('static', filename='viuhka/media/logo.png') }}">Työllisyysviuhka</h1>
+            <img src="{{ url_for('static', filename='viuhka/media/logo.png') }}">
+            <h1>Työllisyysviuhka</h1>
         </div>
         <div class="d-flex justify-content-center">
             <p class="logo-smalltext">Työllistymistä edistäviä palveluja Turun alueella</p>
         </div>
     </div>
 </div>
-<div class="wip">
-    <p>Verkkosivustoamme kehitetään.</p>
-    <p>Sivuston toiminnassa ja sisällössä esiintyy tämän vuoksi puutteita.</p>
-    <p>Puutteet korjataan vaiheittain vuoden 2020 aikana.</p>
+<div class="wip row">
+    <div class="col">
+        <p>Verkkosivustoamme kehitetään.<br />
+        Sivuston toiminnassa ja sisällössä esiintyy tämän vuoksi puutteita.<br />
+        Puutteet korjataan vaiheittain vuoden 2020 aikana.</p>
+    </div>
 </div>
 <div id="main_container_row" class="row">
-    <div class="sidebar col-md-12 col-lg-4">
+    <div class="sidebar col-md-4">
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <div class="d-flex justify-content-center">
                     <div class="column-title">
                         Valinnat
@@ -42,7 +45,6 @@
                     {% for category in categories %}
                     {% if category.amount() >= 1 %}
                     <div class="card">
-
                         <div class="card-header">
                             <h4 class="card-title-text">
                                 <div class="d-flex justify-content-left font-weight-bold">
@@ -75,30 +77,29 @@
             </div>
         </div>
     </div>
-
     <div class="main-content col">
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-center title-container">
-                    <h2 class="column-titleasda">
+                    <h2>
                         Palvelut
                     </h2>
                 </div>
                 <div id="searchSpinner">
                     <i class="fa fa-refresh ld ld-spin"></i>
                 </div>
-                <div id="resultSet" class="col">
-                    <div class="row">
+                <div id="resultSet">
+                    <div class="results-row">
                         <p id="results"></p>
                     </div>
-                    <div class="row">
+                    <div class="resetFilters-row">
                         <a id="resetFilters" href="javascript:void(0);">
                         </a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col table-container">
-                        <table class="table table-condensed" id="serviceTable">
+                        <table class="table table-condensed row" id="serviceTable">
                             <tbody>
                                 {% for service in services %}
                                 {% if service.published %}
@@ -127,26 +128,22 @@
                 </div>
             </div>
         </div>
-        <br>
     </div>
-    
 </div>
-<div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="d-flex justify-content-center">
-                    <a href='#'>Ilmoita virheestä</a>
-                </div>
-            </div>
-            <div class="col">
-                <div class="d-flex justify-content-center">
-                    {% if current_user.is_staff() %}
-                    <a href="{{ url_for('admin.index') }}">Muokkaa palvelun tietoja</a>
-                    {% endif %}
-                </div>
-            </div>
+<div class="row information">
+    <div class="col">
+        <div class="d-flex justify-content-center">
+            <a href='#'>Ilmoita virheestä</a>
         </div>
     </div>
+    <div class="col">
+        <div class="d-flex justify-content-center">
+            {% if current_user.is_staff() %}
+            <a href="{{ url_for('admin.index') }}">Muokkaa palvelun tietoja</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
 {% endblock %}
 {% block scripts %}

@@ -29,7 +29,7 @@ $(document).ready(function () {
         if($(x).hasClass('result')){$(x).removeClass('result')}
     }
 
-    $('#serviceSearch').on('keyup', function () {
+    $('#serviceSearch').on('change', function () {
         $(spinner).show();
 
         var search = $(this).val().toUpperCase();
