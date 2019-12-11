@@ -139,6 +139,40 @@ $(document).ready(function () {
             }
         }
         $('#serviceSearch').val('');
+        $.ajax({
+            url: "/get_service",
+            type: 'GET',
+            data: "service= ",
+            success: function (data,status,obj) {
+                tableBody = $('#serviceTable tbody');
+                tableBody.empty();
+                services = JSON.parse(data)["data"];
+                for (i = 0; i < services.length; i++) {
+                    service = services[i];
+                    tableBody.append(`
+                    <tr>
+                        <td id="row_${service["id"]}" class="${service["sanitized"]}">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="d-flex justify-content-center">
+                                        <div class="col">
+                                            <a href="${service["url"]}">
+                                                <h2>${service["name"]}</h2>
+                                            </a>
+                                            <p>${service["organization"]}</p>
+                                            <p>${service["ingress"]}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    `);
+                }
+                updateResults();
+                rows = $('#serviceTable tr');
+            }
+        });
         updateResults();
     });
 });
