@@ -50,9 +50,6 @@ $(function () {
             type: 'POST',
             success: function (response) {
                 $(location).attr('href', "{{ url_for('index.index') }}");
-            },
-            error: function (error) {
-                location.reload();
             }
         });
     });
